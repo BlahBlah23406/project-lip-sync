@@ -34,7 +34,7 @@ def _get_client() -> anthropic.Anthropic:
     return anthropic.Anthropic(api_key=api_key)
 
 
-def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> list[str]:
+def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> tuple[list[str], int, int]:
     numbered = "\n".join(
         f"[{seg['duration']:.1f}s] {i + 1}. {seg['text']}"
         for i, seg in enumerate(segments)
@@ -59,21 +59,29 @@ def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> list[
     while len(translations) < len(segments):
         translations.append(segments[len(translations)]["text"])
 
-    return translations[: len(segments)]
+    in_tokens = getattr(response.usage, "input_tokens", 0)
+    out_tokens = getattr(response.usage, "output_tokens", 0)
+
+    return translations[: len(segments)], in_tokens, out_tokens
 
 
-def translate_segments(segments: list[dict], batch_size: int = 20) -> list[dict]:
+def translate_segments(segments: list[dict], batch_size: int = 20) -> tuple[list[dict], int, int]:
     """
     Translates all segments English → Bangla in batches.
-    Returns a new list with the same {start, duration} but translated text.
+    Returns a tuple: (translated_segments, input_tokens, output_tokens)
     """
     client = _get_client()
     translated = []
+    total_in = 0
+    total_out = 0
 
     for i in range(0, len(segments), batch_size):
         batch = segments[i : i + batch_size]
-        bangla_texts = _translate_batch(client, batch)
+        bangla_texts, in_t, out_t = _translate_batch(client, batch)
+        total_in += in_t
+        total_out += out_t
         for seg, bangla in zip(batch, bangla_texts):
             translated.append({"text": bangla, "start": seg["start"], "duration": seg["duration"]})
 
-    return translated
+    return translated, total_in, total_out
+

@@ -30,7 +30,7 @@
             aria-label="YouTube URL"
             required
           />
-          <button type="submit" id="submitBtn">Translate →</button>
+          <button type="submit" id="submitBtn">🎙 Dub Video (Bangla)</button>
         </div>
       </form>
       <div id="errorMsg" class="error-msg" hidden></div>
@@ -40,7 +40,7 @@
     <section id="loadingSection" class="loading-section" hidden>
       <div class="spinner"></div>
       <p id="loadingText">Fetching captions…</p>
-      <p class="loading-sub">This may take 20–60 seconds for longer lectures</p>
+      <p class="loading-sub">Downloading, translating, and generating Bangla voice. This may take 30–90 seconds.</p>
     </section>
 
     <!-- Player + Subtitles -->
@@ -63,18 +63,12 @@
 
       <div class="segment-count" id="segmentCount"></div>
 
-      <!-- Dubbing -->
+      <!-- Dubbing Section (Simplified Playback & Downloads) -->
       <div class="dub-section" id="dubSection">
-        <button class="dub-btn" id="dubBtn">🎙 Dub Video (Bangla)</button>
-        <div class="dub-status" id="dubStatus" hidden>
-          <div class="spinner-small"></div>
-          <span id="dubProgress">Starting…</span>
-        </div>
-        <div id="dubError" class="dub-error" hidden></div>
-        
         <!-- Live Playback and Download Panel -->
         <div id="dubPlayerPanel" class="dub-player-panel" hidden>
           <p class="panel-title">🎉 Dubbing Complete!</p>
+          
           <div class="playback-controls">
             <span class="control-label">Audio Track</span>
             <div class="toggle-group">
@@ -82,14 +76,32 @@
               <button class="toggle-btn" id="banglaDubBtn">🔊 Bangla Dub</button>
             </div>
           </div>
-          <a id="dubDownload" class="download-btn">⬇ Download Dubbed Video</a>
+
+          <div class="download-row">
+            <a id="dubDownload" class="download-btn video-dl">⬇ Download Dubbed Video</a>
+            <a id="audioDownload" class="download-btn audio-dl">🎵 Download Dubbed Audio</a>
+          </div>
+
+          <div class="stats-container" id="statsContainer">
+            <div class="stats-title">⚡ Generation & Cost Metrics</div>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-num" id="statTime">0.0s</div>
+                <div class="stat-name">Total Execution Time</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num" id="statTokens">0</div>
+                <div class="stat-name" id="statTokensLabel">Claude Tokens Used</div>
+              </div>
+            </div>
+          </div>
         </div>
 
         <!-- Hidden Audio Element for Web Playback -->
         <audio id="dubbedAudio" preload="auto"></audio>
       </div>
 
-      <button class="new-video-btn" id="newVideoBtn">← Translate another video</button>
+      <button class="new-video-btn" id="newVideoBtn">← Dub another video</button>
     </section>
   </main>
 
@@ -101,3 +113,4 @@
   <script src="https://www.youtube.com/iframe_api"></script>
 </body>
 </html>
+

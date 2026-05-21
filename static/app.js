@@ -27,15 +27,16 @@ const syncMinusBtn   = document.getElementById('syncMinus');
 const syncPlusBtn    = document.getElementById('syncPlus');
 const syncResetBtn   = document.getElementById('syncReset');
 const syncOffsetEl   = document.getElementById('syncOffset');
-const dubBtn         = document.getElementById('dubBtn');
-const dubStatus      = document.getElementById('dubStatus');
-const dubProgress    = document.getElementById('dubProgress');
-const dubError       = document.getElementById('dubError');
 const dubDownload    = document.getElementById('dubDownload');
+const audioDownload  = document.getElementById('audioDownload');
 const dubPlayerPanel   = document.getElementById('dubPlayerPanel');
 const originalAudioBtn = document.getElementById('originalAudioBtn');
 const banglaDubBtn     = document.getElementById('banglaDubBtn');
 const dubbedAudio      = document.getElementById('dubbedAudio');
+const statTime       = document.getElementById('statTime');
+const statTokens     = document.getElementById('statTokens');
+const statTokensLabel = document.getElementById('statTokensLabel');
+
 
 // ── Sync offset controls ──────────────────────────────────────────────────────
 syncMinusBtn.addEventListener('click', () => adjustOffset(-1));
@@ -104,7 +105,7 @@ urlForm.addEventListener('submit', async (e) => {
   if (!url) return;
 
   setError('');
-  showLoading('Fetching captions…');
+  showLoading('Initiating dubbing pipeline…');
   submitBtn.disabled = true;
 
   // Reset sync offset and dub state for each new video
@@ -114,32 +115,26 @@ urlForm.addEventListener('submit', async (e) => {
   resetDubUI();
 
   try {
-    const res = await fetch('/api/translate', {
+    const res = await fetch('/api/dub', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ url }),
     });
 
     const data = await res.json();
-
     if (!res.ok) {
-      throw new Error(data.detail || 'Translation failed.');
+      throw new Error(data.detail || 'Failed to start dubbing.');
     }
 
-    segments = data.segments;
-    segmentCount.textContent = `${segments.length} segments translated`;
-    pendingVideoId = data.video_id;
-
-    showLoading(data.cached ? 'Loading player…' : 'Translation complete! Loading player…');
-    initOrLoadPlayer(data.video_id);
+    pollDubStatus(data.job_id);
 
   } catch (err) {
     setError(err.message);
     showInputOnly();
-  } finally {
     submitBtn.disabled = false;
   }
 });
+
 
 // ── New video button ──────────────────────────────────────────────────────────
 newVideoBtn.addEventListener('click', () => {
@@ -321,70 +316,80 @@ function showInputOnly() {
 }
 
 // ── Dubbing flow ──────────────────────────────────────────────────────────────
-dubBtn.addEventListener('click', startDub);
-
-async function startDub() {
-  if (!currentVideoUrl) return;
-
-  dubBtn.disabled = true;
-  dubStatus.hidden = false;
-  dubError.hidden = true;
-  dubDownload.hidden = true;
-  dubProgress.textContent = 'Starting…';
-
-  try {
-    const res = await fetch('/api/dub', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ url: currentVideoUrl }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error(data.detail || 'Dub request failed.');
-
-    pollDubStatus(data.job_id);
-  } catch (err) {
-    showDubError(err.message);
-  }
-}
-
 function pollDubStatus(jobId) {
   if (dubPollInterval) clearInterval(dubPollInterval);
+  
   dubPollInterval = setInterval(async () => {
     try {
       const res = await fetch(`/api/dub/status/${jobId}`);
       const data = await res.json();
 
-      dubProgress.textContent = data.progress || '…';
+      if (data.progress) {
+        loadingText.textContent = data.progress;
+      }
 
       if (data.status === 'done') {
         clearInterval(dubPollInterval);
         dubPollInterval = null;
-        dubStatus.hidden = true;
-        dubBtn.hidden = true;
+
+        // Hide loading and show player section
+        inputSection.hidden = true;
+        loadingSection.hidden = true;
+        playerSection.hidden = false;
+
+        // Load segments & video details
+        segments = data.segments;
+        segmentCount.textContent = `${segments.length} segments translated`;
+        pendingVideoId = data.video_id;
+
+        // Show player
+        initOrLoadPlayer(data.video_id);
+
+        // Configure player & download paths
         dubDownload.href = data.url;
         dubDownload.hidden = false;
+        audioDownload.href = data.audio_url;
+        audioDownload.hidden = false;
 
         // Show live playback panel and set up the audio source
         dubPlayerPanel.hidden = false;
         dubbedAudio.src = data.audio_url;
         dubbedAudio.load();
         setAudioTrack(false); // Default to Original English initially
+
+        // Format stats
+        statTime.textContent = `${data.time_taken.toFixed(1)}s`;
+        
+        if (data.tokens && data.tokens.cached) {
+          statTokensLabel.textContent = 'Claude Cache';
+          statTokens.textContent = 'Cached (0 tokens)';
+          statTokens.classList.add('cached');
+        } else if (data.tokens) {
+          statTokensLabel.textContent = 'Claude Tokens';
+          const total = data.tokens.total_tokens.toLocaleString();
+          const inp = data.tokens.input_tokens.toLocaleString();
+          const out = data.tokens.output_tokens.toLocaleString();
+          statTokens.textContent = `${total} (${inp} in / ${out} out)`;
+          statTokens.classList.remove('cached');
+        } else {
+          statTokensLabel.textContent = 'Claude Tokens';
+          statTokens.textContent = 'N/A';
+          statTokens.classList.remove('cached');
+        }
+
+        submitBtn.disabled = false;
       } else if (data.status === 'error') {
         clearInterval(dubPollInterval);
         dubPollInterval = null;
-        showDubError(data.error || 'Dubbing failed.');
+        setError(data.error || 'Dubbing failed.');
+        showInputOnly();
+        submitBtn.disabled = false;
       }
-    } catch {
+    } catch (err) {
+      console.warn('Polling error:', err);
       // transient fetch error — keep polling
     }
   }, 3000);
-}
-
-function showDubError(msg) {
-  dubStatus.hidden = true;
-  dubBtn.disabled = false;
-  dubError.textContent = msg;
-  dubError.hidden = false;
 }
 
 function resetDubUI() {
@@ -392,12 +397,11 @@ function resetDubUI() {
     clearInterval(dubPollInterval);
     dubPollInterval = null;
   }
-  dubBtn.disabled = false;
-  dubBtn.hidden = false;
-  dubStatus.hidden = true;
-  dubError.hidden = true;
+  submitBtn.disabled = false;
   dubDownload.hidden = true;
   dubDownload.href = '';
+  audioDownload.hidden = true;
+  audioDownload.href = '';
 
   // Reset dub player panel and dubbed audio
   if (dubPlayerPanel) dubPlayerPanel.hidden = true;
@@ -412,3 +416,4 @@ function resetDubUI() {
     player.unMute();
   }
 }
+

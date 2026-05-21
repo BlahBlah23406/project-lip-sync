@@ -19,10 +19,11 @@ def download_video(video_id: str, out_dir: str) -> str:
     return out_path
 
 
-def generate_segment_tts(text: str, out_path: str):
+def generate_segment_tts(text: str, out_path: str, rate: str = None):
     """
     Render Bangla text to speech using Microsoft Edge TTS.
     Exclusively uses 'bn-BD-PradeepNeural' (Bangladeshi Male).
+    Optional native rate control (e.g. rate="+20%").
     """
     import time
     max_retries = 5
@@ -30,7 +31,10 @@ def generate_segment_tts(text: str, out_path: str):
 
     for attempt in range(max_retries):
         try:
-            communicate = edge_tts.Communicate(text, "bn-BD-PradeepNeural")
+            if rate:
+                communicate = edge_tts.Communicate(text, "bn-BD-PradeepNeural", rate=rate)
+            else:
+                communicate = edge_tts.Communicate(text, "bn-BD-PradeepNeural")
             try:
                 loop = asyncio.get_event_loop()
             except RuntimeError:

@@ -11,7 +11,7 @@ from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
-from captions import extract_video_id, fetch_transcript
+from captions import extract_video_id, fetch_transcript, cluster_segments
 from translator import translate_segments
 
 app = FastAPI(title="Islamic Lecture Subtitle Translator")
@@ -47,7 +47,8 @@ async def translate(req: TranslateRequest):
         return {"video_id": video_id, "segments": _cache[video_id], "cached": True}
 
     try:
-        segments = fetch_transcript(video_id)
+        raw_segments = fetch_transcript(video_id)
+        segments = cluster_segments(raw_segments)
     except Exception as e:
         msg = str(e)
         if "NoTranscriptFound" in msg or "Could not retrieve" in msg:
@@ -63,7 +64,7 @@ async def translate(req: TranslateRequest):
         raise HTTPException(status_code=404, detail="Transcript is empty.")
 
     try:
-        translated = translate_segments(segments)
+        translated, _, _ = translate_segments(segments)
     except RuntimeError as e:
         raise HTTPException(status_code=500, detail=str(e))
     except Exception as e:
@@ -80,29 +81,55 @@ def _set_job(job_id: str, **kwargs):
 
 
 def run_dub_pipeline(job_id: str, video_id: str):
+    import time
     from dubber import (
         download_video, generate_segment_tts,
     )
-    from mixer import build_dubbed_audio, mux_video_with_dubbed_audio
+    from mixer import build_dubbed_audio, mux_video_with_dubbed_audio, get_audio_duration
 
     work_dir = tempfile.mkdtemp(prefix=f"dub_{job_id}_")
     seg_dir = os.path.join(work_dir, "segments")
     os.makedirs(seg_dir)
 
+    start_time = time.time()
+    in_tokens = 0
+    out_tokens = 0
+    cached = False
+
     try:
         _set_job(job_id, status="processing", progress="Fetching and translating captions…")
         if video_id in _cache:
             segments = _cache[video_id]
+            cached = True
         else:
             raw = fetch_transcript(video_id)
-            segments = translate_segments(raw)
+            clustered = cluster_segments(raw)
+            segments, in_tokens, out_tokens = translate_segments(clustered)
             _cache[video_id] = segments
+            cached = False
 
         total = len(segments)
         _set_job(job_id, progress=f"Generating Bangla audio (0/{total})…")
         for i, seg in enumerate(segments):
             out_path = os.path.join(seg_dir, f"seg_{i:04d}.mp3")
             generate_segment_tts(seg["text"], out_path)
+
+            # Determine available time window (gap until next segment starts, or segment duration)
+            if i < len(segments) - 1:
+                available_time = max(seg["duration"], segments[i + 1]["start"] - seg["start"])
+            else:
+                available_time = seg["duration"]
+
+            actual_duration = get_audio_duration(out_path)
+            if actual_duration > available_time:
+                rate_factor = actual_duration / available_time
+                if rate_factor > 1.02:
+                    rate_factor = min(rate_factor, 2.0)  # limit speedup to 2.0x (which is +100%)
+                    pct = int((rate_factor - 1.0) * 100)
+                    rate_str = f"+{pct}%"
+                    # Re-generate with native SSML speedup!
+                    generate_segment_tts(seg["text"], out_path, rate=rate_str)
+
             if (i + 1) % 5 == 0 or (i + 1) == total:
                 _set_job(job_id, progress=f"Generating Bangla audio ({i + 1}/{total})…")
 
@@ -126,12 +153,25 @@ def run_dub_pipeline(job_id: str, video_id: str):
         audio_out_path = os.path.join(OUTPUT_DIR, audio_out_filename)
         shutil.copy(dubbed_audio, audio_out_path)
 
+        end_time = time.time()
+        time_taken = round(end_time - start_time, 2)
+        tokens = {
+            "input_tokens": in_tokens,
+            "output_tokens": out_tokens,
+            "total_tokens": in_tokens + out_tokens,
+            "cached": cached
+        }
+
         _set_job(
             job_id,
             status="done",
             progress="Complete!",
             url=f"/output/{out_filename}",
             audio_url=f"/output/{audio_out_filename}",
+            segments=segments,
+            tokens=tokens,
+            time_taken=time_taken,
+            video_id=video_id,
         )
 
     except Exception as e:
