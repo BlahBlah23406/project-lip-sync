@@ -1,0 +1,511 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #22263a;
+  --border: #2e3350;
+  --accent: #4a9eff;
+  --accent-dim: #2d5f99;
+  --gold: #c8a84b;
+  --text: #e8eaf0;
+  --text-dim: #7a8099;
+  --error: #e05c5c;
+  --radius: 12px;
+  --font-latin: 'Inter', system-ui, sans-serif;
+  --font-bangla: 'Noto Sans Bengali', 'Vrinda', 'SolaimanLipi', sans-serif;
+}
+
+html { font-size: 16px; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-latin);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+}
+
+/* ── Header ── */
+header {
+  background: linear-gradient(135deg, #0d1520 0%, #121928 100%);
+  border-bottom: 1px solid var(--border);
+  padding: 2rem 1rem;
+  text-align: center;
+}
+
+.header-inner {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.logo-arabic {
+  display: block;
+  font-size: 1.6rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5rem;
+}
+
+header h1 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.tagline {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  margin-top: 0.25rem;
+}
+
+/* ── Main ── */
+main {
+  flex: 1;
+  max-width: 860px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+/* ── URL Input ── */
+.input-section {
+  margin-bottom: 1.5rem;
+}
+
+.input-row {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+#urlInput {
+  flex: 1;
+  min-width: 0;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: var(--radius);
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  font-family: var(--font-latin);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#urlInput:focus {
+  border-color: var(--accent);
+}
+
+#urlInput::placeholder {
+  color: var(--text-dim);
+}
+
+#submitBtn {
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.4rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: var(--font-latin);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+#submitBtn:hover { background: #3a8eef; }
+#submitBtn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+.error-msg {
+  margin-top: 0.75rem;
+  padding: 0.75rem 1rem;
+  background: rgba(224, 92, 92, 0.12);
+  border: 1px solid rgba(224, 92, 92, 0.4);
+  border-radius: 8px;
+  color: var(--error);
+  font-size: 0.9rem;
+}
+
+/* ── Loading ── */
+.loading-section {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  margin: 0 auto 1.25rem;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+#loadingText {
+  font-size: 1rem;
+  color: var(--text);
+  margin-bottom: 0.35rem;
+}
+
+.loading-sub {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+/* ── Player Section ── */
+.player-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.player-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #000;
+}
+
+.player-wrapper iframe,
+.player-wrapper #ytPlayer {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100% !important;
+  height: 100% !important;
+  border: none;
+}
+
+/* ── Subtitle Box ── */
+.subtitle-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  min-height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 1.5rem;
+  text-align: center;
+}
+
+.subtitle-text {
+  font-family: var(--font-bangla);
+  font-size: 1.35rem;
+  font-weight: 500;
+  line-height: 1.7;
+  color: var(--text);
+}
+
+.subtitle-text.changed {
+  animation: subtitleIn 0.2s ease;
+}
+
+@keyframes subtitleIn {
+  from { opacity: 0.2; }
+  to   { opacity: 1; }
+}
+
+.subtitle-text.empty {
+  color: var(--text-dim);
+  font-size: 0.9rem;
+  font-family: var(--font-latin);
+  font-weight: 400;
+}
+
+/* ── Sync controls ── */
+.sync-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.sync-label {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  margin-right: 0.25rem;
+}
+
+.sync-btn {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.3rem 0.65rem;
+  font-size: 0.8rem;
+  font-family: var(--font-latin);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.sync-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.sync-offset {
+  min-width: 3rem;
+  text-align: center;
+  font-size: 0.85rem;
+  font-family: var(--font-latin);
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+
+.sync-offset.nonzero { color: var(--accent); }
+
+.sync-reset {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 0.75rem;
+  font-family: var(--font-latin);
+  cursor: pointer;
+  padding: 0.2rem 0.4rem;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.sync-reset:hover { color: var(--error); }
+
+/* ── Segment count ── */
+.segment-count {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  text-align: right;
+}
+
+/* ── New video button ── */
+.new-video-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+  font-family: var(--font-latin);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.new-video-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+/* ── Footer ── */
+footer {
+  text-align: center;
+  padding: 1.25rem;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+}
+
+/* ── Dub section ── */
+.dub-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.dub-btn {
+  align-self: flex-start;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-latin);
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.dub-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.dub-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.dub-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--text-dim);
+}
+
+.spinner-small {
+  width: 16px;
+  height: 16px;
+  border: 2px solid var(--border);
+  border-top-color: var(--accent);
+  border-radius: 50%;
+  animation: spin 0.9s linear infinite;
+  flex-shrink: 0;
+}
+
+.dub-error {
+  font-size: 0.85rem;
+  color: var(--error);
+  background: rgba(224, 92, 92, 0.1);
+  border: 1px solid rgba(224, 92, 92, 0.3);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+}
+
+.download-btn {
+  display: inline-block;
+  align-self: flex-start;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 0.55rem 1.1rem;
+  font-size: 0.9rem;
+  font-family: var(--font-latin);
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.download-btn:hover { background: #3a8eef; }
+
+/* ── Dub Player Panel (Glassmorphism) ── */
+.dub-player-panel {
+  margin-top: 1.25rem;
+  background: rgba(26, 29, 39, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(46, 51, 80, 0.6);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  animation: panelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes panelSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dub-player-panel .panel-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+
+.dub-player-panel .playback-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: rgba(15, 17, 23, 0.4);
+  border-radius: 10px;
+  border: 1px solid rgba(46, 51, 80, 0.3);
+}
+
+.dub-player-panel .control-label {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.dub-player-panel .toggle-group {
+  display: inline-flex;
+  background: rgba(15, 17, 23, 0.8);
+  border: 1px solid var(--border);
+  border-radius: 30px;
+  padding: 3px;
+  gap: 2px;
+}
+
+.dub-player-panel .toggle-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  border-radius: 26px;
+  padding: 0.5rem 1.1rem;
+  font-size: 0.85rem;
+  font-family: var(--font-latin);
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.dub-player-panel .toggle-btn:hover:not(.active) {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.dub-player-panel .toggle-btn.active {
+  background: linear-gradient(135deg, var(--accent) 0%, #1e70e6 100%);
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(74, 158, 255, 0.3);
+}
+
+.dub-player-panel .download-btn {
+  align-self: stretch;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+  border: none;
+  font-weight: 600;
+  transition: all 0.25s;
+}
+
+.dub-player-panel .download-btn:hover {
+  background: linear-gradient(135deg, #059669 0%, #047857 100%);
+  box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 500px) {
+  .subtitle-text { font-size: 1.1rem; }
+  header h1 { font-size: 1.3rem; }
+  .dub-player-panel .playback-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .dub-player-panel .toggle-group {
+    justify-content: center;
+  }
+}

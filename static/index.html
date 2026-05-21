@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Islamic Lecture — Bangla Subtitles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo-arabic">بِسْمِ اللّٰهِ</span>
+      <h1>Islamic Lecture Translator</h1>
+      <p class="tagline">Watch English lectures with live Bangla subtitles</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- URL Input -->
+    <section class="input-section" id="inputSection">
+      <form id="urlForm" autocomplete="off">
+        <div class="input-row">
+          <input
+            type="text"
+            id="urlInput"
+            placeholder="Paste a YouTube lecture URL…"
+            aria-label="YouTube URL"
+            required
+          />
+          <button type="submit" id="submitBtn">Translate →</button>
+        </div>
+      </form>
+      <div id="errorMsg" class="error-msg" hidden></div>
+    </section>
+
+    <!-- Loading State -->
+    <section id="loadingSection" class="loading-section" hidden>
+      <div class="spinner"></div>
+      <p id="loadingText">Fetching captions…</p>
+      <p class="loading-sub">This may take 20–60 seconds for longer lectures</p>
+    </section>
+
+    <!-- Player + Subtitles -->
+    <section id="playerSection" class="player-section" hidden>
+      <div class="player-wrapper">
+        <div id="ytPlayer"></div>
+      </div>
+
+      <div class="subtitle-box" id="subtitleBox">
+        <p id="subtitleText" class="subtitle-text"></p>
+      </div>
+
+      <div class="sync-row">
+        <span class="sync-label">Sync</span>
+        <button class="sync-btn" id="syncMinus" title="Subtitles too early">−1s</button>
+        <span class="sync-offset" id="syncOffset">0.0s</span>
+        <button class="sync-btn" id="syncPlus" title="Subtitles too late">+1s</button>
+        <button class="sync-reset" id="syncReset">reset</button>
+      </div>
+
+      <div class="segment-count" id="segmentCount"></div>
+
+      <!-- Dubbing -->
+      <div class="dub-section" id="dubSection">
+        <button class="dub-btn" id="dubBtn">🎙 Dub Video (Bangla)</button>
+        <div class="dub-status" id="dubStatus" hidden>
+          <div class="spinner-small"></div>
+          <span id="dubProgress">Starting…</span>
+        </div>
+        <div id="dubError" class="dub-error" hidden></div>
+        
+        <!-- Live Playback and Download Panel -->
+        <div id="dubPlayerPanel" class="dub-player-panel" hidden>
+          <p class="panel-title">🎉 Dubbing Complete!</p>
+          <div class="playback-controls">
+            <span class="control-label">Audio Track</span>
+            <div class="toggle-group">
+              <button class="toggle-btn active" id="originalAudioBtn">🔈 Original English</button>
+              <button class="toggle-btn" id="banglaDubBtn">🔊 Bangla Dub</button>
+            </div>
+          </div>
+          <a id="dubDownload" class="download-btn">⬇ Download Dubbed Video</a>
+        </div>
+
+        <!-- Hidden Audio Element for Web Playback -->
+        <audio id="dubbedAudio" preload="auto"></audio>
+      </div>
+
+      <button class="new-video-btn" id="newVideoBtn">← Translate another video</button>
+    </section>
+  </main>
+
+  <footer>
+    <p>Translations by Claude · Subtitles may not be perfect — verify against the lecture</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
