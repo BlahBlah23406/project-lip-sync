@@ -108,11 +108,31 @@ def run_dub_pipeline(job_id: str, video_id: str):
             _cache[video_id] = segments
             cached = False
 
+        # Download video first so we can extract the original audio track
+        _set_job(job_id, progress="Downloading video…")
+        video_path = download_video(video_id, work_dir)
+
+        # Extract the original audio track from the downloaded video using FFmpeg
+        _set_job(job_id, progress="Extracting original audio track…")
+        original_audio_path = os.path.join(work_dir, "original_audio.mp3")
+        try:
+            import ffmpeg
+            ffmpeg.input(video_path).output(original_audio_path, acodec="libmp3lame").run(overwrite_output=True, quiet=True)
+        except Exception as e:
+            print(f"Error extracting original audio: {e}")
+            original_audio_path = None
+
         total = len(segments)
         _set_job(job_id, progress=f"Generating Bangla audio (0/{total})…")
         for i, seg in enumerate(segments):
             out_path = os.path.join(seg_dir, f"seg_{i:04d}.mp3")
-            generate_segment_tts(seg["text"], out_path)
+            
+            # Skip Edge TTS generation for classical Arabic quotes (we slice them from original audio instead)
+            if seg.get("is_arabic_quote"):
+                continue
+
+            speaker_id = seg.get("speaker", "SPEAKER_A")
+            generate_segment_tts(seg["text"], out_path, speaker=speaker_id)
 
             # Determine available time window (gap until next segment starts, or segment duration)
             if i < len(segments) - 1:
@@ -128,7 +148,7 @@ def run_dub_pipeline(job_id: str, video_id: str):
                     pct = int((rate_factor - 1.0) * 100)
                     rate_str = f"+{pct}%"
                     # Re-generate with native SSML speedup!
-                    generate_segment_tts(seg["text"], out_path, rate=rate_str)
+                    generate_segment_tts(seg["text"], out_path, rate=rate_str, speaker=speaker_id)
 
             if (i + 1) % 5 == 0 or (i + 1) == total:
                 _set_job(job_id, progress=f"Generating Bangla audio ({i + 1}/{total})…")
@@ -138,10 +158,7 @@ def run_dub_pipeline(job_id: str, video_id: str):
 
         _set_job(job_id, progress="Mixing dubbed audio track…")
         dubbed_audio = os.path.join(work_dir, "dubbed_audio.mp3")
-        build_dubbed_audio(segments, seg_dir, total_duration, dubbed_audio)
-
-        _set_job(job_id, progress="Downloading video…")
-        video_path = download_video(video_id, work_dir)
+        build_dubbed_audio(segments, seg_dir, original_audio_path, total_duration, dubbed_audio)
 
         _set_job(job_id, progress="Muxing final video…")
         out_filename = f"{video_id}_dubbed.mp4"

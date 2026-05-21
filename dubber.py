@@ -19,22 +19,33 @@ def download_video(video_id: str, out_dir: str) -> str:
     return out_path
 
 
-def generate_segment_tts(text: str, out_path: str, rate: str = None):
+VOICES = {
+    "SPEAKER_A": "bn-BD-PradeepNeural",   # Bangladeshi Male (default)
+    "SPEAKER_B": "bn-BD-NabanitaNeural",  # Bangladeshi Female
+    "SPEAKER_C": "bn-IN-BashkarNeural",   # Indian Male (Bangla)
+    "SPEAKER_D": "bn-IN-TanishaaNeural",  # Indian Female (Bangla)
+}
+
+
+def generate_segment_tts(text: str, out_path: str, rate: str = None, speaker: str = "SPEAKER_A"):
     """
     Render Bangla text to speech using Microsoft Edge TTS.
-    Exclusively uses 'bn-BD-PradeepNeural' (Bangladeshi Male).
+    Supports a pool of 4 distinct Bangla voices dynamically mapped by speaker ID.
     Optional native rate control (e.g. rate="+20%").
     """
     import time
     max_retries = 5
     backoff_factor = 2
 
+    # Map the speaker ID to the correct Edge TTS voice
+    voice = VOICES.get(speaker.upper(), "bn-BD-PradeepNeural")
+
     for attempt in range(max_retries):
         try:
             if rate:
-                communicate = edge_tts.Communicate(text, "bn-BD-PradeepNeural", rate=rate)
+                communicate = edge_tts.Communicate(text, voice, rate=rate)
             else:
-                communicate = edge_tts.Communicate(text, "bn-BD-PradeepNeural")
+                communicate = edge_tts.Communicate(text, voice)
             try:
                 loop = asyncio.get_event_loop()
             except RuntimeError:

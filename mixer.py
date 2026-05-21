@@ -20,7 +20,7 @@ def get_audio_duration(file_path: str) -> float:
         return 3.0  # Fallback
 
 
-def build_dubbed_audio(segments: list[dict], seg_dir: str, total_duration: float, out_path: str):
+def build_dubbed_audio(segments: list[dict], seg_dir: str, original_audio_path: str, total_duration: float, out_path: str):
     """
     Combine per-segment TTS audio files into a single track by placing each
     at its original timestamp over a silence base.
@@ -29,8 +29,9 @@ def build_dubbed_audio(segments: list[dict], seg_dir: str, total_duration: float
     the next segment starts, it is dynamically sped up using ffmpeg's
     'atempo' filter to prevent overlapping playback.
 
-    segments: list of {start, duration, text} — matching files: seg_dir/seg_NNNN.mp3
+    segments: list of {start, duration, text, speaker, is_arabic_quote}
     total_duration: length of the original video in seconds
+    original_audio_path: path to the original full audio track extracted from YouTube
     out_path: where to write the final mixed .mp3
     """
     silence = ffmpeg.input(
@@ -42,6 +43,24 @@ def build_dubbed_audio(segments: list[dict], seg_dir: str, total_duration: float
 
     for i, seg in enumerate(segments):
         seg_file = os.path.join(seg_dir, f"seg_{i:04d}.mp3")
+        
+        # If it is an Arabic quote recitation, slice it directly from the original lecture audio!
+        if seg.get("is_arabic_quote") and original_audio_path and os.path.exists(original_audio_path):
+            seg_file = os.path.join(seg_dir, f"seg_{i:04d}_orig.mp3")
+            ss_time = seg["start"]
+            dur = seg["duration"]
+            try:
+                subprocess.run(
+                    [
+                        "ffmpeg", "-y", "-ss", str(ss_time), "-t", str(dur),
+                        "-i", original_audio_path, "-acodec", "copy", seg_file
+                    ],
+                    stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True
+                )
+            except Exception as e:
+                print(f"Error slicing original Arabic quote for segment {i}: {e}")
+                seg_file = os.path.join(seg_dir, f"seg_{i:04d}.mp3")
+
         if not os.path.exists(seg_file):
             continue
 
