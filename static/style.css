@@ -37,7 +37,7 @@ body {
   line-height: 1.6;
 }
 
-/* ── Header ── */
+/* Header */
 header {
   background: linear-gradient(135deg, #0d1520 0%, #121928 100%);
   border-bottom: 1px solid var(--border);
@@ -71,7 +71,7 @@ header h1 {
   margin-top: 0.25rem;
 }
 
-/* ── Main ── */
+/* Main Layout */
 main {
   flex: 1;
   max-width: 860px;
@@ -80,7 +80,7 @@ main {
   padding: 2rem 1rem;
 }
 
-/* ── URL Input ── */
+/* URL Input Form */
 .input-section {
   margin-bottom: 1.5rem;
 }
@@ -140,7 +140,7 @@ main {
   font-size: 0.9rem;
 }
 
-/* ── Loading ── */
+/* Loading Spinner & Status */
 .loading-section {
   text-align: center;
   padding: 3rem 1rem;
@@ -169,7 +169,7 @@ main {
   color: var(--text-dim);
 }
 
-/* ── Player Section ── */
+/* Player Layout */
 .player-section {
   display: flex;
   flex-direction: column;
@@ -194,7 +194,7 @@ main {
   border: none;
 }
 
-/* ── Subtitle Box ── */
+/* Subtitles Container */
 .subtitle-box {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -231,7 +231,7 @@ main {
   font-weight: 400;
 }
 
-/* ── Sync controls ── */
+/* Sync Tuning Controls */
 .sync-row {
   display: flex;
   align-items: center;
@@ -286,14 +286,14 @@ main {
 
 .sync-reset:hover { color: var(--error); }
 
-/* ── Segment count ── */
+/* Segment Count Indicator */
 .segment-count {
   font-size: 0.8rem;
   color: var(--text-dim);
   text-align: right;
 }
 
-/* ── New video button ── */
+/* Restart Button */
 .new-video-btn {
   align-self: flex-start;
   background: transparent;
@@ -312,7 +312,7 @@ main {
   color: var(--accent);
 }
 
-/* ── Footer ── */
+/* Footer */
 footer {
   text-align: center;
   padding: 1.25rem;
@@ -321,7 +321,7 @@ footer {
   border-top: 1px solid var(--border);
 }
 
-/* ── Dub section ── */
+/* Dubbing Progress */
 .dub-section {
   display: flex;
   flex-direction: column;
@@ -394,7 +394,7 @@ footer {
 
 .download-btn:hover { background: #3a8eef; }
 
-/* ── Dub Player Panel (Glassmorphism) ── */
+/* Dub Player Panel (Glassmorphism) */
 .dub-player-panel {
   margin-top: 1.25rem;
   background: rgba(26, 29, 39, 0.65);
@@ -568,7 +568,7 @@ footer {
   color: var(--text-dim);
 }
 
-/* ── Responsive ── */
+/* Responsive Design */
 @media (max-width: 500px) {
   .subtitle-text { font-size: 1.1rem; }
   header h1 { font-size: 1.3rem; }

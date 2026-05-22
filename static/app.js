@@ -1,6 +1,6 @@
 'use strict';
 
-// ── State ────────────────────────────────────────────────────────────────────
+// --- State ---
 let player = null;
 let segments = [];
 let syncInterval = null;
@@ -11,7 +11,7 @@ let currentVideoUrl = '';
 let dubPollInterval = null;
 let isDubActive = false;
 
-// ── DOM refs ──────────────────────────────────────────────────────────────────
+// --- DOM References ---
 const urlForm        = document.getElementById('urlForm');
 const urlInput       = document.getElementById('urlInput');
 const submitBtn      = document.getElementById('submitBtn');
@@ -38,7 +38,7 @@ const statTokens     = document.getElementById('statTokens');
 const statTokensLabel = document.getElementById('statTokensLabel');
 
 
-// ── Sync offset controls ──────────────────────────────────────────────────────
+// --- Sync Offset Controls ---
 syncMinusBtn.addEventListener('click', () => adjustOffset(-1));
 syncPlusBtn.addEventListener('click',  () => adjustOffset(+1));
 syncResetBtn.addEventListener('click', () => {
@@ -59,7 +59,7 @@ function updateOffsetDisplay() {
   syncOffsetEl.classList.toggle('nonzero', syncOffsetSeconds !== 0);
 }
 
-// ── Dub Audio Track Controls ──────────────────────────────────────────────────
+// --- Dub Audio Track Controls ---
 originalAudioBtn.addEventListener('click', () => setAudioTrack(false));
 banglaDubBtn.addEventListener('click', () => setAudioTrack(true));
 
@@ -98,7 +98,7 @@ function setAudioTrack(useDub) {
   }
 }
 
-// ── Form submit ───────────────────────────────────────────────────────────────
+// --- Form Submission ---
 urlForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const url = urlInput.value.trim();
@@ -136,7 +136,7 @@ urlForm.addEventListener('submit', async (e) => {
 });
 
 
-// ── New video button ──────────────────────────────────────────────────────────
+// --- New Video Button ---
 newVideoBtn.addEventListener('click', () => {
   stopSync();
   segments = [];
@@ -149,7 +149,7 @@ newVideoBtn.addEventListener('click', () => {
   urlInput.focus();
 });
 
-// ── YouTube IFrame API ────────────────────────────────────────────────────────
+// --- YouTube IFrame API ---
 window.onYouTubeIframeAPIReady = function () {
   if (pendingVideoId) {
     createPlayer(pendingVideoId);
@@ -215,7 +215,7 @@ function onPlayerStateChange(event) {
   }
 }
 
-// ── Subtitle sync ─────────────────────────────────────────────────────────────
+// --- Subtitle Synchronization ---
 function startSync() {
   if (syncInterval) return;
   syncInterval = setInterval(syncSubtitle, 100);  // 100ms for snappier response
@@ -286,7 +286,7 @@ function findSegmentIndex(t) {
   return -1;
 }
 
-// ── UI helpers ────────────────────────────────────────────────────────────────
+// --- UI Helpers ---
 function setSubtitle(text, isEmpty) {
   // Update text immediately — no setTimeout delay so timing never drifts.
   // Restart the CSS animation by removing the class, forcing a reflow, then re-adding.
@@ -315,7 +315,7 @@ function showInputOnly() {
   playerSection.hidden = true;
 }
 
-// ── Dubbing flow ──────────────────────────────────────────────────────────────
+// --- Dubbing Pipeline Polling ---
 function pollDubStatus(jobId) {
   if (dubPollInterval) clearInterval(dubPollInterval);
   

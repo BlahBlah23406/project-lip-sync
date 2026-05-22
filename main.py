@@ -16,10 +16,10 @@ from translator import translate_segments
 
 app = FastAPI(title="Islamic Lecture Subtitle Translator")
 
-# In-memory cache: video_id -> list of translated segments
+# In-memory cache: video_id -> translated segments
 _cache: dict[str, list[dict]] = {}
 
-# Dubbing jobs: job_id -> {status, progress, url, error}
+# Dubbing jobs tracking
 _dub_jobs: dict[str, dict] = {}
 
 OUTPUT_DIR = "output"
@@ -34,7 +34,7 @@ class DubRequest(BaseModel):
     url: str
 
 
-# ── Subtitle translation ──────────────────────────────────────────────────────
+# --- Subtitle Translation ---
 
 @app.post("/api/translate")
 async def translate(req: TranslateRequest):
@@ -74,7 +74,7 @@ async def translate(req: TranslateRequest):
     return {"video_id": video_id, "segments": translated, "cached": False}
 
 
-# ── Dubbing pipeline ──────────────────────────────────────────────────────────
+# --- Dubbing Pipeline ---
 
 def _set_job(job_id: str, **kwargs):
     _dub_jobs[job_id].update(kwargs)
@@ -108,11 +108,11 @@ def run_dub_pipeline(job_id: str, video_id: str):
             _cache[video_id] = segments
             cached = False
 
-        # Download video first so we can extract the original audio track
+        # Download video
         _set_job(job_id, progress="Downloading video…")
         video_path = download_video(video_id, work_dir)
 
-        # Extract the original audio track from the downloaded video using FFmpeg
+        # Extract original audio track using FFmpeg
         _set_job(job_id, progress="Extracting original audio track…")
         original_audio_path = os.path.join(work_dir, "original_audio.mp3")
         try:
@@ -127,14 +127,14 @@ def run_dub_pipeline(job_id: str, video_id: str):
         for i, seg in enumerate(segments):
             out_path = os.path.join(seg_dir, f"seg_{i:04d}.mp3")
             
-            # Skip Edge TTS generation for classical Arabic quotes (we slice them from original audio instead)
+            # Skip TTS for classical Arabic quotes (sliced from original audio)
             if seg.get("is_arabic_quote"):
                 continue
 
             speaker_id = seg.get("speaker", "SPEAKER_A")
             generate_segment_tts(seg["text"], out_path, speaker=speaker_id)
 
-            # Determine available time window (gap until next segment starts, or segment duration)
+            # Determine available time window
             if i < len(segments) - 1:
                 available_time = max(seg["duration"], segments[i + 1]["start"] - seg["start"])
             else:
@@ -144,16 +144,16 @@ def run_dub_pipeline(job_id: str, video_id: str):
             if actual_duration > available_time:
                 rate_factor = actual_duration / available_time
                 if rate_factor > 1.02:
-                    rate_factor = min(rate_factor, 2.0)  # limit speedup to 2.0x (which is +100%)
+                    rate_factor = min(rate_factor, 2.0)
                     pct = int((rate_factor - 1.0) * 100)
                     rate_str = f"+{pct}%"
-                    # Re-generate with native SSML speedup!
+                    # Re-generate with native TTS rate speedup
                     generate_segment_tts(seg["text"], out_path, rate=rate_str, speaker=speaker_id)
 
             if (i + 1) % 5 == 0 or (i + 1) == total:
                 _set_job(job_id, progress=f"Generating Bangla audio ({i + 1}/{total})…")
 
-        # Total video duration = last segment's end time
+        # Calculate total video duration
         total_duration = max(s["start"] + s["duration"] for s in segments)
 
         _set_job(job_id, progress="Mixing dubbed audio track…")
@@ -165,7 +165,7 @@ def run_dub_pipeline(job_id: str, video_id: str):
         out_path = os.path.join(OUTPUT_DIR, out_filename)
         mux_video_with_dubbed_audio(video_path, dubbed_audio, out_path)
 
-        # Save the dubbed audio track separately as well for synchronized web playback!
+        # Copy dubbed audio track for web playback
         audio_out_filename = f"{video_id}_dubbed.mp3"
         audio_out_path = os.path.join(OUTPUT_DIR, audio_out_filename)
         shutil.copy(dubbed_audio, audio_out_path)
@@ -228,7 +228,7 @@ def download_output(filename: str):
     return FileResponse(path, media_type="video/mp4", filename=filename)
 
 
-# ── Health + static files ─────────────────────────────────────────────────────
+# --- Health & Static Files ---
 
 @app.get("/api/health")
 def health():
