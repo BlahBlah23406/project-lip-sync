@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from captions import extract_video_id, fetch_transcript, cluster_segments
-from translator import translate_segments
+from translator import translate_segments, retranslate_shorter
 
 app = FastAPI(title="Islamic Lecture Subtitle Translator")
 
@@ -105,8 +105,24 @@ def run_dub_pipeline(job_id: str, video_id: str):
             raw = fetch_transcript(video_id)
             clustered = cluster_segments(raw)
             segments, in_tokens, out_tokens = translate_segments(clustered)
+            # Preserve original English text for potential reprompting
+            for seg, orig in zip(segments, clustered):
+                seg["original_text"] = orig.get("text", "")
             _cache[video_id] = segments
             cached = False
+
+        # Pre-process segments to trim overlaps
+        trimmed_segments = []
+        for i, seg in enumerate(segments):
+            trimmed_seg = seg.copy()
+            if i < len(segments) - 1:
+                max_dur = segments[i + 1]["start"] - seg["start"]
+                if max_dur > 0:
+                    trimmed_seg["duration"] = min(seg["duration"], max_dur)
+                else:
+                    trimmed_seg["duration"] = 0.1
+            trimmed_segments.append(trimmed_seg)
+        segments = trimmed_segments
 
         # Download video
         _set_job(job_id, progress="Downloading video…")
@@ -127,6 +143,10 @@ def run_dub_pipeline(job_id: str, video_id: str):
         for i, seg in enumerate(segments):
             out_path = os.path.join(seg_dir, f"seg_{i:04d}.mp3")
             
+            # Skip empty text segments
+            if not seg.get("text") or not seg["text"].strip():
+                continue
+
             # Skip TTS for classical Arabic quotes (sliced from original audio)
             if seg.get("is_arabic_quote"):
                 continue
@@ -144,11 +164,30 @@ def run_dub_pipeline(job_id: str, video_id: str):
             if actual_duration > available_time:
                 rate_factor = actual_duration / available_time
                 if rate_factor > 1.02:
-                    rate_factor = min(rate_factor, 2.0)
-                    pct = int((rate_factor - 1.0) * 100)
-                    rate_str = f"+{pct}%"
-                    # Re-generate with native TTS rate speedup
-                    generate_segment_tts(seg["text"], out_path, rate=rate_str, speaker=speaker_id)
+                    # If speedup exceeds 1.3x, reprompt LLM for a shorter translation first
+                    if rate_factor > 1.3:
+                        # Target ~10 chars per second of available time
+                        max_chars = int(available_time * 10)
+                        print(f"  Segment {i}: rate={rate_factor:.2f}x > 1.3 → reprompting for ≤{max_chars} chars...")
+                        shorter_text = retranslate_shorter(seg, max_chars)
+                        if shorter_text != seg["text"]:
+                            seg["text"] = shorter_text
+                            # Regenerate TTS with the shorter text at normal rate first
+                            generate_segment_tts(seg["text"], out_path, speaker=speaker_id)
+                            actual_duration = get_audio_duration(out_path)
+                            # Recalculate rate factor after reprompt
+                            if actual_duration > available_time:
+                                rate_factor = actual_duration / available_time
+                                rate_factor = min(rate_factor, 2.0)
+                            else:
+                                rate_factor = 1.0
+
+                    if rate_factor > 1.02:
+                        rate_factor = min(rate_factor, 2.0)
+                        pct = int((rate_factor - 1.0) * 100)
+                        rate_str = f"+{pct}%"
+                        # Re-generate with native TTS rate speedup
+                        generate_segment_tts(seg["text"], out_path, rate=rate_str, speaker=speaker_id)
 
             if (i + 1) % 5 == 0 or (i + 1) == total:
                 _set_job(job_id, progress=f"Generating Bangla audio ({i + 1}/{total})…")

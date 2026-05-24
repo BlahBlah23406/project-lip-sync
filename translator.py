@@ -1,5 +1,6 @@
 import os
 import re
+import httpx
 import anthropic
 
 SYSTEM_PROMPT = """You are a translator specializing in Islamic religious content.
@@ -7,7 +8,7 @@ Translate the following English lecture captions into Bangla (বাংলা).
 
 CRITICAL TIME CONSTRAINT & FORMAT RULES:
 The translated text will be converted to speech (TTS) and played in real-time.
-To prevent audio clips from overlapping or lagging, translations MUST be extremely short, highly concise, and fast-paced.
+To prevent audio clips from overlapping, translations MUST be concise and fit the time window, but they MUST flow naturally, be grammatically complete, and avoid sounding fragmented or staccato.
 
 Additional Annotation Requirements (Speaker Diarization & Quote Detection):
 1. Speaker Tracking:
@@ -29,14 +30,244 @@ General Rules:
   Bismillah (বিস্মিল্লাহ), MashaAllah (মাশাআল্লাহ), JazakAllah (জাযাকাল্লাহ), etc.
 - Keep Arabic phrases (du'as, Quranic verses) in Arabic script or their common transliteration if helpful, alongside translation.
 - Each input segment is prefixed with duration: e.g. "[2.3s] 1. Hello everyone"
-- Aim for at most 6 characters (with spaces) per 1 second of duration.
-- For short segments (under 1.5s), use 1–2 words maximum.
-- Prefer a summarized, condensed translation over a complete literal one.
+- Aim for about 10-12 characters (with spaces) per 1 second of duration. This allows producing natural, complete sentences rather than ultra-short fragments.
+- Avoid over-compressing or translating in a fragmented/staccato way. The Bangla should flow beautifully and sound natural when spoken.
 - Output ONLY the numbered translations, one per line, matching the input numbering exactly.
 - Do not add explanations, notes, or extra text."""
 
 MODEL = "claude-haiku-4-5"
 
+
+# --- Helper Methods ---
+
+def _clean_text(text: str) -> str:
+    """Strip out <think>...</think> tags which are output by some advanced reasoning models."""
+    return re.sub(r"<think>.*?</think>", "", text, flags=re.DOTALL).strip()
+
+
+def _parse_segment_line(line: str) -> tuple[str, str, bool]:
+    """Parse speaker ID and Arabic quote tags from a raw translation line."""
+    cleaned = _clean_text(line).strip()
+    
+    # Parse [SPEAKER_X] (case-insensitive check)
+    speaker = "SPEAKER_A"
+    speaker_match = re.search(r"\[(SPEAKER_[A-D])\]", cleaned, re.IGNORECASE)
+    if speaker_match:
+        speaker = speaker_match.group(1).upper()
+        cleaned = re.sub(r"\[SPEAKER_[A-D]\]", "", cleaned, flags=re.IGNORECASE).strip()
+
+    # Parse [QUOTE_ARABIC] (case-insensitive check)
+    is_arabic_quote = False
+    if re.search(r"\[QUOTE_ARABIC\]", cleaned, re.IGNORECASE):
+        is_arabic_quote = True
+        cleaned = re.sub(r"\[QUOTE_ARABIC\]", "", cleaned, flags=re.IGNORECASE).strip()
+        
+    return cleaned, speaker, is_arabic_quote
+
+
+# --- Ollama Cloud Engine ---
+
+def _get_ollama_endpoint() -> str:
+    return os.getenv("LLM_BASE_URL") or "https://ollama.com/api"
+
+
+def _translate_single_segment_ollama(segment: dict) -> dict:
+    """Ollama fallback translation for a single segment."""
+    endpoint = _get_ollama_endpoint()
+    api_key = os.getenv("LLM_API_KEY")
+    model_name = os.getenv("LLM_MODEL_NAME") or "gemma3:27b"
+    
+    headers = {}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+        
+    prompt = f"Translate the following single English lecture segment into extremely concise Bangla. Do not include any explanations. Maintain the same formatting rules.\nSegment: [{segment['duration']:.1f}s] {segment['text']}"
+    
+    payload = {
+        "model": model_name,
+        "prompt": prompt,
+        "system": SYSTEM_PROMPT,
+        "stream": False
+    }
+    
+    try:
+        response = httpx.post(f"{endpoint}/generate", json=payload, headers=headers, timeout=60.0)
+        if response.status_code != 200:
+            raise RuntimeError(f"Ollama generation failed (HTTP {response.status_code}): {response.text}")
+            
+        res_data = response.json()
+        raw = res_data.get("response", "").strip()
+        cleaned = re.sub(r"^\d+[\.\)]\s*", "", raw).strip()
+        cleaned = re.sub(r"^\[\d+\]\s*", "", cleaned).strip()
+        
+        text, speaker, is_quote = _parse_segment_line(cleaned)
+        return {"text": text, "speaker": speaker, "is_arabic_quote": is_quote}
+    except Exception as e:
+        print(f"Ollama fallback translation failed: {e}")
+        return {"text": segment["text"], "speaker": "SPEAKER_A", "is_arabic_quote": False}
+
+
+SHORTER_SYSTEM_PROMPT = """You are a translator specializing in Islamic religious content.
+You MUST translate the English text into Bangla (বাংলা) that is EXTREMELY SHORT and CONCISE.
+
+CRITICAL: Your translation MUST be shorter than the character budget provided. 
+- Use the shortest possible Bangla phrasing while preserving the core meaning.
+- Drop filler words, hedging, and unnecessary detail.
+- Use common abbreviations and shorter synonyms.
+- The result must sound natural when spoken aloud, but brevity is the TOP priority.
+- Preserve Islamic terms (Allah, Quran, Hadith, etc.) in standard Bangla transliteration.
+- Output ONLY the Bangla translation. No explanations, no numbering, no tags."""
+
+
+def retranslate_shorter(segment: dict, max_chars: int) -> str:
+    """
+    Reprompt the LLM to produce a shorter Bangla translation for a segment
+    that requires excessive speedup (>1.3x).
+    
+    Args:
+        segment: The segment dict with 'text' (current Bangla), 'start', 'duration',
+                 and optionally 'original_text' (English source).
+        max_chars: Target maximum character count for the output.
+    
+    Returns:
+        A shorter Bangla translation string.
+    """
+    current_text = segment.get("text", "")
+    original_english = segment.get("original_text", "")
+    
+    # Build the prompt with the character budget
+    if original_english:
+        prompt = (
+            f"The following English text needs to be translated into Bangla in at most {max_chars} characters.\n"
+            f"English: {original_english}\n"
+            f"Current Bangla (TOO LONG): {current_text}\n"
+            f"Produce a SHORTER Bangla translation (max {max_chars} chars). Output ONLY the Bangla text."
+        )
+    else:
+        prompt = (
+            f"The following Bangla text is too long for the available time window.\n"
+            f"Current Bangla: {current_text}\n"
+            f"Rewrite it in at most {max_chars} characters while keeping the core meaning.\n"
+            f"Output ONLY the shortened Bangla text."
+        )
+    
+    api_key = os.getenv("LLM_API_KEY")
+    
+    if api_key:
+        # Use Ollama Cloud
+        endpoint = _get_ollama_endpoint()
+        model_name = os.getenv("LLM_MODEL_NAME") or "gemma3:27b"
+        headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
+        
+        payload = {
+            "model": model_name,
+            "prompt": prompt,
+            "system": SHORTER_SYSTEM_PROMPT,
+            "stream": False
+        }
+        
+        try:
+            response = httpx.post(f"{endpoint}/generate", json=payload, headers=headers, timeout=60.0)
+            if response.status_code == 200:
+                raw = response.json().get("response", "").strip()
+                cleaned = _clean_text(raw)
+                # Strip any numbering artifacts
+                cleaned = re.sub(r"^\d+[\.)\]]\s*", "", cleaned).strip()
+                cleaned = re.sub(r"^\[.*?\]\s*", "", cleaned).strip()
+                if cleaned and len(cleaned) <= max_chars * 1.2:  # Allow slight overshoot
+                    print(f"  ✓ Reprompt succeeded: {len(current_text)} → {len(cleaned)} chars")
+                    return cleaned
+                else:
+                    print(f"  ⚠ Reprompt result still too long ({len(cleaned)} chars vs {max_chars} budget)")
+        except Exception as e:
+            print(f"  ⚠ Reprompt via Ollama failed: {e}")
+    else:
+        # Use Anthropic Claude
+        try:
+            client = _get_client()
+            response = client.messages.create(
+                model=MODEL,
+                max_tokens=500,
+                system=SHORTER_SYSTEM_PROMPT,
+                messages=[{"role": "user", "content": prompt}],
+            )
+            raw = next((b.text for b in response.content if b.type == "text"), "").strip()
+            cleaned = _clean_text(raw)
+            cleaned = re.sub(r"^\d+[\.)\]]\s*", "", cleaned).strip()
+            cleaned = re.sub(r"^\[.*?\]\s*", "", cleaned).strip()
+            if cleaned and len(cleaned) <= max_chars * 1.2:
+                print(f"  ✓ Reprompt succeeded: {len(current_text)} → {len(cleaned)} chars")
+                return cleaned
+            else:
+                print(f"  ⚠ Reprompt result still too long ({len(cleaned)} chars vs {max_chars} budget)")
+        except Exception as e:
+            print(f"  ⚠ Reprompt via Anthropic failed: {e}")
+    
+    # Fallback: return original text unchanged
+    return current_text
+
+
+def _translate_batch_ollama(segments: list[dict]) -> tuple[list[dict], int, int]:
+    """Ollama batch translation."""
+    endpoint = _get_ollama_endpoint()
+    api_key = os.getenv("LLM_API_KEY")
+    model_name = os.getenv("LLM_MODEL_NAME") or "gemma3:27b"
+    
+    headers = {}
+    if api_key:
+        headers["Authorization"] = f"Bearer {api_key}"
+        
+    numbered = "\n".join(
+        f"[{seg['duration']:.1f}s] {i + 1}. {seg['text']}"
+        for i, seg in enumerate(segments)
+    )
+    
+    payload = {
+        "model": model_name,
+        "prompt": numbered,
+        "system": SYSTEM_PROMPT,
+        "stream": False
+    }
+    
+    response = httpx.post(f"{endpoint}/generate", json=payload, headers=headers, timeout=90.0)
+    if response.status_code != 200:
+        raise RuntimeError(f"Ollama batch translation failed (HTTP {response.status_code}): {response.text}")
+        
+    res_data = response.json()
+    raw = res_data.get("response", "").strip()
+    
+    raw = _clean_text(raw)
+    lines = [line.strip() for line in raw.splitlines() if line.strip()]
+    
+    parsed_dict = {}
+    for line in lines:
+        match = re.match(r"^(?:\[?(\d+)\]?[\.\)]?\s*)(.*)", line)
+        if match:
+            idx = int(match.group(1)) - 1
+            content, speaker, is_quote = _parse_segment_line(match.group(2))
+            parsed_dict[idx] = {
+                "text": content,
+                "speaker": speaker,
+                "is_arabic_quote": is_quote
+            }
+            
+    # Handle missing segment fallbacks
+    parsed_results = []
+    for idx, seg in enumerate(segments):
+        if idx in parsed_dict:
+            parsed_results.append(parsed_dict[idx])
+        else:
+            print(f"Ollama segment index {idx + 1} missing. Running single fallback...")
+            fallback_res = _translate_single_segment_ollama(seg)
+            parsed_results.append(fallback_res)
+            
+    prompt_eval_count = res_data.get("prompt_eval_count", 0)
+    eval_count = res_data.get("eval_count", 0)
+    
+    return parsed_results, prompt_eval_count, eval_count
+
+
+# --- Anthropic Claude Engine ---
 
 def _get_client() -> anthropic.Anthropic:
     api_key = os.getenv("ANTHROPIC_API_KEY")
@@ -59,23 +290,11 @@ def _translate_single_segment(client: anthropic.Anthropic, segment: dict) -> dic
         cleaned = re.sub(r"^\d+[\.\)]\s*", "", raw).strip()
         cleaned = re.sub(r"^\[\d+\]\s*", "", cleaned).strip()
 
-        # Parse [SPEAKER_X] (case-insensitive check)
-        speaker = "SPEAKER_A"
-        speaker_match = re.search(r"\[(SPEAKER_[A-D])\]", cleaned, re.IGNORECASE)
-        if speaker_match:
-            speaker = speaker_match.group(1).upper()
-            cleaned = re.sub(r"\[SPEAKER_[A-D]\]", "", cleaned, flags=re.IGNORECASE).strip()
-
-        # Parse [QUOTE_ARABIC] (case-insensitive check)
-        is_arabic_quote = False
-        if re.search(r"\[QUOTE_ARABIC\]", cleaned, re.IGNORECASE):
-            is_arabic_quote = True
-            cleaned = re.sub(r"\[QUOTE_ARABIC\]", "", cleaned, flags=re.IGNORECASE).strip()
-
+        text, speaker, is_quote = _parse_segment_line(cleaned)
         return {
-            "text": cleaned,
+            "text": text,
             "speaker": speaker,
-            "is_arabic_quote": is_arabic_quote
+            "is_arabic_quote": is_quote
         }
     except Exception as e:
         print(f"Fallback translation failed for segment '{segment['text']}': {e}")
@@ -100,33 +319,20 @@ def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> tuple
     )
 
     raw = next((b.text for b in response.content if b.type == "text"), "").strip()
+    raw = _clean_text(raw)
     lines = [line.strip() for line in raw.splitlines() if line.strip()]
 
     parsed_dict = {}
     for line in lines:
-        # Match lines starting with a number, e.g. "1. ...", "1) ...", "[1] ..."
         match = re.match(r"^(?:\[?(\d+)\]?[\.\)]?\s*)(.*)", line)
         if match:
             idx = int(match.group(1)) - 1
-            content = match.group(2).strip()
-
-            # Parse [SPEAKER_X] (case-insensitive check)
-            speaker = "SPEAKER_A"
-            speaker_match = re.search(r"\[(SPEAKER_[A-D])\]", content, re.IGNORECASE)
-            if speaker_match:
-                speaker = speaker_match.group(1).upper()
-                content = re.sub(r"\[SPEAKER_[A-D]\]", "", content, flags=re.IGNORECASE).strip()
-
-            # Parse [QUOTE_ARABIC] (case-insensitive check)
-            is_arabic_quote = False
-            if re.search(r"\[QUOTE_ARABIC\]", content, re.IGNORECASE):
-                is_arabic_quote = True
-                content = re.sub(r"\[QUOTE_ARABIC\]", "", content, flags=re.IGNORECASE).strip()
+            content, speaker, is_quote = _parse_segment_line(match.group(2))
 
             parsed_dict[idx] = {
                 "text": content,
                 "speaker": speaker,
-                "is_arabic_quote": is_arabic_quote
+                "is_arabic_quote": is_quote
             }
 
     in_tokens = getattr(response.usage, "input_tokens", 0)
@@ -140,23 +346,11 @@ def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> tuple
             cleaned = re.sub(r"^\d+[\.\)]\s*", "", line).strip()
             cleaned = re.sub(r"^\[\d+\]\s*", "", cleaned).strip()
 
-            # Parse [SPEAKER_X]
-            speaker = "SPEAKER_A"
-            speaker_match = re.search(r"\[(SPEAKER_[A-D])\]", cleaned, re.IGNORECASE)
-            if speaker_match:
-                speaker = speaker_match.group(1).upper()
-                cleaned = re.sub(r"\[SPEAKER_[A-D]\]", "", cleaned, flags=re.IGNORECASE).strip()
-
-            # Parse [QUOTE_ARABIC]
-            is_arabic_quote = False
-            if re.search(r"\[QUOTE_ARABIC\]", cleaned, re.IGNORECASE):
-                is_arabic_quote = True
-                cleaned = re.sub(r"\[QUOTE_ARABIC\]", "", cleaned, flags=re.IGNORECASE).strip()
-
+            content, speaker, is_quote = _parse_segment_line(cleaned)
             parsed_results.append({
-                "text": cleaned,
+                "text": content,
                 "speaker": speaker,
-                "is_arabic_quote": is_arabic_quote
+                "is_arabic_quote": is_quote
             })
 
         while len(parsed_results) < len(segments):
@@ -185,25 +379,45 @@ def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> tuple
     return parsed_results, in_tokens, out_tokens
 
 
+# --- Main Entry Point ---
+
 def translate_segments(segments: list[dict], batch_size: int = 20) -> tuple[list[dict], int, int]:
-    """Translates all segments from English to Bangla in batches."""
-    client = _get_client()
+    """Translates all segments from English to Bangla in batches, dynamically picking Ollama or Anthropic."""
+    api_key = os.getenv("LLM_API_KEY")
     translated = []
     total_in = 0
     total_out = 0
 
-    for i in range(0, len(segments), batch_size):
-        batch = segments[i : i + batch_size]
-        results, in_t, out_t = _translate_batch(client, batch)
-        total_in += in_t
-        total_out += out_t
-        for seg, res in zip(batch, results):
-            translated.append({
-                "text": res["text"],
-                "start": seg["start"],
-                "duration": seg["duration"],
-                "speaker": res["speaker"],
-                "is_arabic_quote": res["is_arabic_quote"]
-            })
+    if api_key:
+        print("Using Ollama Cloud translation provider...")
+        for i in range(0, len(segments), batch_size):
+            batch = segments[i : i + batch_size]
+            results, in_t, out_t = _translate_batch_ollama(batch)
+            total_in += in_t
+            total_out += out_t
+            for seg, res in zip(batch, results):
+                translated.append({
+                    "text": res["text"],
+                    "start": seg["start"],
+                    "duration": seg["duration"],
+                    "speaker": res["speaker"],
+                    "is_arabic_quote": res["is_arabic_quote"]
+                })
+    else:
+        print("Using Anthropic Claude translation provider...")
+        client = _get_client()
+        for i in range(0, len(segments), batch_size):
+            batch = segments[i : i + batch_size]
+            results, in_t, out_t = _translate_batch(client, batch)
+            total_in += in_t
+            total_out += out_t
+            for seg, res in zip(batch, results):
+                translated.append({
+                    "text": res["text"],
+                    "start": seg["start"],
+                    "duration": seg["duration"],
+                    "speaker": res["speaker"],
+                    "is_arabic_quote": res["is_arabic_quote"]
+                })
 
     return translated, total_in, total_out

@@ -6,3 +6,4 @@ python-dotenv
 yt-dlp
 edge-tts
 ffmpeg-python
+httpx

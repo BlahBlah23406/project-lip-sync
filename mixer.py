@@ -25,6 +25,19 @@ def build_dubbed_audio(segments: list[dict], seg_dir: str, original_audio_path: 
     Mixes per-segment TTS audio files into a single audio track, resolving overlaps
     by shifting start times and dynamically adjusting playback speed.
     """
+    # Pre-process segments to trim overlaps
+    trimmed_segments = []
+    for i, seg in enumerate(segments):
+        trimmed_seg = seg.copy()
+        if i < len(segments) - 1:
+            max_dur = segments[i + 1]["start"] - seg["start"]
+            if max_dur > 0:
+                trimmed_seg["duration"] = min(seg["duration"], max_dur)
+            else:
+                trimmed_seg["duration"] = 0.1
+        trimmed_segments.append(trimmed_seg)
+    segments = trimmed_segments
+
     # Slice classical Arabic quotes
     for i, seg in enumerate(segments):
         if seg.get("is_arabic_quote") and original_audio_path and os.path.exists(original_audio_path):
@@ -103,6 +116,68 @@ def build_dubbed_audio(segments: list[dict], seg_dir: str, original_audio_path: 
         t=new_total_duration,
     )
     delayed_inputs = [silence]
+
+    # Build dynamic volume envelope for background audio
+    # During Bangla speech: volume = 0.12 (12%)
+    # During gaps (no Bangla speech): volume = 1.0 (100%)
+    # Smooth crossfade over 300ms at transitions
+    if original_audio_path and os.path.exists(original_audio_path):
+        # Calculate speech intervals from the precalculated schedule
+        speech_intervals = []
+        for item in precalculated:
+            seg_duration = get_audio_duration(item["seg_file"])
+            if item["rate"] > 1.02:
+                seg_duration = seg_duration / item["rate"]
+            start_t = item["actual_start"]
+            end_t = start_t + seg_duration
+            speech_intervals.append((start_t, end_t))
+        
+        # Merge overlapping/adjacent intervals (with 0.5s padding)
+        merged = []
+        for s, e in sorted(speech_intervals):
+            if merged and s <= merged[-1][1] + 0.5:
+                merged[-1] = (merged[-1][0], max(merged[-1][1], e))
+            else:
+                merged.append((s, e))
+        
+        fade_dur = 0.3  # 300ms fade duration
+        
+        if merged:
+            # Strategy: Use FFmpeg's volume filter with enable expressions
+            # For each merged speech interval, apply a volume reduction filter
+            # that is only active during that interval (with fade padding).
+            # The filters chain sequentially, each one ducking during its interval.
+            
+            bg_audio = ffmpeg.input(original_audio_path).audio
+            
+            for (s, e) in merged:
+                # Expand interval slightly for the fade zones
+                enable_start = max(s - fade_dur, 0)
+                enable_end = e + fade_dur
+                
+                # Volume expression for this interval:
+                # Fade down from 1.0 to 0.12 over [s-fade_dur, s]
+                # Stay at 0.12 during [s, e]
+                # Fade up from 0.12 to 1.0 over [e, e+fade_dur]
+                expr = (
+                    f"if(lt(t,{s:.3f}),"
+                    f"1.0-0.88*(t-{enable_start:.3f})/{fade_dur},"
+                    f"if(lt(t,{e:.3f}),"
+                    f"0.12,"
+                    f"0.12+0.88*(t-{e:.3f})/{fade_dur}))"
+                )
+                
+                bg_audio = bg_audio.filter(
+                    "volume",
+                    expr,
+                    eval="frame",
+                    enable=f"between(t,{enable_start:.3f},{enable_end:.3f})"
+                )
+        else:
+            # No speech intervals — play background at full volume
+            bg_audio = ffmpeg.input(original_audio_path).audio
+        
+        delayed_inputs.append(bg_audio)
 
     for item in precalculated:
         audio_stream = ffmpeg.input(item["seg_file"]).audio
