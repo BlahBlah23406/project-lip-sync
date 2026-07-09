@@ -5,8 +5,11 @@ import ffmpeg
 
 def get_audio_duration(file_path: str) -> float:
     """Get the duration of an audio file in seconds using ffprobe."""
+    # Explicit absolute path to avoid Windows PATH propagation issues
+    ffprobe_path = r"C:\Users\shaya\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.2-full_build\bin\ffprobe.exe"
+    
     cmd = [
-        "ffprobe",
+        ffprobe_path,
         "-v", "error",
         "-show_entries", "format=duration",
         "-of", "default=noprint_wrappers=1:nokey=1",
@@ -17,7 +20,7 @@ def get_audio_duration(file_path: str) -> float:
         return float(result.stdout.strip())
     except Exception as e:
         print(f"Error checking duration of {file_path}: {e}")
-        return 3.0  # Fallback
+        raise e  # Remove the 3.0 fallback to avoid fake data
 
 
 def build_dubbed_audio(segments: list[dict], seg_dir: str, original_audio_path: str, total_duration: float, out_path: str):

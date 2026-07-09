@@ -21,6 +21,15 @@ def fetch_transcript(video_id: str) -> list[dict]:
     api = YouTubeTranscriptApi()
 
     try:
+        # --- ADDED: LOCAL TRANSCRIPT CACHE ---
+        import json
+        import os
+        cache_path = os.path.join(os.path.dirname(__file__), "test_transcript.json")
+        if os.path.exists(cache_path):
+            print(f"  Using cached transcript from {cache_path}")
+            with open(cache_path, "r", encoding="utf-8") as f:
+                return json.load(f)
+        # ------------------------------------
         fetched = api.fetch(video_id, languages=["en", "en-US", "en-GB"])
         raw = fetched.to_raw_data()
     except Exception:
