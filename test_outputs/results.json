@@ -1,0 +1,3292 @@
+[
+  {
+    "config": {
+      "name": "baseline",
+      "description": "Current pipeline with atempo time stretching",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 26.259677410125732,
+    "translation_time": 0.5,
+    "tts_generation_time": 22.212104082107544,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.9584200382232666
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 0.9487085342407227
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 0.8957920074462891
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.8147251605987549
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.7543904781341553
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.8571023941040039
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.9039785861968994
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.8560140132904053
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.951643705368042
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8203256130218506
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8869369029998779
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 0.903529167175293
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8695743083953857
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.8750677108764648
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.9174690246582031
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.9622762203216553
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.9448113441467285
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.8286759853363037
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.907865047454834
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.8554048538208008
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8130753040313721
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8811683654785156
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 0.876537561416626
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 1.0035274028778076
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.7493767738342285
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.8427934646606445
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8341588973999023
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8537459373474121
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8488631248474121
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.843719482421875
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "rubberband",
+      "description": "Rubberband time stretching (higher quality)",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "rubberband",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 27.644959926605225,
+    "translation_time": 0.0,
+    "tts_generation_time": 22.051211833953857,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.844872236251831
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 1.0103445053100586
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 1.0492451190948486
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.8968937397003174
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.791473388671875
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.9236505031585693
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.8275558948516846
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.9183468818664551
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 1.0343773365020752
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8739452362060547
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8705813884735107
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 1.0176124572753906
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8968079090118408
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.9402992725372314
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.9858412742614746
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.9480674266815186
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8729588985443115
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.8025341033935547
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 1.0282907485961914
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.9774725437164307
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8912031650543213
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.9379270076751709
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 1.0655457973480225
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 1.0068397521972656
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.7676994800567627
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.8929233551025391
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.9061176776885986
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.933673620223999
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.9167912006378174
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8150680065155029
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "loudnorm",
+      "description": "EBU R128 loudness normalization",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": true,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 32.40841507911682,
+    "translation_time": 0.0,
+    "tts_generation_time": 22.262192249298096,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.0525639057159424
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 1.1717479228973389
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 1.2349107265472412
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 1.1343212127685547
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.9926979541778564
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 1.041602611541748
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.988832950592041
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 1.0638768672943115
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 1.208104133605957
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 1.0477898120880127
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 1.1134467124938965
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 1.1394736766815186
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.0284512042999268
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 1.2339110374450684
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 1.1414854526519775
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 1.206125020980835
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 1.0543415546417236
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.951453447341919
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 1.1846344470977783
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 1.1118664741516113
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 1.0133624076843262
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.019498586654663
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 1.179215908050537
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 1.160848617553711
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.90744948387146
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 1.0169003009796143
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.0487229824066162
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.9621069431304932
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.9978232383728027
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 1.0008494853973389
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "compressor",
+      "description": "Dynamic range compression",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": true,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 28.594656705856323,
+    "translation_time": 0.0,
+    "tts_generation_time": 21.9640212059021,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.9774620532989502
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 1.0226736068725586
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 1.0118110179901123
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.8895936012268066
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.9244792461395264
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.9303810596466064
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.8639287948608398
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.9362576007843018
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.9626328945159912
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8686392307281494
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.925337553024292
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 1.0673270225524902
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8632652759552002
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 1.0022201538085938
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 1.0235857963562012
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 1.0163261890411377
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.9727487564086914
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.8547184467315674
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.9816884994506836
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.9223988056182861
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 1.0140538215637207
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.0713202953338623
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 1.063652753829956
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 0.9953458309173584
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.8139297962188721
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.9873831272125244
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.9430413246154785
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8570733070373535
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.9161102771759033
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.9152705669403076
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "combined_audio",
+      "description": "Rubberband + loudnorm + compressor",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "rubberband",
+      "use_loudnorm": true,
+      "use_compressor": true,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 39.4311408996582,
+    "translation_time": 0.0,
+    "tts_generation_time": 23.204941034317017,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.2806124687194824
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 1.4249558448791504
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 1.4791064262390137
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 1.2513501644134521
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 1.1057536602020264
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 1.2378745079040527
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 1.163895845413208
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 1.2249369621276855
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 1.4875438213348389
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 1.250953197479248
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 1.18497896194458
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 1.424156665802002
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.237739086151123
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 1.2619616985321045
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 1.3880195617675781
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 1.3461506366729736
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 1.1920475959777832
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 1.0859625339508057
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 1.4465394020080566
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 1.2206506729125977
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 1.2088146209716797
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.2086243629455566
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 1.4549190998077393
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 1.4407572746276855
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 1.0101051330566406
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 2.5016281604766846
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 1.211787223815918
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 1.1282775402069092
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 1.2839431762695312
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 1.2870945930480957
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "syllable_timing",
+      "description": "Syllable-based rate control instead of char/sec",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": true,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 26.024560689926147,
+    "translation_time": 0.0,
+    "tts_generation_time": 21.887059450149536,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 12.0,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8731553554534912
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 22.727272727272727,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 0.9135682582855225
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 22.181818181818183,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 0.9427149295806885
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 11.272727272727273,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.8027529716491699
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 13.272727272727273,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.8255577087402344
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 14.181818181818182,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.9575238227844238
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.8421196937561035
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 12.909090909090908,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.8635435104370117
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 21.272727272727273,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.905449628829956
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 10.181818181818182,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8116848468780518
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 12.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.9198758602142334
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 21.636363636363637,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 0.9184987545013428
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 12.0,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8342156410217285
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 14.0,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.8516795635223389
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 22.545454545454547,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.9481675624847412
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 18.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.8435611724853516
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 11.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8716793060302734
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 12.909090909090908,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.7725374698638916
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 20.727272727272727,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.8763384819030762
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.8862366676330566
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 11.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8178408145904541
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 12.0,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8686277866363525
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 20.181818181818183,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 0.9483239650726318
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 19.272727272727273,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 0.9861466884613037
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.7621152400970459
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 10.909090909090908,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.806628942489624
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 12.0,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.818143367767334
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 10.181818181818182,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8659956455230713
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 12.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8339412212371826
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 12.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8539316654205322
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "tight_clustering",
+      "description": "Smaller clustering gap (0.2s vs 0.4s)",
+      "cluster_max_gap": 0.2,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 25.997889041900635,
+    "translation_time": 0.0,
+    "tts_generation_time": 21.907984495162964,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8490159511566162
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 0.903632640838623
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 0.9000082015991211
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.7891530990600586
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.8040955066680908
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.8947510719299316
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.9075815677642822
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.8983476161956787
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.8899617195129395
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8362958431243896
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8727667331695557
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 0.9302041530609131
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8474116325378418
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.8481347560882568
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.9502227306365967
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.9182052612304688
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8919529914855957
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.8024942874908447
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.8794045448303223
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.8760221004486084
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8658366203308105
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8392550945281982
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 0.8669688701629639
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 0.9321146011352539
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.8228638172149658
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.8434610366821289
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8502447605133057
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.7910335063934326
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8664469718933105
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8300013542175293
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "loose_clustering",
+      "description": "Larger clustering gap (0.6s vs 0.4s)",
+      "cluster_max_gap": 0.6,
+      "cluster_max_duration": 8.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 25.7833571434021,
+    "translation_time": 0.0,
+    "tts_generation_time": 21.75549840927124,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.9000058174133301
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 0.8568568229675293
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 1.0017144680023193
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.7905113697052002
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.7674393653869629
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.8970890045166016
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.8236818313598633
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.8949487209320068
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.8907742500305176
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.7942032814025879
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8503999710083008
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 0.9353020191192627
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8321247100830078
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.8458633422851562
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.8761382102966309
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.9280450344085693
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8334872722625732
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.7880127429962158
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.9577219486236572
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.8684303760528564
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8543496131896973
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8752892017364502
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 0.8833348751068115
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 0.8620548248291016
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.781104326248169
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.8523080348968506
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8618144989013672
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.782646894454956
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8569526672363281
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8407516479492188
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "longer_segments",
+      "description": "Longer max segment duration (12s vs 8s)",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 12.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 25.66268253326416,
+    "translation_time": 0.0,
+    "tts_generation_time": 21.634016752243042,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.88327956199646
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 0.9123566150665283
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 0.8563089370727539
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.8164987564086914
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.8086094856262207
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.8464422225952148
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.8793575763702393
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.8960978984832764
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.9318037033081055
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.7928173542022705
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.7806377410888672
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 0.9102213382720947
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8341944217681885
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.8803362846374512
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.9544069766998291
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.8923416137695312
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8454527854919434
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.822725772857666
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.8596999645233154
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.8475399017333984
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8447411060333252
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8466217517852783
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 0.8953299522399902
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 0.8754427433013916
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.796459436416626
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.8153853416442871
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8439137935638428
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.7851276397705078
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8409156799316406
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8656110763549805
+      }
+    ]
+  },
+  {
+    "config": {
+      "name": "shorter_segments",
+      "description": "Shorter max segment duration (5s vs 8s)",
+      "cluster_max_gap": 0.4,
+      "cluster_max_duration": 5.0,
+      "chars_per_second": 11.0,
+      "use_syllable_timing": false,
+      "time_stretch_method": "atempo",
+      "use_loudnorm": false,
+      "use_compressor": false,
+      "ducking_volume": 0.12,
+      "fade_duration": 0.3
+    },
+    "success": true,
+    "error_message": null,
+    "total_processing_time": 25.56256365776062,
+    "translation_time": 0.0,
+    "tts_generation_time": 21.500176668167114,
+    "mixing_time": 0.0,
+    "avg_rate_factor": 1.1157735064935066,
+    "max_rate_factor": 1.296,
+    "segments_over_1_3x": 0,
+    "segments_reprompted": 0,
+    "output_file_size": 0,
+    "output_duration": 0.0,
+    "segment_metrics": [
+      {
+        "segment_idx": 0,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.8390066623687744
+      },
+      {
+        "segment_idx": 1,
+        "text_length": 149,
+        "original_duration": 8.0,
+        "target_duration": 13.545454545454545,
+        "actual_duration": 8.0,
+        "rate_factor": 1.158,
+        "reprompted": false,
+        "processing_time": 0.9123165607452393
+      },
+      {
+        "segment_idx": 2,
+        "text_length": 145,
+        "original_duration": 8.0,
+        "target_duration": 13.181818181818182,
+        "actual_duration": 8.0,
+        "rate_factor": 1.125,
+        "reprompted": false,
+        "processing_time": 0.8986642360687256
+      },
+      {
+        "segment_idx": 3,
+        "text_length": 74,
+        "original_duration": 4.0,
+        "target_duration": 6.7272727272727275,
+        "actual_duration": 4.0,
+        "rate_factor": 1.296,
+        "reprompted": false,
+        "processing_time": 0.8558313846588135
+      },
+      {
+        "segment_idx": 4,
+        "text_length": 87,
+        "original_duration": 6.0,
+        "target_duration": 7.909090909090909,
+        "actual_duration": 5.928,
+        "rate_factor": 0.988,
+        "reprompted": false,
+        "processing_time": 0.7889349460601807
+      },
+      {
+        "segment_idx": 5,
+        "text_length": 93,
+        "original_duration": 5.5,
+        "target_duration": 8.454545454545455,
+        "actual_duration": 5.5,
+        "rate_factor": 1.1170909090909091,
+        "reprompted": false,
+        "processing_time": 0.8202924728393555
+      },
+      {
+        "segment_idx": 6,
+        "text_length": 70,
+        "original_duration": 4.0,
+        "target_duration": 6.363636363636363,
+        "actual_duration": 4.0,
+        "rate_factor": 1.248,
+        "reprompted": false,
+        "processing_time": 0.8485338687896729
+      },
+      {
+        "segment_idx": 7,
+        "text_length": 84,
+        "original_duration": 5.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1472,
+        "reprompted": false,
+        "processing_time": 0.8913729190826416
+      },
+      {
+        "segment_idx": 8,
+        "text_length": 139,
+        "original_duration": 7.5,
+        "target_duration": 12.636363636363637,
+        "actual_duration": 7.5,
+        "rate_factor": 1.1552,
+        "reprompted": false,
+        "processing_time": 0.9231624603271484
+      },
+      {
+        "segment_idx": 9,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.7902781963348389
+      },
+      {
+        "segment_idx": 10,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8792004585266113
+      },
+      {
+        "segment_idx": 11,
+        "text_length": 141,
+        "original_duration": 8.0,
+        "target_duration": 12.818181818181818,
+        "actual_duration": 8.0,
+        "rate_factor": 1.098,
+        "reprompted": false,
+        "processing_time": 0.878530740737915
+      },
+      {
+        "segment_idx": 12,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.804983377456665
+      },
+      {
+        "segment_idx": 13,
+        "text_length": 91,
+        "original_duration": 6.0,
+        "target_duration": 8.272727272727273,
+        "actual_duration": 6.0,
+        "rate_factor": 1.024,
+        "reprompted": false,
+        "processing_time": 0.8498444557189941
+      },
+      {
+        "segment_idx": 14,
+        "text_length": 148,
+        "original_duration": 8.0,
+        "target_duration": 13.454545454545455,
+        "actual_duration": 8.0,
+        "rate_factor": 1.137,
+        "reprompted": false,
+        "processing_time": 0.9813010692596436
+      },
+      {
+        "segment_idx": 15,
+        "text_length": 118,
+        "original_duration": 7.0,
+        "target_duration": 10.727272727272727,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.0799999999999998,
+        "reprompted": false,
+        "processing_time": 0.8743278980255127
+      },
+      {
+        "segment_idx": 16,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.8512499332427979
+      },
+      {
+        "segment_idx": 17,
+        "text_length": 84,
+        "original_duration": 6.0,
+        "target_duration": 7.636363636363637,
+        "actual_duration": 5.736,
+        "rate_factor": 0.956,
+        "reprompted": false,
+        "processing_time": 0.7792277336120605
+      },
+      {
+        "segment_idx": 18,
+        "text_length": 136,
+        "original_duration": 8.0,
+        "target_duration": 12.363636363636363,
+        "actual_duration": 8.0,
+        "rate_factor": 1.074,
+        "reprompted": false,
+        "processing_time": 0.9039640426635742
+      },
+      {
+        "segment_idx": 19,
+        "text_length": 81,
+        "original_duration": 5.0,
+        "target_duration": 7.363636363636363,
+        "actual_duration": 5.0,
+        "rate_factor": 1.1136,
+        "reprompted": false,
+        "processing_time": 0.8239197731018066
+      },
+      {
+        "segment_idx": 20,
+        "text_length": 76,
+        "original_duration": 5.0,
+        "target_duration": 6.909090909090909,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0608,
+        "reprompted": false,
+        "processing_time": 0.814288854598999
+      },
+      {
+        "segment_idx": 21,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.854849100112915
+      },
+      {
+        "segment_idx": 22,
+        "text_length": 132,
+        "original_duration": 7.0,
+        "target_duration": 12.0,
+        "actual_duration": 7.000000000000001,
+        "rate_factor": 1.1965714285714284,
+        "reprompted": false,
+        "processing_time": 0.8998105525970459
+      },
+      {
+        "segment_idx": 23,
+        "text_length": 126,
+        "original_duration": 7.0,
+        "target_duration": 11.454545454545455,
+        "actual_duration": 6.999999999999999,
+        "rate_factor": 1.1451428571428572,
+        "reprompted": false,
+        "processing_time": 0.9022088050842285
+      },
+      {
+        "segment_idx": 24,
+        "text_length": 71,
+        "original_duration": 5.0,
+        "target_duration": 6.454545454545454,
+        "actual_duration": 4.992,
+        "rate_factor": 0.9984,
+        "reprompted": false,
+        "processing_time": 0.7326984405517578
+      },
+      {
+        "segment_idx": 25,
+        "text_length": 72,
+        "original_duration": 4.0,
+        "target_duration": 6.545454545454546,
+        "actual_duration": 4.0,
+        "rate_factor": 1.272,
+        "reprompted": false,
+        "processing_time": 0.8413000106811523
+      },
+      {
+        "segment_idx": 26,
+        "text_length": 78,
+        "original_duration": 5.0,
+        "target_duration": 7.090909090909091,
+        "actual_duration": 5.0,
+        "rate_factor": 1.08,
+        "reprompted": false,
+        "processing_time": 0.837939977645874
+      },
+      {
+        "segment_idx": 27,
+        "text_length": 67,
+        "original_duration": 4.0,
+        "target_duration": 6.090909090909091,
+        "actual_duration": 4.0,
+        "rate_factor": 1.224,
+        "reprompted": false,
+        "processing_time": 0.8107376098632812
+      },
+      {
+        "segment_idx": 28,
+        "text_length": 79,
+        "original_duration": 5.0,
+        "target_duration": 7.181818181818182,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.7976925373077393
+      },
+      {
+        "segment_idx": 29,
+        "text_length": 80,
+        "original_duration": 5.0,
+        "target_duration": 7.2727272727272725,
+        "actual_duration": 5.0,
+        "rate_factor": 1.0848,
+        "reprompted": false,
+        "processing_time": 0.8760945796966553
+      }
+    ]
+  }
+]
