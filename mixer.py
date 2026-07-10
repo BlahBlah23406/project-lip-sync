@@ -186,8 +186,10 @@ def build_dubbed_audio(segments: list[dict], seg_dir: str, original_audio_path: 
         audio_stream = ffmpeg.input(item["seg_file"]).audio
 
         # Apply speed filter if rate > 1.02
+        # Prefer rubberband for time-stretching: it preserves formants and
+        # voice quality much better than atempo at 1.5-2.0x speedup.
         if item["rate"] > 1.02:
-            audio_stream = audio_stream.filter("atempo", item["rate"])
+            audio_stream = audio_stream.filter("rubberband", item["rate"], channels=1)
 
         # Delay audio in milliseconds
         ms = int(item["actual_start"] * 1000)
@@ -205,7 +207,13 @@ def build_dubbed_audio(segments: list[dict], seg_dir: str, original_audio_path: 
         normalize=0,
         duration="first",
     )
-    
+
+    # Dynamic range compression: even out voice dynamics and prevent clipping
+    mixed = mixed.filter("acompressor", threshold="-20dB", ratio=4, attack=200, release=1000)
+
+    # EBU R128 loudness normalization for consistent output level
+    mixed = mixed.filter("loudnorm", I=-16, TP=-1.5, LRA=11)
+
     # Save the output audio track
     ffmpeg.output(mixed, out_path, ar=44100).run(overwrite_output=True, quiet=True)
 

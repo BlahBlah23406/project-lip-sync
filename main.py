@@ -12,7 +12,7 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from captions import extract_video_id, fetch_transcript, cluster_segments
-from translator import translate_segments, retranslate_shorter
+from translator import translate_segments, retranslate_shorter, count_bangla_syllables
 
 app = FastAPI(title="Islamic Lecture Subtitle Translator")
 
@@ -166,11 +166,12 @@ def run_dub_pipeline(job_id: str, video_id: str):
                 if rate_factor > 1.02:
                     # If speedup exceeds 1.3x, reprompt LLM for a shorter translation first
                     if rate_factor > 1.3:
-                        # Target ~10 chars per second of available time
-                        max_chars = int(available_time * 10)
-                        print(f"  Segment {i}: rate={rate_factor:.2f}x > 1.3 → reprompting for ≤{max_chars} chars...")
-                        shorter_text = retranslate_shorter(seg, max_chars)
-                        if shorter_text != seg["text"]:
+                        # Target ~3.5 syllables per second of available time
+                        max_syllables = int(available_time * 3.5)
+                        actual_syllables = count_bangla_syllables(seg["text"])
+                        print(f"  Segment {i}: rate={rate_factor:.2f}x > 1.3 → reprompting for ≤{max_syllables} syllables (current {actual_syllables})...")
+                        shorter_text = retranslate_shorter(seg, max_syllables)
+                        if shorter_text != seg["text"] and count_bangla_syllables(shorter_text) <= int(max_syllables * 1.2):
                             seg["text"] = shorter_text
                             # Regenerate TTS with the shorter text at normal rate first
                             generate_segment_tts(seg["text"], out_path, speaker=speaker_id)
