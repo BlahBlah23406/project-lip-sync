@@ -30,7 +30,7 @@ General Rules:
   Bismillah (বিস্মিল্লাহ), MashaAllah (মাশাআল্লাহ), JazakAllah (জাযাকাল্লাহ), etc.
 - Keep Arabic phrases (du'as, Quranic verses) in Arabic script or their common transliteration if helpful, alongside translation.
 - Each input segment is prefixed with duration: e.g. "[2.3s] 1. Hello everyone"
-- Aim for about 10-12 characters (with spaces) per 1 second of duration. This allows producing natural, complete sentences rather than ultra-short fragments.
+- Aim for about 3-4 syllables per 1 second of duration. Bangla is phonetic, so syllables are the natural timing unit. This allows producing natural, complete sentences rather than ultra-short fragments.
 - Avoid over-compressing or translating in a fragmented/staccato way. The Bangla should flow beautifully and sound natural when spoken.
 - Output ONLY the numbered translations, one per line, matching the input numbering exactly.
 - Do not add explanations, notes, or extra text."""
@@ -110,7 +110,8 @@ def _translate_single_segment_ollama(segment: dict) -> dict:
 SHORTER_SYSTEM_PROMPT = """You are a translator specializing in Islamic religious content.
 You MUST translate the English text into Bangla (বাংলা) that is EXTREMELY SHORT and CONCISE.
 
-CRITICAL: Your translation MUST be shorter than the character budget provided. 
+CRITICAL: Your translation MUST be shorter than the syllable budget provided.
+- Bangla speech timing is based on syllables, not characters: aim for about 3-4 syllables per second.
 - Use the shortest possible Bangla phrasing while preserving the core meaning.
 - Drop filler words, hedging, and unnecessary detail.
 - Use common abbreviations and shorter synonyms.
@@ -119,7 +120,52 @@ CRITICAL: Your translation MUST be shorter than the character budget provided.
 - Output ONLY the Bangla translation. No explanations, no numbering, no tags."""
 
 
-def retranslate_shorter(segment: dict, max_chars: int) -> str:
+def count_bangla_syllables(text: str) -> int:
+    """
+    Estimate syllable count for Bangla text.
+
+    A simple phonetic heuristic: each vowel nucleus (standalone vowel or
+    vowel sign attached to a consonant) counts as one syllable. Consonants
+    without a following vowel sign also form a syllable (often a final
+    consonant/cluster).
+    """
+    if not text:
+        return 0
+
+    # Standalone Bangla vowels
+    standalone_vowels = set("অআইঈউঊঋএঐওঔ")
+    # Bangla vowel signs (কার) attached to consonants
+    vowel_signs = set("ািীুৃেৈোৌ")
+
+    count = 0
+    has_vowel_sign = False
+
+    for ch in text:
+        if ch in standalone_vowels:
+            count += 1
+            has_vowel_sign = False
+        elif ch in vowel_signs:
+            # A vowel sign attached to a consonant creates a new syllable nucleus.
+            count += 1
+            has_vowel_sign = True
+        elif ch == "্":
+            # Hasant joins consonants; no new syllable here.
+            continue
+        elif "\u0980" <= ch <= "\u09FF":
+            # Bangla consonant or other character.
+            if not has_vowel_sign:
+                # Treat an isolated consonant as its own syllable (closed syllable).
+                count += 1
+            has_vowel_sign = False
+        else:
+            # Non-Bangla characters (spaces, punctuation, digits): reset state
+            # but do not increment the syllable counter.
+            has_vowel_sign = False
+
+    return max(count, 1)
+
+
+def retranslate_shorter(segment: dict, max_syllables: int) -> str:
     """
     Reprompt the LLM to produce a shorter Bangla translation for a segment
     that requires excessive speedup (>1.3x).
@@ -127,7 +173,7 @@ def retranslate_shorter(segment: dict, max_chars: int) -> str:
     Args:
         segment: The segment dict with 'text' (current Bangla), 'start', 'duration',
                  and optionally 'original_text' (English source).
-        max_chars: Target maximum character count for the output.
+        max_syllables: Target maximum syllable count for the output.
     
     Returns:
         A shorter Bangla translation string.
@@ -135,19 +181,19 @@ def retranslate_shorter(segment: dict, max_chars: int) -> str:
     current_text = segment.get("text", "")
     original_english = segment.get("original_text", "")
     
-    # Build the prompt with the character budget
+    # Build the prompt with the syllable budget
     if original_english:
         prompt = (
-            f"The following English text needs to be translated into Bangla in at most {max_chars} characters.\n"
+            f"The following English text needs to be translated into Bangla in at most {max_syllables} syllables.\n"
             f"English: {original_english}\n"
             f"Current Bangla (TOO LONG): {current_text}\n"
-            f"Produce a SHORTER Bangla translation (max {max_chars} chars). Output ONLY the Bangla text."
+            f"Produce a SHORTER Bangla translation (max {max_syllables} syllables). Output ONLY the Bangla text."
         )
     else:
         prompt = (
             f"The following Bangla text is too long for the available time window.\n"
             f"Current Bangla: {current_text}\n"
-            f"Rewrite it in at most {max_chars} characters while keeping the core meaning.\n"
+            f"Rewrite it in at most {max_syllables} syllables while keeping the core meaning.\n"
             f"Output ONLY the shortened Bangla text."
         )
     
@@ -174,11 +220,14 @@ def retranslate_shorter(segment: dict, max_chars: int) -> str:
                 # Strip any numbering artifacts
                 cleaned = re.sub(r"^\d+[\.)\]]\s*", "", cleaned).strip()
                 cleaned = re.sub(r"^\[.*?\]\s*", "", cleaned).strip()
-                if cleaned and len(cleaned) <= max_chars * 1.2:  # Allow slight overshoot
-                    print(f"  ✓ Reprompt succeeded: {len(current_text)} → {len(cleaned)} chars")
+                if cleaned and count_bangla_syllables(cleaned) <= int(max_syllables * 1.2):  # Allow slight overshoot
+                    cleaned_syllables = count_bangla_syllables(cleaned)
+                    current_syllables = count_bangla_syllables(current_text)
+                    print(f"  ✓ Reprompt succeeded: {current_syllables} → {cleaned_syllables} syllables")
                     return cleaned
                 else:
-                    print(f"  ⚠ Reprompt result still too long ({len(cleaned)} chars vs {max_chars} budget)")
+                    cleaned_syllables = count_bangla_syllables(cleaned)
+                    print(f"  ⚠ Reprompt result still too long ({cleaned_syllables} syllables vs {max_syllables} budget)")
         except Exception as e:
             print(f"  ⚠ Reprompt via Ollama failed: {e}")
     else:
@@ -195,11 +244,14 @@ def retranslate_shorter(segment: dict, max_chars: int) -> str:
             cleaned = _clean_text(raw)
             cleaned = re.sub(r"^\d+[\.)\]]\s*", "", cleaned).strip()
             cleaned = re.sub(r"^\[.*?\]\s*", "", cleaned).strip()
-            if cleaned and len(cleaned) <= max_chars * 1.2:
-                print(f"  ✓ Reprompt succeeded: {len(current_text)} → {len(cleaned)} chars")
+            if cleaned and count_bangla_syllables(cleaned) <= int(max_syllables * 1.2):
+                cleaned_syllables = count_bangla_syllables(cleaned)
+                current_syllables = count_bangla_syllables(current_text)
+                print(f"  ✓ Reprompt succeeded: {current_syllables} → {cleaned_syllables} syllables")
                 return cleaned
             else:
-                print(f"  ⚠ Reprompt result still too long ({len(cleaned)} chars vs {max_chars} budget)")
+                cleaned_syllables = count_bangla_syllables(cleaned)
+                print(f"  ⚠ Reprompt result still too long ({cleaned_syllables} syllables vs {max_syllables} budget)")
         except Exception as e:
             print(f"  ⚠ Reprompt via Anthropic failed: {e}")
     
