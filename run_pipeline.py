@@ -20,7 +20,7 @@ from translator import translate_segments, retranslate_shorter, count_bangla_syl
 from dubber import download_video, generate_segment_tts
 from mixer import build_dubbed_audio, mux_video_with_dubbed_audio, get_audio_duration
 
-VIDEO_ID = "H3hijSGhdlo"
+VIDEO_ID = sys.argv[1] if len(sys.argv) > 1 else "H3hijSGhdlo"
 OUTPUT_DIR = "output"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
