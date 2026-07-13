@@ -21,15 +21,16 @@ def fetch_transcript(video_id: str) -> list[dict]:
     api = YouTubeTranscriptApi()
 
     try:
-        # --- ADDED: LOCAL TRANSCRIPT CACHE ---
+        # --- LOCAL TRANSCRIPT CACHE (per-video) ---
         import json
         import os
-        cache_path = os.path.join(os.path.dirname(__file__), "test_transcript.json")
+        cache_dir = os.path.join(os.path.dirname(__file__), "transcript_cache")
+        cache_path = os.path.join(cache_dir, f"{video_id}.json")
         if os.path.exists(cache_path):
             print(f"  Using cached transcript from {cache_path}")
             with open(cache_path, "r", encoding="utf-8") as f:
                 return json.load(f)
-        # ------------------------------------
+        # -----------------------------------------
         fetched = api.fetch(video_id, languages=["en", "en-US", "en-GB"])
         raw = fetched.to_raw_data()
     except Exception:
@@ -42,7 +43,15 @@ def fetch_transcript(video_id: str) -> list[dict]:
         fetched = transcript_obj.fetch()
         raw = fetched.to_raw_data()
 
-    return [{"text": seg["text"], "start": seg["start"], "duration": seg["duration"]} for seg in raw]
+    result = [{"text": seg["text"], "start": seg["start"], "duration": seg["duration"]} for seg in raw]
+
+    # Save to per-video cache
+    os.makedirs(cache_dir, exist_ok=True)
+    with open(cache_path, "w", encoding="utf-8") as f:
+        json.dump(result, f, ensure_ascii=False, indent=2)
+    print(f"  Cached transcript to {cache_path}")
+
+    return result
 
 
 def cluster_segments(segments: list[dict], max_gap: float = 0.4, max_duration: float = 8.0) -> list[dict]:
