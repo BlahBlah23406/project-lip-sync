@@ -1,6 +1,7 @@
 """
-Standalone script to run the LipSync dubbing pipeline on test video H3hijSGhdlo.
-Outputs: dubbed audio (MP3) + translation transcript (JSON) to the output/ directory.
+Standalone script to run the LipSync dubbing pipeline on a YouTube video ID.
+Outputs are written under output/{video_id}/: dubbed audio (MP3), dubbed video (MP4),
+translation transcript (JSON), and a manifest.json summary.
 """
 import os
 import sys
@@ -8,6 +9,12 @@ import json
 import time
 import shutil
 import tempfile
+import io
+
+# Force UTF-8 for stdout/stderr on Windows so Bangla and symbols don't crash cp1252
+if sys.platform == "win32" and hasattr(sys.stdout, "buffer"):
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding="utf-8", errors="replace")
 
 # Ensure we're in the right directory
 os.chdir(os.path.dirname(os.path.abspath(__file__)))
@@ -24,8 +31,14 @@ VIDEO_ID = sys.argv[1] if len(sys.argv) > 1 else "H3hijSGhdlo"
 OUTPUT_DIR = "output"
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 
+# Per-video artifacts directory + metadata manifest
+VIDEO_OUTPUT_DIR = os.path.join(OUTPUT_DIR, VIDEO_ID)
+os.makedirs(VIDEO_OUTPUT_DIR, exist_ok=True)
+MANIFEST_PATH = os.path.join(VIDEO_OUTPUT_DIR, "manifest.json")
+
 print(f"=== LipSync Dubbing Pipeline ===")
 print(f"Video ID: {VIDEO_ID}")
+print(f"Artifacts dir: {VIDEO_OUTPUT_DIR}")
 print(f"Started at: {time.strftime('%Y-%m-%d %H:%M:%S')}")
 start_time = time.time()
 
@@ -129,17 +142,17 @@ build_dubbed_audio(segments, seg_dir, original_audio_path, total_duration, dubbe
 
 # Step 6: Save outputs
 print("\n[6/6] Saving outputs...")
-audio_out = os.path.join(OUTPUT_DIR, f"{VIDEO_ID}_dubbed.mp3")
+audio_out = os.path.join(VIDEO_OUTPUT_DIR, f"{VIDEO_ID}_dubbed.mp3")
 shutil.copy(dubbed_audio, audio_out)
 print(f"  Dubbed audio: {audio_out}")
 
 # Mux video
-out_video = os.path.join(OUTPUT_DIR, f"{VIDEO_ID}_dubbed.mp4")
+out_video = os.path.join(VIDEO_OUTPUT_DIR, f"{VIDEO_ID}_dubbed.mp4")
 mux_video_with_dubbed_audio(video_path, dubbed_audio, out_video)
 print(f"  Dubbed video: {out_video}")
 
 # Save transcript JSON
-transcript_out = os.path.join(OUTPUT_DIR, f"{VIDEO_ID}_transcript.json")
+transcript_out = os.path.join(VIDEO_OUTPUT_DIR, f"{VIDEO_ID}_transcript.json")
 with open(transcript_out, "w", encoding="utf-8") as f:
     json.dump({
         "video_id": VIDEO_ID,
@@ -149,9 +162,34 @@ with open(transcript_out, "w", encoding="utf-8") as f:
     }, f, ensure_ascii=False, indent=2)
 print(f"  Transcript: {transcript_out}")
 
+# Write metadata manifest
+manifest = {
+    "video_id": VIDEO_ID,
+    "created_at": time.strftime("%Y-%m-%dT%H:%M:%S"),
+    "elapsed_seconds": round(time.time() - start_time, 2),
+    "artifacts": {
+        "dubbed_audio": os.path.basename(audio_out),
+        "dubbed_video": os.path.basename(out_video),
+        "transcript": os.path.basename(transcript_out),
+    },
+    "files": {
+        k: os.path.getsize(os.path.join(VIDEO_OUTPUT_DIR, v))
+        for k, v in {
+            "dubbed_audio": os.path.basename(audio_out),
+            "dubbed_video": os.path.basename(out_video),
+            "transcript": os.path.basename(transcript_out),
+        }.items()
+    },
+    "segment_count": len(segments),
+    "tokens": {"input": in_tokens, "output": out_tokens},
+}
+with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
+    json.dump(manifest, f, ensure_ascii=False, indent=2)
+print(f"  Manifest: {MANIFEST_PATH}")
+
 # Cleanup
 shutil.rmtree(work_dir, ignore_errors=True)
 
 elapsed = time.time() - start_time
 print(f"\n=== Pipeline complete in {elapsed:.1f}s ===")
-print(f"Output files in: {OUTPUT_DIR}/")
+print(f"Output files in: {VIDEO_OUTPUT_DIR}/")
