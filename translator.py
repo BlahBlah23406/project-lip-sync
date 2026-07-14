@@ -7,8 +7,17 @@ SYSTEM_PROMPT = """You are a translator specializing in Islamic religious conten
 Translate the following English lecture captions into Bangla (বাংলা).
 
 CRITICAL TIME CONSTRAINT & FORMAT RULES:
-The translated text will be converted to speech (TTS) and played in real-time.
-To prevent audio clips from overlapping, translations MUST be concise and fit the time window, but they MUST flow naturally, be grammatically complete, and avoid sounding fragmented or staccato.
+The translated text will be converted to speech (TTS) and must be SPOKEN ALOUD inside a
+fixed time window given for each line. This is the hardest constraint in the task.
+
+A line that does not fit its window cannot be slowed down -- it gets sped up, and sped-up
+speech is unintelligible. So: LENGTH IS THE CONSTRAINT, and meaning must be fitted into it.
+- If the faithful translation does not fit, COMPRESS THE MEANING: say the same thing with
+  fewer words. Drop intensifiers, filler, repetition, and rhetorical padding.
+- English lecture speech is repetitive; Bangla does not need to reproduce every repetition.
+- A shorter line that keeps the core meaning is ALWAYS better than a complete line that
+  overruns its window.
+Within that limit, the Bangla must still be grammatical and sound natural when spoken.
 
 Additional Annotation Requirements (Speaker Diarization & Quote Detection):
 1. Speaker Tracking:
@@ -29,9 +38,13 @@ General Rules:
   InshaAllah (ইনশাআল্লাহ), Alhamdulillah (আলহামদুলিল্লাহ), SubhanAllah (সুবহানআল্লাহ),
   Bismillah (বিস্মিল্লাহ), MashaAllah (মাশাআল্লাহ), JazakAllah (জাযাকাল্লাহ), etc.
 - Keep Arabic phrases (du'as, Quranic verses) in Arabic script or their common transliteration if helpful, alongside translation.
-- Each input segment is prefixed with duration: e.g. "[2.3s] 1. Hello everyone"
-- Aim for about 3-4 syllables per 1 second of duration. Bangla is phonetic, so syllables are the natural timing unit. This allows producing natural, complete sentences rather than ultra-short fragments.
-- Avoid over-compressing or translating in a fragmented/staccato way. The Bangla should flow beautifully and sound natural when spoken.
+- Each input segment is prefixed with its duration: e.g. "[2.3s] 1. Hello everyone"
+- HARD BUDGET: at most 3.5 spoken Bangla syllables per 1 second of that duration. A [2.3s]
+  line gets at most ~8 syllables. Count them. Going over means the line gets sped up and
+  becomes unintelligible, which ruins the dub -- staying under is more important than
+  capturing every nuance.
+- Prefer short everyday Bangla words over long formal/Sanskritised ones.
+- Do not pad. Do not add words that are not in the English.
 - Output ONLY the numbered translations, one per line, matching the input numbering exactly.
 - Do not add explanations, notes, or extra text."""
 
@@ -165,18 +178,43 @@ def count_bangla_syllables(text: str) -> int:
     return max(count, 1)
 
 
+def _accept_shorter(cleaned: str, current_text: str, max_syllables: int) -> str | None:
+    """Decide whether a reprompt result is worth keeping.
+
+    ANY strictly shorter line is a win and is kept. The old rule demanded the result
+    land under `max_syllables * 1.2` and threw it away otherwise -- so a line that
+    came back 30% shorter (real, useful compression) was discarded, and the pipeline
+    fell back to brute-force speeding up the ORIGINAL long line. That fallback is what
+    produced the unintelligible audio; never discard a shorter line again.
+    """
+    if not cleaned:
+        return None
+    got = count_bangla_syllables(cleaned)
+    was = count_bangla_syllables(current_text)
+    if got >= was:
+        print(f"    reprompt came back no shorter ({was} -> {got} syllables); keeping original")
+        return None
+    if got <= max_syllables:
+        print(f"    reprompt OK: {was} -> {got} syllables (budget {max_syllables})")
+    else:
+        print(f"    reprompt shorter but over budget: {was} -> {got} syllables "
+              f"(budget {max_syllables}) -- keeping it anyway, shorter is strictly better")
+    return cleaned
+
+
 def retranslate_shorter(segment: dict, max_syllables: int) -> str:
     """
-    Reprompt the LLM to produce a shorter Bangla translation for a segment
-    that requires excessive speedup (>1.3x).
-    
+    Reprompt the LLM for a shorter Bangla line when the synthesized clip overflows
+    its caption slot. Shortening the TEXT is the only good way to fit a slot --
+    speeding up the SPEECH is what destroyed intelligibility before 2026-07-14.
+
     Args:
         segment: The segment dict with 'text' (current Bangla), 'start', 'duration',
                  and optionally 'original_text' (English source).
-        max_syllables: Target maximum syllable count for the output.
-    
+        max_syllables: Target syllable count, in count_bangla_syllables() units.
+
     Returns:
-        A shorter Bangla translation string.
+        A shorter Bangla translation, or the original text if nothing better came back.
     """
     current_text = segment.get("text", "")
     original_english = segment.get("original_text", "")
@@ -220,16 +258,11 @@ def retranslate_shorter(segment: dict, max_syllables: int) -> str:
                 # Strip any numbering artifacts
                 cleaned = re.sub(r"^\d+[\.)\]]\s*", "", cleaned).strip()
                 cleaned = re.sub(r"^\[.*?\]\s*", "", cleaned).strip()
-                if cleaned and count_bangla_syllables(cleaned) <= int(max_syllables * 1.2):  # Allow slight overshoot
-                    cleaned_syllables = count_bangla_syllables(cleaned)
-                    current_syllables = count_bangla_syllables(current_text)
-                    print(f"  ✓ Reprompt succeeded: {current_syllables} → {cleaned_syllables} syllables")
-                    return cleaned
-                else:
-                    cleaned_syllables = count_bangla_syllables(cleaned)
-                    print(f"  ⚠ Reprompt result still too long ({cleaned_syllables} syllables vs {max_syllables} budget)")
+                accepted = _accept_shorter(cleaned, current_text, max_syllables)
+                if accepted:
+                    return accepted
         except Exception as e:
-            print(f"  ⚠ Reprompt via Ollama failed: {e}")
+            print(f"    reprompt via Ollama failed: {e}")
     else:
         # Use Anthropic Claude
         try:
@@ -244,16 +277,11 @@ def retranslate_shorter(segment: dict, max_syllables: int) -> str:
             cleaned = _clean_text(raw)
             cleaned = re.sub(r"^\d+[\.)\]]\s*", "", cleaned).strip()
             cleaned = re.sub(r"^\[.*?\]\s*", "", cleaned).strip()
-            if cleaned and count_bangla_syllables(cleaned) <= int(max_syllables * 1.2):
-                cleaned_syllables = count_bangla_syllables(cleaned)
-                current_syllables = count_bangla_syllables(current_text)
-                print(f"  ✓ Reprompt succeeded: {current_syllables} → {cleaned_syllables} syllables")
-                return cleaned
-            else:
-                cleaned_syllables = count_bangla_syllables(cleaned)
-                print(f"  ⚠ Reprompt result still too long ({cleaned_syllables} syllables vs {max_syllables} budget)")
+            accepted = _accept_shorter(cleaned, current_text, max_syllables)
+            if accepted:
+                return accepted
         except Exception as e:
-            print(f"  ⚠ Reprompt via Anthropic failed: {e}")
+            print(f"    reprompt via Anthropic failed: {e}")
     
     # Fallback: return original text unchanged
     return current_text
