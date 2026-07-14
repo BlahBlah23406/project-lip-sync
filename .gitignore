@@ -1,7 +1,42 @@
-.env
-.venv/
+# Debug / temp scripts (underscore-prefixed)
+_*.py
+_*.txt
+
+# Backup files
+*.bak-*
+*_bak*
+
+# Test audio extracts
+test_*.wav
+
+# Whisper / analysis artifacts
+whisper_*.json
+*_report*.txt
+*.log
+
+# TTS meta / segment status dumps
+tts_meta_*.txt
+seg_*.txt
+seg_status.txt
+missing*.txt
+unicode_lines.txt
+rpl_*.txt
+fix_tts*.txt
+
+# Runtime logs
+logs/
+
+# Whisper transcript cache
+transcript_cache/
+
+# Output (large media files — not in git)
+output/
+
+# Python
 __pycache__/
 *.pyc
-output/
-.DS_Store
-scratch/
+.venv/
+venv/
+
+# Work directories
+*.work/
