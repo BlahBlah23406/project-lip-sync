@@ -5,6 +5,13 @@ _*.txt
 # Backup files
 *.bak-*
 *_bak*
+*.bak
+backups/
+
+# Watcher runtime state — machine-local and rewritten on every tick
+watcher_state.json
+watcher_events.jsonl
+watcher.lock
 
 # Test audio extracts
 test_*.wav
