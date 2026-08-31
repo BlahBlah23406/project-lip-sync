@@ -1,3 +1,6 @@
+# Secrets — holds a live LLM_API_KEY, must never be committed
+.env
+
 # Debug / temp scripts (underscore-prefixed)
 _*.py
 _*.txt
