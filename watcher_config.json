@@ -1,0 +1,29 @@
+{
+  "channels": [
+    {
+      "id": "UC3vHW2h22WE-pNi5WJtRIjg",
+      "name": "Yaqeen Institute",
+      "handle": "@yaqeeninstituteofficial",
+      "enabled": true
+    },
+    {
+      "id": "UClUa7-iHJNKEM2e_zWYSPQg",
+      "name": "Yasir Qadhi",
+      "handle": "@YasirQadhi",
+      "enabled": true
+    }
+  ],
+  "auto_process": true,
+  "max_concurrent": 1,
+  "max_new_per_check": 2,
+  "max_launches_per_day": 4,
+  "min_duration_seconds": 180,
+  "max_duration_seconds": 5400,
+  "require_english_captions": true,
+  "skip_live": true,
+  "ignore_published_before": "2026-07-24T01:28:36+00:00",
+  "max_attempts": 2,
+  "stall_minutes": 45,
+  "supervise": true,
+  "notify_command": null
+}
