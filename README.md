@@ -4,6 +4,8 @@
 
 # Project Lip Sync
 
+[![Checks](https://github.com/BlahBlah23406/project-lip-sync/actions/workflows/checks.yml/badge.svg)](https://github.com/BlahBlah23406/project-lip-sync/actions/workflows/checks.yml)
+
 An end-to-end pipeline that dubs English lecture videos into Bangla — transcript to
 translation to synthesized speech to a remixed audio track — and a watcher that runs it
 unattended against a list of YouTube channels.
