@@ -10,10 +10,10 @@ Design
 ------
 This is a POLLED STATE MACHINE, not a daemon. Every invocation is short, does one
 reconcile pass, and exits; all state lives in watcher_state.json. That is
-deliberate: a long-lived watcher process dies at reboot, at logoff, and at every
-agent tool-call timeout, and then nobody notices for a week. A scheduled task
-firing a 20-second script cannot rot the same way, and a missed tick costs
-nothing because the next tick re-derives everything from disk.
+deliberate: a long-lived watcher dies at reboot, at logoff, and at any caller's
+timeout, and then nobody notices for a week. A scheduled task firing a 20-second
+script cannot rot that way, and a missed tick costs nothing -- the next tick
+re-derives everything from disk.
 
 The dub itself is NOT run here. `launch_pipeline.py` detaches it via WMI so it
 outlives this process (a 20-minute episode takes 30-60 minutes to dub). This
@@ -29,11 +29,10 @@ Flow per video:
               -> skipped (short/too long/no English captions, or still not a VOD
                           after the whole re-probe budget)
 
-Adding to the plaza is not a separate publish step: /api/plaza scans
-output/*/manifest.json, so a finished run is already listed. What the watcher
-adds is the metadata the pipeline cannot know -- the human title, the channel,
-the source URL -- patched into the manifest so the card reads like a lecture and
-not like a video ID.
+Publishing is not a separate step: a finished run already has its
+output/<id>/manifest.json. What the watcher adds is the metadata the pipeline
+cannot know -- the human title, the channel, the source URL -- patched into that
+manifest so a listing reads like a lecture and not like a video ID.
 """
 import argparse
 import json
@@ -122,7 +121,7 @@ DEFAULT_CONFIG = {
     "supervise": True,
     # Optional: argv list run after each successful dub. {video_id} {title}
     # {url} {channel} are substituted. e.g.
-    # ["node", "C:/Users/shaya/.openclaw/scripts/deliver-output.mjs", "{path}"]
+    # ["node", "scripts/deliver-output.mjs", "{path}"]
     "notify_command": None,
 }
 
@@ -345,12 +344,11 @@ def launch_pipeline(video_id: str, supervise: bool) -> tuple[bool, str]:
 # --- plaza metadata -------------------------------------------------------------
 
 def enrich_manifest(video_id: str, meta: dict) -> bool:
-    """Give the finished dub a human identity in the plaza.
+    """Give the finished dub a human identity.
 
-    run_pipeline.py has no idea what the video is called -- it only ever sees an
-    11-character ID -- so /api/plaza falls back to showing the ID as the title.
-    Patching the manifest is what turns a row of opaque IDs into a library.
-    Additive only: never touch the coverage/timing fields the audit tools read.
+    run_pipeline.py only ever sees an 11-character video ID, so without this a
+    listing shows opaque IDs instead of lecture titles. Additive only: never
+    touch the coverage/timing fields the audit tools read.
     """
     path = os.path.join(OUTPUT_DIR, video_id, "manifest.json")
     manifest = read_manifest(video_id)

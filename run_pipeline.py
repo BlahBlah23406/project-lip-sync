@@ -21,8 +21,8 @@ Phases (each one is skippable on resume):
   6 mix         -> .work/dubbed_audio.mp3
   7 publish     -> output/<video_id>/*.mp3|.mp4|.json
 
-For long episodes launch it detached so it does not die with the agent's tool
-call:  python launch_pipeline.py <VIDEO_ID>
+For long episodes launch it detached so it outlives whatever started it:
+    python launch_pipeline.py <VIDEO_ID>
 """
 import faulthandler
 import hashlib
@@ -34,14 +34,9 @@ import time
 import traceback
 
 # Force UTF-8 stdout/stderr on Windows so Bangla text does not crash cp1252.
-#
-# MUST use reconfigure(), not `sys.stdout = io.TextIOWrapper(sys.stdout.buffer, ...)`.
-# The wrapper form silently re-introduces block buffering on top of `python -u`,
-# because a fresh TextIOWrapper defaults to write_through=False. Every log this
-# pipeline wrote between 2026-07-13 12:00 and 13:09 was 0 bytes for exactly that
-# reason: the output sat in an 8KB buffer and died with the process. line_buffering
-# guarantees each print() reaches the log file immediately, even if we are killed
-# one line later.
+# Must be reconfigure(): wrapping sys.stdout in a fresh TextIOWrapper defaults to
+# write_through=False, which re-introduces block buffering on top of `python -u`
+# and loses every buffered log line when the process is killed.
 if sys.platform == "win32":
     sys.stdout.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
     sys.stderr.reconfigure(encoding="utf-8", errors="replace", line_buffering=True)
@@ -73,12 +68,9 @@ MIN_COVERAGE = 0.5
 # shorten the line. Below this the mixer's speed-up is imperceptible.
 OVERFLOW_TRIGGER = 1.10
 
-# Delivery speed of the Edge-TTS Bangla voice, in the units that
-# count_bangla_syllables() produces (that counter over-counts true phonological
-# syllables, so this number is NOT the ~4/sec of human Bangla -- it is calibrated
-# against the counter). Measured 2026-07-14 over the 142 naturally-spoken clips of
-# WcMYaveKv1E: median 7.00, mean 6.77. Re-measure with _measure_syllable_rate.py
-# if the voice ever changes.
+# Delivery speed of the Bangla voice in count_bangla_syllables() units -- that
+# counter over-counts true syllables, so this is calibrated against it, not the
+# ~4/sec of human Bangla. Median of 142 natural clips; re-measure if the voice changes.
 SYLLABLES_PER_SEC = 7.0
 
 
@@ -154,11 +146,10 @@ for d in (VIDEO_OUTPUT_DIR, WORK_DIR, SEG_DIR):
 # --------------------------------------------------------------------------
 # durable crash reporting
 # --------------------------------------------------------------------------
-# A traceback that only ever reaches a killed process's stdout buffer does not
-# exist. Anything that kills this run -- a Python exception, or a hard fault like
-# a segfault/stack overflow -- must leave a readable file behind.
-#   .work/crash.txt      last fatal error (deleted on a clean start)
-#   .work/faulthandler.log  native-level fault traces
+# A traceback that only reaches a killed process's stdout buffer does not exist,
+# so every fatal error lands on disk instead:
+#   .work/crash.txt          last Python exception (cleared on a clean start)
+#   .work/faulthandler.log   native-level fault traces
 CRASH_PATH = os.path.join(WORK_DIR, "crash.txt")
 if os.path.exists(CRASH_PATH):
     os.remove(CRASH_PATH)
@@ -184,16 +175,11 @@ sys.excepthook = _record_crash
 # --------------------------------------------------------------------------
 # stall watchdog
 # --------------------------------------------------------------------------
-# Defence in depth for the 2026-07-13 root cause. The TTS call is now bounded
-# (see dubber.py), but ffmpeg, yt-dlp and the translator LLM are all network- or
-# subprocess-bound and could stall the same way. A hang is the WORST failure mode
-# here: the run holds its lock, makes no progress, and looks alive, so nothing
-# retries it -- it just waits to be killed from outside, which is precisely the
-# bug that was mistaken for an OOM SIGKILL.
-#
-# So: if no phase reports progress for STALL_TIMEOUT, dump every thread's stack
-# and die non-zero. All work is checkpointed, so re-running resumes; a loud,
-# resumable death beats a silent infinite wait.
+# TTS is bounded (see dubber.py), but ffmpeg, yt-dlp and the translator LLM can
+# stall the same way. A hang is the worst failure here: the run holds its lock and
+# looks alive, so nothing retries it. If no phase reports progress for
+# STALL_TIMEOUT, dump every thread's stack and exit non-zero -- work is
+# checkpointed, so a loud resumable death beats a silent wait.
 import threading
 
 STALL_TIMEOUT = float(os.getenv("STALL_TIMEOUT", "1200"))  # 20 min of zero progress
@@ -282,17 +268,11 @@ def _pid_alive(pid: int) -> bool:
 
 
 # --------------------------------------------------------------------------
-# Refuse to run in the foreground of an agent tool call.
-#
-# A tool call is SIGKILLed at its timeout and takes its whole process tree with
-# it. TTS survives that (it is checkpointed per clip) but the MIX phase restarts
-# from segment 0 every time -- so a foreground run can never finish, no matter how
-# many times it is retried. That is precisely how 2026-07-13 was lost: the same
-# episode was relaunched in the foreground over and over, resuming TTS instantly
-# and then dying mid-mix, forever.
-#
-# The durable launchers set PIPELINE_SUPERVISED=1. Nothing else may start us.
-# --------------------------------------------------------------------------
+# Refuse to run in the foreground of a short-lived parent process.
+# Such a parent is killed at its timeout and takes this whole process tree with
+# it. TTS survives (it is checkpointed per clip) but MIX restarts from segment 0,
+# so a foreground run can never finish however often it is retried.
+# The durable launchers set PIPELINE_SUPERVISED=1; nothing else may start us.
 if os.environ.get("PIPELINE_SUPERVISED") != "1" and "--foreground" not in sys.argv:
     sys.exit(
         "REFUSING TO START: run_pipeline.py must be launched detached, not from a tool call.\n"
@@ -422,16 +402,12 @@ if coverage < MIN_COVERAGE:
     )
 print(f"  Transcript covers {coverage:.0%} of the video - OK")
 
-# YouTube's auto-captions can emit phantom cues PAST the end of the video. WcMYaveKv1E
-# is 1371s long but its transcript runs to 1412s: 8 cues start after the video has already
-# ended. They were being translated, synthesized, mixed -- and then silently thrown away by
-# the `-shortest` mux, while inflating the coverage metric to a healthy-looking 103%. A
-# metric that reports success for audio nobody can hear is exactly the kind that hid the
-# 2026-07-13 fake dubs. Drop them, and say so.
-# Segment starts are sorted, so the unreachable cues are always a trailing suffix. We
-# TRUNCATE rather than filter: a segment's index IS its clip filename (seg_%04d.mp3) and
-# its tts_meta key, so removing one from the middle would silently re-point every later
-# segment at the wrong audio. Truncating a suffix cannot do that.
+# YouTube auto-captions can emit cues starting past the end of the video. They get
+# translated and synthesized, then dropped by the `-shortest` mux -- while still
+# inflating coverage past 100%. Drop them here, and say so.
+# Truncate rather than filter: a segment's index IS its clip filename (seg_%04d.mp3)
+# and its tts_meta key, so removing one from the middle would re-point every later
+# segment at the wrong audio. Starts are sorted, so these are always a suffix.
 unreachable = [i for i, s in enumerate(segments) if s["start"] >= video_duration]
 if unreachable:
     cut = min(unreachable)
@@ -510,11 +486,9 @@ for i, seg in enumerate(segments):
     src_hash = text_hash(seg["text"], speaker)
     meta = tts_meta.get(str(i))
 
-    # Resume: trust an existing clip only if it is real audio, was produced from this
-    # exact source text, AND is NATURAL speech. A clip with a baked-in `rate` is a
-    # legacy artefact of the old fit-by-speeding-up logic (up to +100%, unintelligible
-    # on its own before the mixer even touched it). Those must be re-synthesized, not
-    # reused -- otherwise the quality bug survives every "resumable" re-run.
+    # Resume: reuse a clip only if it is real audio, came from this exact source text,
+    # and is natural speech. A baked-in `rate` marks a clip from the old
+    # fit-by-speeding-up logic; reusing one would carry that bug through every re-run.
     if (meta and meta.get("src_hash") == src_hash and not meta.get("rate")
             and probe_duration_safe(out_path) > 0):
         seg["text"] = meta.get("final_text", seg["text"])
@@ -527,22 +501,16 @@ for i, seg in enumerate(segments):
     try:
         generate_segment_tts(seg["text"], out_path, speaker=speaker)
 
-        # Fit the clip into its slot by SHORTENING THE TEXT -- never by speeding up
-        # the speech. Speed is decided once, later, by the mixer (see the policy at
-        # the top of mixer.py). This function used to bake an Edge-TTS `rate` of up
-        # to +100% into the clip; the mixer, unable to see that, then sped the same
-        # clip up AGAIN, and the two multiplied to as much as 4.0x. Clips are now
-        # always synthesized at NATURAL speed, and `rate` is always None.
+        # Fit the clip into its slot by SHORTENING THE TEXT, never by speeding up the
+        # speech -- speed is the mixer's call alone (see the policy atop mixer.py).
+        # Clips are always synthesized at natural speed, so `rate` stays None.
         available = available_time_for(segments, i)
         actual = get_audio_duration(out_path)
         applied_rate = None  # invariant: clips on disk are natural speech
 
         if available > 0 and actual > available * OVERFLOW_TRIGGER:
-            # Budget in the units of count_bangla_syllables(). Measured on 142 natural
-            # Edge-TTS Bangla clips from WcMYaveKv1E: the voice delivers ~7.0 of these
-            # units per second (median). The old budget of 3.5/sec asked for text twice
-            # as short as it needed to be; the LLM could not hit it, the result was
-            # thrown away, and the original long line got brute-force sped up instead.
+            # Budget in count_bangla_syllables() units, not true syllables: measured
+            # over 142 natural clips, the voice delivers ~7.0 of these per second.
             max_syllables = int(available * SYLLABLES_PER_SEC * MAX_SPEED)
             before = count_bangla_syllables(seg["text"])
             print(f"  Segment {i}: {actual / available:.2f}x too long -> reprompting for "
@@ -646,11 +614,10 @@ stats = build_dubbed_audio(
 )
 print(f"  Mixed {stats['segments_mixed']} segments -> {stats['output_seconds'] / 60:.1f} min")
 
-# Anti-ALIGNMENT guard. Coverage and speed both looked healthy on the dub that shipped
-# 18.7s out of sync, because neither of them measures alignment. This one does: `offset`
-# is how late each Bangla line lands relative to the English caption it translates.
-# A NEGATIVE offset means the dub plays EARLY, which the layout makes arithmetically
-# impossible -- so if it ever appears, the mixer is broken, not merely badly tuned.
+# Alignment guard. Coverage and speed can both look healthy on a dub that is
+# seconds out of sync, because neither measures alignment. `offset` is how late each
+# Bangla line lands against the caption it translates. A negative offset is
+# arithmetically impossible under the layout, so it means the mixer is broken.
 timing = stats["timing"]
 if timing["min_offset"] < -0.01:
     sys.exit(

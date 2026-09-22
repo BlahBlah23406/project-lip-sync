@@ -55,7 +55,7 @@ def run_once(video_id: str, log_path: str) -> int:
     """Run the pipeline in the foreground of THIS supervisor (which is itself detached).
 
     PIPELINE_SUPERVISED is the pipeline's proof that it was started by a durable
-    launcher and not from inside an agent tool call (which would be SIGKILLed).
+    launcher, not from a short-lived parent that would be killed at its timeout.
     """
     env = {**os.environ, "PIPELINE_SUPERVISED": "1"}
     with open(log_path, "ab") as log:

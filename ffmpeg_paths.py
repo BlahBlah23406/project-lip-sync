@@ -1,16 +1,18 @@
 """Central resolver for the ffmpeg/ffprobe binaries.
 
-The pipeline used to hardcode the WinGet install path in two places. That breaks
-whenever ffmpeg is upgraded (the version is in the path). Resolve once, prefer
-PATH, fall back to the known WinGet location.
+Prefer PATH. Fall back to the WinGet install location, globbed rather than
+pinned: the ffmpeg version is baked into that path, so a pinned one breaks on
+every upgrade.
 """
+import glob
 import os
 import shutil
 
-_WINGET_BIN = (
-    r"C:\Users\shaya\AppData\Local\Microsoft\WinGet\Packages"
-    r"\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe"
-    r"\ffmpeg-8.1.2-full_build\bin"
+_LOCALAPPDATA = os.environ.get("LOCALAPPDATA")
+_WINGET_GLOB = (
+    os.path.join(_LOCALAPPDATA, "Microsoft", "WinGet", "Packages",
+                 "Gyan.FFmpeg_*", "ffmpeg-*-full_build", "bin")
+    if _LOCALAPPDATA else None
 )
 
 
@@ -18,11 +20,15 @@ def _resolve(name: str) -> str:
     found = shutil.which(name)
     if found:
         return found
-    candidate = os.path.join(_WINGET_BIN, f"{name}.exe")
-    if os.path.exists(candidate):
-        return candidate
+    if _WINGET_GLOB:
+        # reverse-sorted so the newest installed version wins
+        for bin_dir in sorted(glob.glob(_WINGET_GLOB), reverse=True):
+            candidate = os.path.join(bin_dir, f"{name}.exe")
+            if os.path.exists(candidate):
+                return candidate
     raise FileNotFoundError(
-        f"{name} not found on PATH or at {candidate}. Install ffmpeg (winget install Gyan.FFmpeg)."
+        f"{name} not found on PATH. Install ffmpeg and make sure it is on PATH "
+        "(Windows: winget install Gyan.FFmpeg)."
     )
 
 

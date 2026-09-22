@@ -41,51 +41,30 @@ SR = 44100
 CH = 1
 SAMPLE_WIDTH = 2  # pcm_s16le
 
-# --------------------------------------------------------------------------
-# Mix balance -- "original audio dominant vs translation audio dominant".
+# Mix balance. The English bed is ducked by an explicit gain envelope, not by a
+# sidechain compressor: the schedule already says exactly when Bangla speaks, so
+# the envelope is rendered to an audio file and applied in ONE filter --
+# deterministic, and flat memory where a per-segment `volume` chain was not.
 #
-# The background (the original English lecture) is NOT a level-triggered
-# compressor's guess any more. We know EXACTLY when the Bangla speaks -- it is in
-# the schedule we just built -- so the bed is multiplied by an explicit gain
-# envelope: full volume in the gaps, DUCK_LEVEL under Bangla speech, with a
-# raised-cosine fade between the two. That is what the May-23 version the user liked
-# did (a per-interval `volume` chain); it was replaced with `sidechaincompress`
-# because that chain grew one FFmpeg filter per segment and became unmanageable at
-# 680 of them. Generating the envelope as an audio file and multiplying gives the
-# same deterministic result in ONE filter, at flat memory.
-#
-# These three numbers ARE the balance knob. Raise DUCK_LEVEL to hear more English
+# These three numbers are the balance knob. Raise DUCK_LEVEL to hear more English
 # under the Bangla; lower it for a more dominant dub.
-# --------------------------------------------------------------------------
 DUCK_LEVEL = 0.08   # background gain while Bangla is speaking (0.08 == 8%, -22dB) -- dub more dominant
 BED_LEVEL = 1.00    # background gain in the gaps (full -- the original is dominant there)
-DUCK_FADE = 0.30    # seconds to ramp between the two (matches old good version's 300ms fades)
+DUCK_FADE = 0.30    # seconds to ramp between the two
 
 # Speech intervals closer together than this are treated as one: we do not want the
 # bed swelling back up for a 300ms breath between two sentences. Must exceed
 # 2 * DUCK_FADE, or two fades would collide inside one gap.
 DUCK_MERGE_GAP = 2 * DUCK_FADE + 0.1  # = 0.70s with DUCK_FADE=0.30
 
-# --------------------------------------------------------------------------
-# Speed policy (2026-07-14).  THE MIXER IS THE ONLY PLACE SPEED IS DECIDED.
+# Speed policy. THE MIXER IS THE ONLY PLACE SPEED IS DECIDED.
 #
-# What went wrong before: run_pipeline.py baked an Edge-TTS `rate` into the clip
-# to force it into its slot (capped at 2.0x), and when that still wasn't enough,
-# plan_schedule() re-probed the ALREADY-SPED clip and applied rubberband on top
-# (also capped at 2.0x). Neither knew about the other, so the two multiplied:
-# segment 201 of WcMYaveKv1E was a 2.0x Edge-TTS clip stretched a further 2.0x
-# = 4.0x. That is not fast speech, it is noise.
-#
-# The policy now: a segment is spoken at most MAX_SPEED. If the translation still
-# does not fit its caption slot, IT IS ALLOWED TO RUN LONG. The overrun pushes
-# later segments back, and the lag is absorbed by the next natural pause in the
-# lecture (this episode has ~176s of them). Only if the lag grows past
-# LAG_TOLERANCE do we allow up to HARD_MAX_SPEED to claw it back.
-#
-# Intelligibility beats strict lip-timing. A line that lands half a second late is
-# a dub; a line at 4x is garbage.
-# --------------------------------------------------------------------------
-MAX_SPEED = 1.50        # normal ceiling -- timing alignment matters (user confirmed old 2.0x was good)
+# Two independent speed-ups used to compound -- an Edge-TTS `rate` baked into the
+# clip, then rubberband applied to that already-sped clip -- giving 2.0x x 2.0x
+# = 4.0x noise. Now a segment is spoken at most MAX_SPEED and is allowed to run
+# long instead; the lag is absorbed by natural pauses, and only past
+# LAG_TOLERANCE do we go up to HARD_MAX_SPEED. Intelligibility beats lip-timing.
+MAX_SPEED = 1.50        # normal ceiling -- past this, Bangla stops sounding spoken
 HARD_MAX_SPEED = 2.00   # only while catching up from a lag; never exceeded
 LAG_SOFT = 0.5          # seconds behind: start easing the speed up to claw back
 LAG_HARD = 3.0          # seconds behind: we are at HARD_MAX_SPEED

@@ -4,11 +4,10 @@
 
 Why this exists
 ---------------
-A full episode takes 25-60+ minutes. When the pipeline runs as a child of an
-agent tool call, the host process manager SIGKILLs the whole process tree the
-moment that tool call hits its timeout -- which is how every real-length run
-died. Detaching means the timeout can expire harmlessly: the tool call returns
-in under a second and the pipeline keeps running on its own.
+A full episode takes 25-60+ minutes. Run as a child of any short-lived caller,
+the pipeline is killed along with it the moment that caller hits its timeout --
+which is how every real-length run died. Detaching means the caller returns in
+under a second and the pipeline keeps running on its own.
 
 Detach strategy, strongest first:
   1. WMI Win32_Process.Create -- the new process is parented to WmiPrvSE, so it

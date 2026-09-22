@@ -34,6 +34,7 @@ from captions import extract_video_id, fetch_transcript, cluster_segments
 from translator import translate_segments
 from dubber import generate_segment_tts, VOICES
 from mixer import get_audio_duration
+from ffmpeg_paths import FFMPEG
 
 
 @dataclass
@@ -121,18 +122,14 @@ class AudioPipelineTester:
         
     def setup(self):
         """Initialize test environment."""
-        self.work_dir = r"C:\Users\shaya\.openclaw\workspace\project-lip-sync\test_run_temp"
+        self.work_dir = str(Path(__file__).parent / "test_run_temp")
+        os.makedirs(self.work_dir, exist_ok=True)
         print(f"Working directory: {self.work_dir}")
         
     def cleanup(self):
-        """Clean up temporary files. 
-        Keep the directory if we want to inspect failing segments.
-        """
+        """Leave the work dir in place — failing segments are only debuggable as audio."""
         if self.work_dir and os.path.exists(self.work_dir):
-            # Only clean up if no results.json was created or if explicitly requested
-            # For now, let's keep it to debug the 3s issue
-            print(f"Skipping cleanup for debugging: {self.work_dir}")
-            # shutil.rmtree(self.work_dir, ignore_errors=True)
+            print(f"Segments kept for inspection: {self.work_dir}")
             
     def fetch_and_prepare_segments(self, config: ExperimentConfig) -> List[Dict]:
         """Fetch transcript and cluster segments."""
@@ -326,9 +323,8 @@ class AudioPipelineTester:
     
     def _apply_atempo(self, input_path: str, output_path: str, rate: float):
         """Apply atempo filter for time stretching."""
-        ffmpeg_exe = r"C:\Users\shaya\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.2-full_build\bin\ffmpeg.exe"
         # atempo only supports 0.5 to 2.0, chain if needed
-        cmd = [ffmpeg_exe, "-y", "-i", input_path]
+        cmd = [FFMPEG, "-y", "-i", input_path]
         
         if rate > 2.0:
             # Chain multiple atempo filters
@@ -349,12 +345,11 @@ class AudioPipelineTester:
     
     def _apply_rubberband(self, input_path: str, output_path: str, rate: float):
         """Apply rubberband filter for high-quality time stretching."""
-        ffmpeg_exe = r"C:\Users\shaya\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.2-full_build\bin\ffmpeg.exe"
         # Note: Requires ffmpeg compiled with rubberband support
         # If not available, falls back to atempo
         try:
             cmd = [
-                ffmpeg_exe, "-y", "-i", input_path,
+                FFMPEG, "-y", "-i", input_path,
                 "-af", f"rubberband=tempo={1/rate:.2f}:transients=smooth",
                 output_path
             ]
@@ -366,9 +361,8 @@ class AudioPipelineTester:
     
     def _apply_loudnorm(self, input_path: str, output_path: str):
         """Apply EBU R128 loudness normalization."""
-        ffmpeg_exe = r"C:\Users\shaya\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.2-full_build\bin\ffmpeg.exe"
         cmd = [
-            ffmpeg_exe, "-y", "-i", input_path,
+            FFMPEG, "-y", "-i", input_path,
             "-af", "loudnorm=I=-16:TP=-1.5:LRA=11",
             output_path
         ]
@@ -376,9 +370,8 @@ class AudioPipelineTester:
     
     def _apply_compressor(self, input_path: str, output_path: str):
         """Apply dynamic range compression."""
-        ffmpeg_exe = r"C:\Users\shaya\AppData\Local\Microsoft\WinGet\Packages\Gyan.FFmpeg_Microsoft.Winget.Source_8wekyb3d8bbwe\ffmpeg-8.1.2-full_build\bin\ffmpeg.exe"
         cmd = [
-            ffmpeg_exe, "-y", "-i", input_path,
+            FFMPEG, "-y", "-i", input_path,
             "-af", "acompressor=threshold=-12dB:ratio=4:attack=5:release=100",
             output_path
         ]

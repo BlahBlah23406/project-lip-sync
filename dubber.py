@@ -30,28 +30,12 @@ VOICES = {
     "SPEAKER_D": "bn-IN-TanishaaNeural",  # Indian Female (Bangla)
 }
 
-# --------------------------------------------------------------------------
-# Why this file has timeouts everywhere (2026-07-13)
-# --------------------------------------------------------------------------
-# The pipeline was reported as "SIGKILLed during TTS on long episodes". It was
-# not. A py-spy dump of the stuck process (PID 55972) showed the main thread
-# parked here, idle, forever:
-#
-#   _poll (asyncio\windows_events.py:774)
-#   run_until_complete (asyncio\base_events.py:678)
-#   generate_segment_tts (dubber.py:59)
-#
-# edge_tts.Communicate.save() has NO timeout. Microsoft's free TTS endpoint
-# throttles a client that fires hundreds of requests in a row (exactly what a
-# 268- or 680-segment episode does). When it throttles, the websocket stalls
-# instead of erroring: save() blocks forever, no exception is raised, and the
-# retry loop below never fires. The run then sits idle until the host process
-# manager kills the stuck tree -- and THAT kill is the "SIGKILL" that was being
-# chased. Short test runs (~32 segments) never burst hard enough to get
-# throttled, which is why only real episodes died.
-#
-# The rule this file now enforces: every network call is bounded. A stall
-# becomes a retryable timeout, and a throttle becomes a backoff -- never a hang.
+# Every network call in this file is bounded, deliberately.
+# edge_tts.Communicate.save() has no timeout, and Microsoft's free endpoint
+# stalls the websocket instead of erroring once it throttles a long burst (a
+# 680-segment episode does that; a 32-segment test never does). save() then
+# blocks forever and the retry loop below never fires -- runs that looked
+# SIGKILLed were really hung here.
 TTS_TIMEOUT = float(os.getenv("TTS_TIMEOUT", "45"))    # seconds per attempt
 TTS_MAX_RETRIES = int(os.getenv("TTS_MAX_RETRIES", "6"))
 TTS_PACING = float(os.getenv("TTS_PACING", "0"))       # optional delay between calls

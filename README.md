@@ -4,59 +4,121 @@
 
 # Project Lip Sync
 
-Project Lip Sync is a web tool designed to translate and dub English lectures into Bangla. 
+An end-to-end pipeline that dubs English lecture videos into Bangla — transcript to
+translation to synthesized speech to a remixed audio track — and a watcher that runs it
+unattended against a list of YouTube channels.
 
-It fetches the transcript of a YouTube video, translates the captions using the Claude API, generates spoken audio in Bangla, and merges the new audio back into the original video with correct timing.
+The hard part is not any single step. It is finishing a 25–60 minute job, on a consumer
+machine, without a human watching, and knowing whether the result is actually good.
 
-## What it does
+## How it works
 
-- **Caption Translation:** Retrieves English subtitles from a YouTube URL and translates them into Bangla using Anthropic's Claude models.
-- **Bangla Dubbing:** Converts the translated text into spoken Bangla audio using Microsoft Edge TTS.
-- **Audio Mixing & Video Muxing:** Stretches and aligns the generated audio segments to match the original video timing, downloading the video using `yt-dlp` and mixing it with the new audio track using `ffmpeg`.
-- **Dual Playback Web Player:** Provides a web interface to play the YouTube video with real-time Bangla subtitles, toggle between original English audio and the Bangla dub, and download the finished dubbed video.
+Seven phases, each one checkpointed to `output/<video_id>/.work/`:
 
-## Prerequisites
+| # | Phase | Output |
+|---|-------|--------|
+| 1 | Fetch transcript | `transcript.json` |
+| 2 | Translate (LLM, batched) | `translated.json` |
+| 3 | Download source video | `video.mp4` |
+| 4 | Extract original audio | `original_audio.mp3` |
+| 5 | Bangla TTS, per segment | `segments/seg_NNNN.mp3` |
+| 6 | Mix and align | `dubbed_audio.mp3` |
+| 7 | Publish | `output/<video_id>/` |
 
-To run this project, you need:
-- **Python 3.10+**
-- **FFmpeg** installed on your system and available in your command line path.
-- **Anthropic API Key** (for translation).
+Every phase skips work already on disk, so a killed run loses at most the one segment it
+was mid-way through. Rerunning the identical command resumes.
 
-## Setup & Installation
+## Design decisions worth knowing
 
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd project-lip-sync
-   ```
+**Resumability is the architecture, not a feature.** An earlier version kept everything in
+a `tempfile.mkdtemp()`, so a killed run lost the downloaded video, the paid-for
+translation, and hundreds of rendered clips. Retries restarted from zero and could never
+outrun the timeout.
 
-2. Create a virtual environment and activate it:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
+**Every network call is bounded.** `edge_tts` has no timeout, and the free endpoint stalls
+the websocket rather than erroring when it throttles a long burst. Unbounded, that
+presents as a hang, not a failure — the run holds its lock, looks alive, and nothing
+retries it. A stall watchdog dumps every thread's stack and exits non-zero if no phase
+reports progress.
 
-3. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+**One component decides speed.** Speeding up speech to fit a caption slot used to happen in
+two places that could not see each other, and the factors multiplied into unintelligible
+audio. The mixer is now the only authority; a segment that does not fit is allowed to run
+long, and the lag is absorbed by natural pauses in the lecture.
 
-4. Create a `.env` file in the root directory (you can copy `.env.example` as a starting point) and add your keys:
-   ```env
-   ANTHROPIC_API_KEY=your_anthropic_api_key
-   ANTHROPIC_MODEL=claude-haiku-4-5
-   ```
+**Ducking is computed, not guessed.** The schedule already knows exactly when Bangla
+speaks, so the English bed is multiplied by an explicit gain envelope rendered to an audio
+file — one ffmpeg filter, flat memory, deterministic — instead of a sidechain compressor
+inferring it.
 
-## Running the App
+**Output is verified, not assumed.** Coverage, speed, and alignment are checked before a
+run is called done. Coverage alone will happily report success for audio nobody can hear,
+so alignment is measured separately.
 
-1. Start the FastAPI server:
-   ```bash
-   uvicorn main:app --reload
-   ```
+## Requirements
 
-2. Open your browser and navigate to:
-   ```
-   http://127.0.0.1:8000
-   ```
+- Python 3.10+
+- ffmpeg on `PATH`
+- An API key for an OpenAI/Ollama-compatible endpoint, or an Anthropic key
 
-3. Paste a YouTube URL with English subtitles and click **Translate** to start.
+## Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp .env.example .env             # then fill in your key
+```
+
+## Usage
+
+Dub one video:
+
+```bash
+python run_pipeline.py <VIDEO_ID>
+```
+
+For full-length episodes, launch detached so the run outlives the shell that started it:
+
+```bash
+python launch_pipeline.py <VIDEO_ID>
+python check_progress.py <VIDEO_ID>
+```
+
+Web UI (paste a YouTube URL, watch progress, download the result):
+
+```bash
+uvicorn main:app --reload        # http://127.0.0.1:8000
+```
+
+## Unattended operation
+
+`watcher.py` polls the channels in `watcher_config.json` and dubs new uploads on its own.
+
+```bash
+python watcher.py bootstrap      # mark the current feed as seen; run once
+python watcher.py check          # one poll + reconcile pass — this is what you schedule
+python watcher.py status         # what is queued, running, done, deferred, skipped
+```
+
+It is a polled state machine, not a daemon: each invocation does one reconcile pass and
+exits, with all state in `watcher_state.json`. A long-lived process dies at reboot, at
+logoff, and at any caller's timeout, and then nobody notices for a week. A scheduled
+20-second script cannot rot the same way, and a missed tick costs nothing — the next tick
+re-derives everything from disk.
+
+Videos that are live or premiering are deferred and re-probed on a backoff until they
+settle into a normal VOD, rather than being skipped permanently.
+
+## Layout
+
+| File | Role |
+|------|------|
+| `run_pipeline.py` | The pipeline; phase orchestration, checkpointing, watchdog |
+| `watcher.py` | Channel polling, filtering, scheduling, reconciliation |
+| `mixer.py` | Placement, speed policy, ducking, mux |
+| `translator.py` | Batched translation, length budgeting, backend selection |
+| `dubber.py` | Edge TTS with bounded retries |
+| `captions.py` | Transcript fetch and segment clustering |
+| `main.py` | FastAPI app and web UI |
+| `verify_output.py`, `verify_timing.py` | Coverage and alignment audits |

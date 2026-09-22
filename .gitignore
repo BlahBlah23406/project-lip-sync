@@ -50,3 +50,7 @@ venv/
 
 # Work directories
 *.work/
+# Pipeline scratch + fixtures produced by test runs
+test_run_temp/
+test_outputs/
+test_transcript.json
