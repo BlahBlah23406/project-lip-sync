@@ -54,3 +54,6 @@ venv/
 test_run_temp/
 test_outputs/
 test_transcript.json
+
+# pytest
+.pytest_cache/

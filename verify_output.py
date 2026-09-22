@@ -1,4 +1,4 @@
-"""Verify a delivered dub is real -- run this BEFORE sending anything to the user.
+"""Verify a delivered dub is real -- run this BEFORE publishing anything.
 
     python verify_output.py            # check every video in output/
     python verify_output.py <VIDEO_ID>

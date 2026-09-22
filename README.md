@@ -94,6 +94,14 @@ Web UI (paste a YouTube URL, watch progress, download the result):
 uvicorn main:app --reload        # http://127.0.0.1:8000
 ```
 
+Tests cover the timing invariants the mixer is built around — a clip never
+starts before its caption, speed never exceeds the hard ceiling, clustering
+never loses a word:
+
+```bash
+pytest tests/ -q
+```
+
 ## Unattended operation
 
 `watcher.py` polls the channels in `watcher_config.json` and dubs new uploads on its own.

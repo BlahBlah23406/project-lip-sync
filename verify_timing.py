@@ -2,7 +2,7 @@
 
     python verify_timing.py <VIDEO_ID> [--start 300] [--dur 180] [--model small]
 
-This is the check the user asked for: transcribe each language SEPARATELY, with a tool
+Transcribe each language SEPARATELY, with a tool
 that knows nothing about our pipeline, and see whether the two line up in time. It exists
 because every number the pipeline reported about itself was healthy while the shipped Ep3
 was 18.7 seconds out of sync -- self-reported coverage and speed said nothing about

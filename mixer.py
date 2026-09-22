@@ -82,10 +82,9 @@ LAG_TOLERANCE = LAG_SOFT
 def speed_ceiling(lag: float) -> float:
     """How fast we may speak, given how far behind the original video we are.
 
-    More aggressive than the 1.35x version: starts at 1.50x and ramps to 2.00x
-    when properly behind. This prioritizes TIMING ALIGNMENT (user's #1 concern)
-    over absolute intelligibility — a line at 1.8x is still understandable, but
-    a line that lands 10+ seconds late is a broken dub.
+    Ramps from MAX_SPEED to HARD_MAX_SPEED, favouring timing alignment over
+    absolute intelligibility: a line at 1.8x is still understandable, a line
+    that lands ten seconds late is a broken dub.
     """
     if lag <= LAG_SOFT:
         return MAX_SPEED
@@ -337,7 +336,7 @@ def timing_report(layout: list[dict]) -> dict:
     """Summarise how well the finished dub lines up with the original video.
 
     `offset` is the signed difference between where a Bangla line actually lands and
-    where its English caption starts. It is the number the user hears.
+    where its English caption starts. It is the number a viewer actually hears.
 
     A NEGATIVE offset is the dangerous one -- the Bangla arrives BEFORE the English it
     translates, which can only happen if the layout invented time from nowhere. It was

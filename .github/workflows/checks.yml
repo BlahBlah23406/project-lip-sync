@@ -17,8 +17,11 @@ jobs:
           python-version: "3.12"
           cache: pip
 
+      - name: Install ffmpeg
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
       - name: Install dependencies
-        run: pip install -r requirements.txt ruff
+        run: pip install -r requirements.txt pytest ruff
 
       - name: Byte-compile every module
         run: python -m compileall -q $(git ls-files '*.py')
@@ -26,7 +29,5 @@ jobs:
       - name: Lint for real errors
         run: ruff check --select E9,F63,F7,F82 $(git ls-files '*.py')
 
-      - name: Import the pipeline modules
-        run: |
-          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
-          python -c "import captions, dubber, mixer, translator, ffmpeg_paths; print('imports OK')"
+      - name: Unit tests
+        run: pytest tests/ -q
