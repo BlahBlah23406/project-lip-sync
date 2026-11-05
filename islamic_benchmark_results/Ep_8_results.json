@@ -1,0 +1,28 @@
+[
+  {
+    "episode": "Ep 8",
+    "pair_index": 0,
+    "english": "Episode 8 describes the Prophet’s youth, noting that very little is recorded of his life between ages 9–15 because few witnessed or later narrated these events. It is known, however, that like all pro...",
+    "reference": "অষ্টম পর্বে নবীর কৈশোর ও তরুণ বয়স নিয়ে আলোচনা করা হয়েছে । ৯‑১৫ বছরের জীবনের ঘটনা খুব কম সংরক্ষিত আছে, তবে জানা যায় যে অন্যান্য নবীদের মতো তিনিও রাখাল হিসেবে কাজ করতেন এবং বলেছিলেন যে আল্লাহ সব নবী...",
+    "translation_raw": "৮ম পর্বে নবীর __SACRED_N__ যৌবনকালের বর্ণনা করা হয়েছে, যেখানে উল্লেখ করা হয়েছে যে তাঁর ৯ থেকে ১৫ বছর বয়সের মধ্যবর্তী জীবনের খুব সামান্যই লিপিবদ্ধ আছে, কারণ খুব কম মানুষই সেই ঘটনাগুলোর সাক্ষী ছিলেন অথবা পরবর্তীতে তা বর্ণনা করেছেন। তবে এটি জানা যায় যে, সকল নবীর মতো তিনিও মেষপালক হিসেবে কাজ করেছিলেন। ত",
+    "translation_honorific": "৮ম পর্বে নবীজির (সাল্লাল্লাহু আলাইহি ওয়াসাল্লাম) কৈশোরকাল বর্ণিত হয়েছে, যেখানে উল্লেখ করা হয়েছে যে তাঁর ৯ থেকে ১৫ বছর বয়সের জীবনের খুব সামান্যই লিপিবদ্ধ আছে, কারণ খুব কম মানুষই সেই সময়ের সাক্ষী ছিলেন বা পরবর্তীতে তা বর্ণনা করেছেন। তবে এটি জানা যায় যে, অন্য সকল নবীর মতো তিনিও মেষপালক হিসেবে কাজ",
+    "bleu_raw": 0.0,
+    "bleu_honorific": 0.0,
+    "chrf_raw": 37.83,
+    "chrf_honorific": 41.15,
+    "english_sacred_terms": [
+      "dua",
+      "Prophet"
+    ],
+    "ref_sacred_count": 2,
+    "raw_sacred_count": 0,
+    "hon_sacred_count": 0,
+    "ref_sacred_terms": {
+      "আল্লাহ": 1,
+      "শেখ": 1
+    },
+    "raw_sacred_terms": {},
+    "hon_sacred_terms": {},
+    "honorific_replacements": 0
+  }
+]

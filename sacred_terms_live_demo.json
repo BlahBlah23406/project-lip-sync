@@ -1,0 +1,22 @@
+{
+  "translator": "C:\\Users\\shaya\\.openclaw\\workspace\\projects\\lip-sync\\translator.py",
+  "source": [
+    {
+      "text": "The Prophet ﷺ taught us to make dua to Allah.",
+      "start": 0.0,
+      "duration": 8.0
+    }
+  ],
+  "translated": [
+    {
+      "text": "নবী ﷺ শিখিয়েছেন আল্লাহ-এর জন্য দোয়া করতে।",
+      "start": 0.0,
+      "duration": 8.0,
+      "speaker": "SPEAKER_A",
+      "is_arabic_quote": false
+    }
+  ],
+  "input_tokens": 289,
+  "output_tokens": 29,
+  "passed": true
+}

@@ -1,0 +1,71 @@
+{
+  "status": "complete",
+  "model": "torchcrepe tiny",
+  "reference": "PyWorld DIO + StoneMask",
+  "sample_rate": 16000,
+  "hop_ms": 10,
+  "fmin_hz": 50,
+  "fmax_hz": 550,
+  "periodicity_threshold": 0.5,
+  "rms_threshold": 0.005,
+  "comparison": "Pearson correlation and MAE on jointly voiced aligned frames only",
+  "selection_note": "First ten seconds; Bengali identity inferred from dubbed filenames, not language detection.",
+  "clips": [
+    {
+      "clip": "clip_01",
+      "source": "output\\06Ar4cQs7NU\\06Ar4cQs7NU_dubbed.mp3",
+      "offset_seconds": 0,
+      "duration_seconds": 10.0,
+      "frames": 1000,
+      "jointly_voiced_frames": 201,
+      "correlation": 0.9943179384076777,
+      "mae_hz": 1.8285175270316003,
+      "voicing_agreement": 0.93
+    },
+    {
+      "clip": "clip_02",
+      "source": "output\\07suVSvtgdQ\\07suVSvtgdQ_dubbed.mp3",
+      "offset_seconds": 0,
+      "duration_seconds": 10.0,
+      "frames": 1000,
+      "jointly_voiced_frames": 448,
+      "correlation": 0.5768239479357791,
+      "mae_hz": 46.734780680016215,
+      "voicing_agreement": 0.646
+    },
+    {
+      "clip": "clip_03",
+      "source": "output\\7bx347AM5Pw\\7bx347AM5Pw_dubbed.mp3",
+      "offset_seconds": 0,
+      "duration_seconds": 10.0,
+      "frames": 1000,
+      "jointly_voiced_frames": 443,
+      "correlation": 0.7059906917519676,
+      "mae_hz": 31.244208245202227,
+      "voicing_agreement": 0.644
+    },
+    {
+      "clip": "clip_04",
+      "source": "output\\8Tk_7sDbBpA\\8Tk_7sDbBpA_dubbed.mp3",
+      "offset_seconds": 0,
+      "duration_seconds": 10.0,
+      "frames": 1000,
+      "jointly_voiced_frames": 568,
+      "correlation": 0.820419700331145,
+      "mae_hz": 4.955503831790462,
+      "voicing_agreement": 0.733
+    },
+    {
+      "clip": "clip_05",
+      "source": "output\\_8nmIOhW4Bs\\_8nmIOhW4Bs_dubbed.mp3",
+      "offset_seconds": 0,
+      "duration_seconds": 10.0,
+      "frames": 1000,
+      "jointly_voiced_frames": 496,
+      "correlation": 0.9630853492828471,
+      "mae_hz": 2.3621059527604706,
+      "voicing_agreement": 0.704
+    }
+  ],
+  "failures": []
+}

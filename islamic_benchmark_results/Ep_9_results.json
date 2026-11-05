@@ -1,0 +1,30 @@
+[
+  {
+    "episode": "Ep 9",
+    "pair_index": 0,
+    "english": "Episode 9 recounts two pre‑prophetic events: the Prophet’s marriage to Khadīja and the rebuilding of the Kaʿbah. Khadīja first heard about the Prophet’s honesty when he worked as a shepherd for her si...",
+    "reference": "নবুয়তের আগে নবীর জীবনের দুটি ঘটনা এই পর্বে বর্ণিত হয়েছে—খাদিজা (রা.)‑এর সাথে তাঁর বিবাহ ও কা‘বা পুনর্নির্মাণ । নবী তাঁর শালীর উটপালনের কাজে নিয়োজিত হলে খাদিজা প্রথম তাঁর সততা ও লজ্জাশীলতা সম্পর্কে ...",
+    "translation_raw": "নবম পর্বে নবুওয়াতের পূর্ববর্তী দুটি ঘটনার কথা বর্ণিত হয়েছে: খদীজা (রা.)-এর সাথে নবীর বিবাহ এবং কাবার পুনর্নির্মাণ। খদীজা (রা.) সর্বপ্রথম নবীর সততার কথা জানতে পারেন যখন তিনি তাঁর বোনের কাছে রাখাল হিসেবে কাজ করেছিলেন। তিনি মন্তব্য করেছিলেন যে, এর আগে তিনি এত বিনয়ী এবং সম্মানিত কোনো মানুষ দেখেননি। প",
+    "translation_honorific": "নবম পর্বে নবুওয়াতের পূর্ববর্তী দুটি ঘটনার কথা বর্ণিত হয়েছে: খদীজা (রা.)-এর সাথে নবীর বিবাহ এবং কাবা শরীফের পুনর্নির্মাণ। খদীজা (রা.) সর্বপ্রথম নবীর সততার কথা জানতে পারেন যখন তিনি তাঁর বোনের কাছে রাখাল হিসেবে কাজ করেছিলেন। তিনি মন্তব্য করেছিলেন যে, তিনি এর আগে এত বিনয়ী এবং সম্মানিত কোনো মানুষ দেখে",
+    "bleu_raw": 4.56,
+    "bleu_honorific": 4.48,
+    "chrf_raw": 44.58,
+    "chrf_honorific": 44.73,
+    "english_sacred_terms": [
+      "Prophet"
+    ],
+    "ref_sacred_count": 1,
+    "raw_sacred_count": 3,
+    "hon_sacred_count": 3,
+    "ref_sacred_terms": {
+      "(রা.)": 1
+    },
+    "raw_sacred_terms": {
+      "(রা.)": 3
+    },
+    "hon_sacred_terms": {
+      "(রা.)": 3
+    },
+    "honorific_replacements": 0
+  }
+]

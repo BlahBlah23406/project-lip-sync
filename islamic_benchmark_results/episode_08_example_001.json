@@ -1,0 +1,20 @@
+{
+  "episode": 8,
+  "example": 1,
+  "source_english": "Episode 8 describes the Prophet’s youth, noting that very little is recorded of his life between ages 9–15 because few witnessed or later narrated these events. It is known, however, that like all prophets he worked as a shepherd. He stated that every prophet was once a shepherd, and Dr Qadhi explains the wisdom behind this: shepherding gives time for contemplation in nature and instils humility. It also trains one to manage individuals with different temperaments, helping the Prophet learn patience, courage and compassion while earning an honest living.",
+  "reference": "অষ্টম পর্বে নবীর কৈশোর ও তরুণ বয়স নিয়ে আলোচনা করা হয়েছে । ৯‑১৫ বছরের জীবনের ঘটনা খুব কম সংরক্ষিত আছে, তবে জানা যায় যে অন্যান্য নবীদের মতো তিনিও রাখাল হিসেবে কাজ করতেন এবং বলেছিলেন যে আল্লাহ সব নবীকেই কোনো না কোনো সময়ে রাখাল বানিয়েছিলেন । বক্তা বলেন, রাখালির কাজ মানুষকে প্রকৃতির মাঝে চিন্তা ও ধ্যানের সুযোগ দেয়, বিনয় শেখায় এবং বিভিন্ন স্বভাবের প্রাণীর দেখাশোনা করতে গিয়ে মানুষের নেতৃত্বদক্ষতা তৈরি করে । এই কাজ নবীকে ধৈর্য, সাহস ও দয়া শিখিয়েছিল এবং তাঁর উপার্জন হালাল ছিল ।",
+  "with_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  },
+  "without_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  }
+}

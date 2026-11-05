@@ -1,0 +1,20 @@
+{
+  "episode": 9,
+  "example": 1,
+  "source_english": "Episode 9 recounts two pre‑prophetic events: the Prophet’s marriage to Khadīja and the rebuilding of the Kaʿbah. Khadīja first heard about the Prophet’s honesty when he worked as a shepherd for her sister. She remarked that she had never seen a man more modest and honorable. Later, she hired him to lead her caravan to Syria, and he returned with unprecedented profits due to his honesty and the blessings on his work. Impressed, Khadīja proposed marriage and they wed when he was about 25. During the rebuilding of the Kaʿbah, a dispute over placing the Black Stone was resolved by the Prophet’s wisdom, allowing tribal leaders to lift the stone together on a cloth.",
+  "reference": "নবুয়তের আগে নবীর জীবনের দুটি ঘটনা এই পর্বে বর্ণিত হয়েছে—খাদিজা (রা.)‑এর সাথে তাঁর বিবাহ ও কা‘বা পুনর্নির্মাণ । নবী তাঁর শালীর উটপালনের কাজে নিয়োজিত হলে খাদিজা প্রথম তাঁর সততা ও লজ্জাশীলতা সম্পর্কে শুনেন এবং মন্তব্য করেন যে এত ভদ্র ও নীতিবান পুরুষ তিনি আর দেখেননি । পরে তিনি নবীকে সিরিয়া-গামী কাফেলার তত্ত্বাবধানে নিয়োগ করেন; নবী সততার সাথে বাণিজ্য করেন ও অত্যন্ত লাভ নিয়ে ফিরে আসেন । এতে খাদিজা মুগ্ধ হয়ে তাঁকে বিবাহের প্রস্তাব দেন এবং তাঁদের বিবাহ হয় । কুরাইশরা যখন কা‘বা পুনর্নির্মাণ করছিল, ‘হাজরে আসওয়াদ’ রাখার অধিকার নিয়ে গোত্রগুলোর মধ্যে ঝগড়া বাধে । নবী বুদ্ধিমত্তা দেখিয়ে একটি কাপড়ে পাথর রাখেন এবং সবাই মিলে কাপড় ধরে পাথর স্থাপন করে এতে গোত্রসমূহ সন্তুষ্ট হয় ।",
+  "with_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  },
+  "without_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  }
+}

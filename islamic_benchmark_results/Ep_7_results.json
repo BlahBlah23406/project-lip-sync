@@ -1,0 +1,28 @@
+[
+  {
+    "episode": "Ep 7",
+    "pair_index": 0,
+    "english": "Episode 7 covers the Prophet’s early childhood, explaining that Quraysh nobility would send infants to live with Bedouin tribes to grow up in a healthy environment, build stamina, avoid excessive pamp...",
+    "reference": "সপ্তম পর্বে নবীর শৈশব আলোচনা করা হয়েছে । কুরাইশের অভিজাতরা সন্তানদের বিশুদ্ধ বাতাসে বড় করার জন্য বেদুঈন গোত্রে পাঠাত, যাতে তারা স্বাস্থ্যবান, মজবুত ও আসল আরবি ভাষায় পারদর্শী হয় । নবী (সা.)‑কে বনী ...",
+    "translation_raw": "৭ম পর্বে নবীজির শৈশবকাল আলোচনা করা হয়েছে, যেখানে ব্যাখ্যা করা হয়েছে যে কুরাইশ অভিজাতরা তাদের শিশুদের বেদুইন গোত্রগুলোর কাছে পাঠিয়ে দিত যাতে তারা একটি স্বাস্থ্যকর পরিবেশে বেড়ে উঠতে পারে, শারীরিক সক্ষমতা অর্জন করে, অতিরিক্ত আদুরে পরিবেশ এড়িয়ে চলে এবং বিশুদ্ধ আরবি ভাষা শিখতে পারে। নবীজি (সা.) বনু সা’দ ",
+    "translation_honorific": "৭ম পর্বে নবীজীর শৈশবকাল আলোচনা করা হয়েছে, যেখানে ব্যাখ্যা করা হয়েছে যে কুরাইশ অভিজাতরা তাদের শিশুদের বেদুইন গোত্রগুলোর কাছে পাঠিয়ে দিত যাতে তারা একটি স্বাস্থ্যকর পরিবেশে বেড়ে উঠতে পারে, শারীরিক সক্ষমতা অর্জন করতে পারে, অতিরিক্ত আদর-সোহাগ থেকে দূরে থাকে এবং বিশুদ্ধ আরবি ভাষা শিখতে পারে। নবীজীকে বনু স",
+    "bleu_raw": 0.0,
+    "bleu_honorific": 0.0,
+    "chrf_raw": 33.99,
+    "chrf_honorific": 36.89,
+    "english_sacred_terms": [
+      "Prophet"
+    ],
+    "ref_sacred_count": 0,
+    "raw_sacred_count": 1,
+    "hon_sacred_count": 1,
+    "ref_sacred_terms": {},
+    "raw_sacred_terms": {
+      "(আ.)": 1
+    },
+    "hon_sacred_terms": {
+      "(আ.)": 1
+    },
+    "honorific_replacements": 0
+  }
+]

@@ -1,0 +1,169 @@
+{
+  "benchmark_date": "2026-11-04T16:19:32.472056",
+  "sample_rate": 16000,
+  "hop_ms": 10,
+  "clip_duration_sec": 10,
+  "total_clips": 5,
+  "clips": [
+    {
+      "clip": "test_dubbed_3m",
+      "path": "C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync\\test_dubbed_3m.wav",
+      "duration_sec": 10.0,
+      "sample_rate": 16000,
+      "crepe_frames": 1001,
+      "world_frames": 1001,
+      "comparison": {
+        "voiced_frames_in_common": 285,
+        "correlation": 0.8707,
+        "mean_abs_error_hz": 10.08,
+        "mean_error_hz": 6.88,
+        "rms_error_hz": 29.43
+      },
+      "crepe_stats": {
+        "mean_f0": 190.16,
+        "median_f0": 190.22,
+        "std_f0": 57.94,
+        "min_f0": 51.28,
+        "max_f0": 278.51,
+        "voiced_ratio": 0.304
+      },
+      "world_stats": {
+        "mean_f0": 145.43,
+        "median_f0": 134.8,
+        "std_f0": 65.5,
+        "min_f0": 46.62,
+        "max_f0": 302.74,
+        "voiced_ratio": 0.568
+      }
+    },
+    {
+      "clip": "test_dubbed_3m_v2",
+      "path": "C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync\\test_dubbed_3m_v2.wav",
+      "duration_sec": 10.0,
+      "sample_rate": 16000,
+      "crepe_frames": 1001,
+      "world_frames": 1001,
+      "comparison": {
+        "voiced_frames_in_common": 477,
+        "correlation": 0.9677,
+        "mean_abs_error_hz": 2.73,
+        "mean_error_hz": -0.13,
+        "rms_error_hz": 7.52
+      },
+      "crepe_stats": {
+        "mean_f0": 121.93,
+        "median_f0": 120.04,
+        "std_f0": 29.38,
+        "min_f0": 73.23,
+        "max_f0": 203.47,
+        "voiced_ratio": 0.484
+      },
+      "world_stats": {
+        "mean_f0": 121.28,
+        "median_f0": 117.26,
+        "std_f0": 33.46,
+        "min_f0": 45.82,
+        "max_f0": 259.92,
+        "voiced_ratio": 0.891
+      }
+    },
+    {
+      "clip": "test_original_3m",
+      "path": "C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync\\test_original_3m.wav",
+      "duration_sec": 10.0,
+      "sample_rate": 16000,
+      "crepe_frames": 1001,
+      "world_frames": 1001,
+      "comparison": {
+        "voiced_frames_in_common": 270,
+        "correlation": 0.7341,
+        "mean_abs_error_hz": 17.35,
+        "mean_error_hz": 13.91,
+        "rms_error_hz": 48.85
+      },
+      "crepe_stats": {
+        "mean_f0": 188.68,
+        "median_f0": 215.87,
+        "std_f0": 66.99,
+        "min_f0": 55.15,
+        "max_f0": 372.1,
+        "voiced_ratio": 0.295
+      },
+      "world_stats": {
+        "mean_f0": 133.5,
+        "median_f0": 120.38,
+        "std_f0": 64.63,
+        "min_f0": 46.65,
+        "max_f0": 279.95,
+        "voiced_ratio": 0.546
+      }
+    },
+    {
+      "clip": "test_original_3m_v2",
+      "path": "C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync\\test_original_3m_v2.wav",
+      "duration_sec": 10.0,
+      "sample_rate": 16000,
+      "crepe_frames": 1001,
+      "world_frames": 1001,
+      "comparison": {
+        "voiced_frames_in_common": 362,
+        "correlation": 0.8762,
+        "mean_abs_error_hz": 4.01,
+        "mean_error_hz": 1.34,
+        "rms_error_hz": 11.64
+      },
+      "crepe_stats": {
+        "mean_f0": 142.25,
+        "median_f0": 135.7,
+        "std_f0": 21.78,
+        "min_f0": 103.32,
+        "max_f0": 197.42,
+        "voiced_ratio": 0.373
+      },
+      "world_stats": {
+        "mean_f0": 128.24,
+        "median_f0": 128.18,
+        "std_f0": 37.24,
+        "min_f0": 42.44,
+        "max_f0": 240.66,
+        "voiced_ratio": 0.745
+      }
+    },
+    {
+      "clip": "07suVSvtgdQ_dubbed",
+      "path": "C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync\\output\\07suVSvtgdQ_dubbed.mp3",
+      "duration_sec": 10.0,
+      "sample_rate": 16000,
+      "crepe_frames": 1001,
+      "world_frames": 1001,
+      "comparison": {
+        "voiced_frames_in_common": 650,
+        "correlation": 0.7824,
+        "mean_abs_error_hz": 19.98,
+        "mean_error_hz": 16.27,
+        "rms_error_hz": 44.83
+      },
+      "crepe_stats": {
+        "mean_f0": 215.49,
+        "median_f0": 219.46,
+        "std_f0": 57.07,
+        "min_f0": 89.19,
+        "max_f0": 313.13,
+        "voiced_ratio": 0.689
+      },
+      "world_stats": {
+        "mean_f0": 187.18,
+        "median_f0": 204.67,
+        "std_f0": 67.99,
+        "min_f0": 61.16,
+        "max_f0": 333.42,
+        "voiced_ratio": 0.918
+      }
+    }
+  ],
+  "models": {
+    "primary": "torchcrepe tiny (onnxcrepe recommended for on-device)",
+    "reference": "PyWorld Harvest + StoneMask"
+  },
+  "note": "F0 contours extracted at 10ms hop, 50-400 Hz range. Comparison uses only frames where both models report voicing. On-device deployment should use onnxcrepe tiny via ONNX Runtime (already a dependency via sherpa_onnx)."
+}

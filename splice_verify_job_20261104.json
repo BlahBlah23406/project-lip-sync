@@ -1,0 +1,17 @@
+{
+  "id": "20261104-210353-lip-sync-splice-verify",
+  "name": "lip-sync-splice-verify",
+  "cmd": "python -u C:\\Users\\shaya\\.openclaw\\workspace\\projects\\lip-sync\\run_splice_with_env.py H3hijSGhdlo",
+  "cwd": "C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync",
+  "pid": 18596,
+  "state": "done",
+  "notify": true,
+  "method": "WMI (outside job object)",
+  "threadTask": "20261104-210353-lip-sync-splice-verify",
+  "noDm": false,
+  "dmCollapsedInto": null,
+  "startedAt": "2026-11-04T21:03:55.564Z",
+  "updatedAt": "2026-11-04T21:30:22.470Z",
+  "exitCode": 0,
+  "endedAt": "2026-11-04T21:30:22.467Z"
+}

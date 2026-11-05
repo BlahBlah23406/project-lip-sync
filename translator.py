@@ -1,7 +1,16 @@
 import os
 import re
+import time
 import httpx
 import anthropic
+from pathlib import Path
+from dotenv import load_dotenv
+
+for _env_dir in (Path(__file__).resolve().parent, Path(__file__).resolve().parent.parent):
+    load_dotenv(_env_dir / ".env", override=False)
+
+LOCAL_LLM_BASE_URL = os.getenv("LOCAL_LLM_BASE_URL") or "http://localhost:11434/api"
+LOCAL_LLM_MODEL = os.getenv("LOCAL_LLM_MODEL") or "gemma4:e2b"
 
 SYSTEM_PROMPT = """You are a translator specializing in Islamic religious content.
 Translate the following English lecture captions into Bangla (বাংলা).
@@ -48,7 +57,93 @@ General Rules:
 - Output ONLY the numbered translations, one per line, matching the input numbering exactly.
 - Do not add explanations, notes, or extra text."""
 
+SYSTEM_PROMPT += "\nCopy every __SACRED_N__ token exactly once, unchanged, in the corresponding translated line. Preserve respectful Islamic register; never omit sacred tokens to meet timing. Do not tag English as Arabic merely because it contains a sacred token."
+
 MODEL = "claude-haiku-4-5"
+
+
+# --- Islamic Honorific Pre/Post Processing ---
+#
+# This layer preserves Islamic honorifics and sacred Arabic terms across translation.
+# English input honorifics are replaced with placeholder tokens BEFORE translation,
+# then restored to their proper Bengali/Arabic forms AFTER translation.
+# This prevents the LLM from dropping, translating, or secularizing sacred terms.
+
+# Abbreviations are case-sensitive: ordinary English "as" and "saw" are words.
+_TERM_RULES = [
+    (r"ﷺ|(?i:\(saw\)|\(pbuh\))|\((?:SAW|PBUH)\)|\b(?:SAW|PBUH)\b|(?i:\bsallallahu alayhi wa sallam\b)", 'ﷺ'),
+    (r"\(RA\)|\bRA\b|(?i:\bradi(?:y)?allahu anh[ua]\b)", '(রা.)'),
+    (r"\(AS\)|\bAS\b|(?i:\balayhi(?:s)? salaam?\b|\bpeace be upon him\b)", '(আ.)'),
+    (r"(?i:\bAllah\s*\(SWT\)|\bAllah subhan(?:a|ahu) wa ta['’]?ala\b)", 'আল্লাহ সুবহানাহু ওয়াতাআলা'),
+    (r"\(SWT\)|\bSWT\b", 'সুবহানাহু ওয়াতাআলা'),
+    (r"(?i:\bSubhanallah\b)", 'সুবহানআল্লাহ'),
+    (r"(?i:\bAlhamdulil{1,2}ah\b)", 'আলহামদুলিল্লাহ'),
+    (r"(?i:\bInsha['’]?\s*Allah\b)", 'ইনশাআল্লাহ'),
+    (r"(?i:\bMasha['’]?\s*Allah\b)", 'মাশাআল্লাহ'),
+    (r"(?i:\bBismillah\b)", 'বিসমিল্লাহ'),
+    (r"(?i:\bJazakallah\b)", 'জাযাকাল্লাহ'),
+    (r"(?i:\bAllah\b)", 'আল্লাহ'),
+    (r"(?i:\bdu['’]?a\b)", 'দোয়া'),
+    (r"(?i:\bfitnah?\b)", 'ফিতনা'),
+    (r"(?i:\bhidayah?\b)", 'হেদায়েত'),
+    (r"(?i:\bTawhid\b)", 'তাওহিদ'),
+    (r"(?i:\bShirk\b)", 'শিরক'),
+    (r"(?i:\bShafa['’]?ah\b)", 'শাফাআত'),
+    (r"(?i:\bQur['’]?an\b)", 'কুরআন'),
+    (r"(?i:\bHadith\b)", 'হাদিস'),
+    (r"(?i:\bSunnah\b)", 'সুন্নাহ'),
+    (r"(?i:\bSalah\b)", 'সালাহ'),
+    (r"(?i:\bZakat\b)", 'যাকাত'),
+    (r"(?i:\bHajj\b)", 'হজ্জ'),
+    (r"(?i:\bUmmah\b)", 'উম্মাহ'),
+    (r"(?i:\b(?:Shaykh|Sheikh)\b)", 'শেখ'),
+    (r"(?i:\bImam\b)", 'ইমাম'),
+]
+_TERM_RULES.extend([
+    (r"ﷻ", "ﷻ"),
+    (r"\(RH\)|\bRH\b|(?i:\brahimahullah\b)", "(রহ.)"),
+    (r"رضي الله عنه", "رضي الله عنه"),
+    (r"عليه السلام", "عليه السلام"),
+    (r"رحمه الله", "رحمه الله"),
+])
+_SACRED_PATTERN = re.compile("|".join(f"(?P<T{i}>{pattern})" for i, (pattern, _) in enumerate(_TERM_RULES)))
+
+HONORIFIC_GAZETTEER = dict(_TERM_RULES)
+
+
+def sacred_term_critic(original, restored, expected=None):
+    """Return occurrence-aware checks for canonical sacred terms in a translation."""
+    from collections import Counter
+    if expected is None:
+        _, expected = pre_process_honorifics(original)
+    counts = Counter(expected.values())
+    return {term: {"expected": count, "observed": restored.count(term),
+                   "preserved": restored.count(term) >= count}
+            for term, count in counts.items()}
+
+
+def pre_process_honorifics(text: str) -> tuple[str, dict[str, str]]:
+    """Protect each occurrence separately so repeated honorifics cannot disappear."""
+    replacements = {}
+    def protect(match):
+        token = f"__SACRED_{len(replacements)}__"
+        while token in text or token in replacements:
+            token = "_" + token
+        replacements[token] = _TERM_RULES[int(match.lastgroup[1:])][1]
+        return token
+    return _SACRED_PATTERN.sub(protect, text), replacements
+
+
+def post_process_honorifics(text: str, expected_placeholders=None) -> str:
+    """Restore protected terms; reject missing/duplicated tokens before TTS."""
+    replacements = expected_placeholders or {}
+    for token, value in replacements.items():
+        if len(re.findall(re.escape(token), text, flags=re.IGNORECASE)) != 1:
+            raise ValueError(f"Sacred term token missing or duplicated: {token}")
+        text = re.sub(re.escape(token), lambda _: value, text, flags=re.IGNORECASE)
+    if re.search(r"__SACRED_\d+__", text, flags=re.IGNORECASE):
+        raise ValueError("Unknown sacred term token in translation")
+    return text
 
 
 # --- Helper Methods ---
@@ -74,6 +169,9 @@ def _parse_segment_line(line: str) -> tuple[str, str, bool]:
     if re.search(r"\[QUOTE_ARABIC\]", cleaned, re.IGNORECASE):
         is_arabic_quote = True
         cleaned = re.sub(r"\[QUOTE_ARABIC\]", "", cleaned, flags=re.IGNORECASE).strip()
+
+    # Strip any leading duration marker the model may echo, e.g. [2.3s]
+    cleaned = re.sub(r"^\[\d+(?:\.\d+)?s\]\s*", "", cleaned).strip()
         
     return cleaned, speaker, is_arabic_quote
 
@@ -88,7 +186,7 @@ def _translate_single_segment_ollama(segment: dict) -> dict:
     """Ollama fallback translation for a single segment."""
     endpoint = _get_ollama_endpoint()
     api_key = os.getenv("LLM_API_KEY")
-    model_name = os.getenv("LLM_MODEL_NAME") or "gemma3:27b"
+    model_name = os.getenv("LLM_MODEL_NAME") or "qwen3.5:397b-cloud"
     
     headers = {}
     if api_key:
@@ -103,6 +201,7 @@ def _translate_single_segment_ollama(segment: dict) -> dict:
         "stream": False
     }
     
+    # Try cloud first, then local server.
     try:
         response = httpx.post(f"{endpoint}/generate", json=payload, headers=headers, timeout=60.0)
         if response.status_code != 200:
@@ -115,9 +214,21 @@ def _translate_single_segment_ollama(segment: dict) -> dict:
         
         text, speaker, is_quote = _parse_segment_line(cleaned)
         return {"text": text, "speaker": speaker, "is_arabic_quote": is_quote}
-    except Exception as e:
-        print(f"Ollama fallback translation failed: {e}")
-        return {"text": segment["text"], "speaker": "SPEAKER_A", "is_arabic_quote": False}
+    except Exception as cloud_err:
+        print(f"  Cloud Ollama single-segment failed ({cloud_err}); trying local Ollama...")
+        try:
+            payload["model"] = LOCAL_LLM_MODEL
+            response = httpx.post(f"{LOCAL_LLM_BASE_URL}/generate", json=payload, timeout=120.0)
+            response.raise_for_status()
+            res_data = response.json()
+            raw = res_data.get("response", "").strip()
+            cleaned = re.sub(r"^\d+[\.\)]\s*", "", raw).strip()
+            cleaned = re.sub(r"^\[\d+\]\s*", "", cleaned).strip()
+            text, speaker, is_quote = _parse_segment_line(cleaned)
+            return {"text": text, "speaker": speaker, "is_arabic_quote": is_quote}
+        except Exception as local_err:
+            print(f"Ollama fallback translation failed: cloud={cloud_err}, local={local_err}")
+            return {"text": segment["text"], "speaker": "SPEAKER_A", "is_arabic_quote": False}
 
 
 SHORTER_SYSTEM_PROMPT = """You are a translator specializing in Islamic religious content.
@@ -240,7 +351,7 @@ def retranslate_shorter(segment: dict, max_syllables: int) -> str:
     if api_key:
         # Use Ollama Cloud
         endpoint = _get_ollama_endpoint()
-        model_name = os.getenv("LLM_MODEL_NAME") or "gemma3:27b"
+        model_name = os.getenv("LLM_MODEL_NAME") or "qwen3.5:397b-cloud"
         headers = {"Authorization": f"Bearer {api_key}"} if api_key else {}
         
         payload = {
@@ -291,7 +402,7 @@ def _translate_batch_ollama(segments: list[dict]) -> tuple[list[dict], int, int]
     """Ollama batch translation."""
     endpoint = _get_ollama_endpoint()
     api_key = os.getenv("LLM_API_KEY")
-    model_name = os.getenv("LLM_MODEL_NAME") or "gemma3:27b"
+    model_name = os.getenv("LLM_MODEL_NAME") or "qwen3.5:397b-cloud"
     
     headers = {}
     if api_key:
@@ -309,10 +420,50 @@ def _translate_batch_ollama(segments: list[dict]) -> tuple[list[dict], int, int]
         "stream": False
     }
     
-    response = httpx.post(f"{endpoint}/generate", json=payload, headers=headers, timeout=90.0)
-    if response.status_code != 200:
-        raise RuntimeError(f"Ollama batch translation failed (HTTP {response.status_code}): {response.text}")
-        
+    def _try_generate(url, gen_payload, gen_headers, timeout_seconds):
+        """Post to an Ollama endpoint and return parsed response or raise."""
+        try:
+            response = httpx.post(f"{url}/generate", json=gen_payload, headers=gen_headers, timeout=timeout_seconds)
+            if response.status_code == 401:
+                raise PermissionError("Ollama HTTP 401 Unauthorized")
+            if response.status_code != 200:
+                raise RuntimeError(f"HTTP {response.status_code}: {response.text[:200]}")
+            return response
+        except (httpx.TimeoutException, httpx.NetworkError) as e:
+            raise RuntimeError(f"{type(e).__name__}: {e}") from e
+
+    response = None
+    last_error = None
+    providers = [(endpoint, model_name, headers, "cloud")]
+    # Always include local fallback so a bad cloud key/token does not block the run.
+    providers.append((LOCAL_LLM_BASE_URL, LOCAL_LLM_MODEL, {}, "local"))
+
+    for url, prov_model, prov_headers, label in providers:
+        prov_payload = dict(payload)
+        prov_payload["model"] = prov_model
+        max_retries = 3 if label == "cloud" else 2
+        timeout_seconds = 300.0
+        for attempt in range(1, max_retries + 1):
+            try:
+                print(f"  Ollama {label} batch {len(segments)} segments, attempt {attempt}/{max_retries} (timeout {timeout_seconds:.0f}s)...")
+                response = _try_generate(url, prov_payload, prov_headers, timeout_seconds)
+                break
+            except PermissionError:
+                print("Ollama HTTP 401; falling back to Anthropic Claude...")
+                return _translate_batch(_get_client(), segments)
+            except Exception as e:
+                last_error = e
+                print(f"  Ollama {label} batch attempt {attempt} failed: {type(e).__name__}: {e}")
+                if attempt < max_retries:
+                    backoff = 2 ** attempt
+                    print(f"  Retrying in {backoff}s...")
+                    time.sleep(backoff)
+        if response is not None:
+            break
+
+    if response is None:
+        raise RuntimeError(f"Ollama batch translation failed after all providers: {last_error}")
+
     res_data = response.json()
     raw = res_data.get("response", "").strip()
     
@@ -459,10 +610,32 @@ def _translate_batch(client: anthropic.Anthropic, segments: list[dict]) -> tuple
     return parsed_results, in_tokens, out_tokens
 
 
+def _translate_batch_ollama_adaptive(batch: list[dict]) -> tuple[list[dict], int, int]:
+    """Batch translation that halves the batch on provider failure instead of
+    re-retrying the same prompt. A batch of 20 repeatedly hung/500'd on
+    gemma4:31b-cloud (Jul 19), wedging the whole run for 8 supervisor relaunches;
+    smaller prompts get through. Bottoms out at single segments, which never raise."""
+    try:
+        return _translate_batch_ollama(batch)
+    except RuntimeError as e:
+        if len(batch) == 1:
+            print(f"  Batch of 1 still failing ({e}); using single-segment fallback.")
+            return [_translate_single_segment_ollama(batch[0])], 0, 0
+        mid = len(batch) // 2
+        print(f"  Batch of {len(batch)} failed ({e}); splitting into {mid}+{len(batch) - mid}...")
+        l_res, l_in, l_out = _translate_batch_ollama_adaptive(batch[:mid])
+        r_res, r_in, r_out = _translate_batch_ollama_adaptive(batch[mid:])
+        return l_res + r_res, l_in + r_in, l_out + r_out
+
+
 # --- Main Entry Point ---
 
 def translate_segments(segments: list[dict], batch_size: int = 20) -> tuple[list[dict], int, int]:
-    """Translates all segments from English to Bangla in batches, dynamically picking Ollama or Anthropic."""
+    """Translates all segments from English to Bangla in batches, dynamically picking Ollama or Anthropic.
+    
+    Islamic honorifics and sacred terms are pre-processed (replaced with placeholders)
+    before translation and post-processed (restored to Bengali/Arabic forms) after.
+    """
     api_key = os.getenv("LLM_API_KEY")
     translated = []
     total_in = 0
@@ -472,12 +645,24 @@ def translate_segments(segments: list[dict], batch_size: int = 20) -> tuple[list
         print("Using Ollama Cloud translation provider...")
         for i in range(0, len(segments), batch_size):
             batch = segments[i : i + batch_size]
-            results, in_t, out_t = _translate_batch_ollama(batch)
+            # Pre-process: protect honorifics and sacred terms
+            processed_batch = []
+            placeholder_map = []
+            for seg in batch:
+                proc_text, inserted = pre_process_honorifics(seg["text"])
+                processed_batch.append({**seg, "text": proc_text})
+                placeholder_map.append(inserted)
+            
+            results, in_t, out_t = _translate_batch_ollama_adaptive(processed_batch)
+            if len(results) != len(batch):
+                raise ValueError("Translation segment count mismatch")
             total_in += in_t
             total_out += out_t
-            for seg, res in zip(batch, results):
+            for seg, res, expected_ph in zip(batch, results, placeholder_map):
+                # Post-process: restore honorifics and sacred terms
+                restored_text = post_process_honorifics(res["text"], expected_ph if expected_ph else None)
                 translated.append({
-                    "text": res["text"],
+                    "text": restored_text,
                     "start": seg["start"],
                     "duration": seg["duration"],
                     "speaker": res["speaker"],
@@ -488,12 +673,24 @@ def translate_segments(segments: list[dict], batch_size: int = 20) -> tuple[list
         client = _get_client()
         for i in range(0, len(segments), batch_size):
             batch = segments[i : i + batch_size]
-            results, in_t, out_t = _translate_batch(client, batch)
+            # Pre-process: protect honorifics and sacred terms
+            processed_batch = []
+            placeholder_map = []
+            for seg in batch:
+                proc_text, inserted = pre_process_honorifics(seg["text"])
+                processed_batch.append({**seg, "text": proc_text})
+                placeholder_map.append(inserted)
+            
+            results, in_t, out_t = _translate_batch(client, processed_batch)
+            if len(results) != len(batch):
+                raise ValueError("Translation segment count mismatch")
             total_in += in_t
             total_out += out_t
-            for seg, res in zip(batch, results):
+            for seg, res, expected_ph in zip(batch, results, placeholder_map):
+                # Post-process: restore honorifics and sacred terms
+                restored_text = post_process_honorifics(res["text"], expected_ph if expected_ph else None)
                 translated.append({
-                    "text": res["text"],
+                    "text": restored_text,
                     "start": seg["start"],
                     "duration": seg["duration"],
                     "speaker": res["speaker"],
@@ -501,3 +698,15 @@ def translate_segments(segments: list[dict], batch_size: int = 20) -> tuple[list
                 })
 
     return translated, total_in, total_out
+
+
+# A shortening pass must not undo the sacred-term guard after initial translation.
+_retranslate_shorter_unprotected = retranslate_shorter
+def retranslate_shorter(segment: dict, max_syllables: int) -> str:
+    current = segment.get("text", "")
+    candidate = _retranslate_shorter_unprotected(segment, max_syllables)
+    for sacred in set(value for _, value in _TERM_RULES):
+        if candidate.count(sacred) < current.count(sacred):
+            print("Shortening omitted a sacred term; keeping the protected translation")
+            return current
+    return candidate

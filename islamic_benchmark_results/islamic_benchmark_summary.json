@@ -1,0 +1,179 @@
+{
+  "examples": 10,
+  "with_honorifics": {
+    "scored_examples": 0,
+    "bleu": null,
+    "chrf": null,
+    "honorific_preservation_rate": null
+  },
+  "without_honorifics": {
+    "scored_examples": 0,
+    "bleu": null,
+    "chrf": null,
+    "honorific_preservation_rate": null
+  },
+  "status": "incomplete",
+  "backend": {
+    "backend": "fallback_unavailable",
+    "local_error": "Local adapter missing: C:\\Users\\shaya\\.openclaw\\workspace\\project-lip-sync\\kaggle_[ORG_1]_ft\\output\\[ORG_1]-e2b-en-bn-lora",
+    "endpoint": "[URL_1]",
+    "fallback_model": "[ORG_1]:31b",
+    "note": "Local E2B LoRA unavailable. Fallback requests target full [ORG_1]:31b, not the E2B LoRA adapter. No fallback inference has succeeded."
+  },
+  "base_model": "google/gemma-4-e2b-it",
+  "kaggle_path": "google/gemma-4/transformers/gemma-4-e2b-it/1",
+  "errors": [],
+  "per_episode": {
+    "1": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "2": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "3": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "4": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "5": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "6": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "7": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "8": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "9": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    },
+    "10": {
+      "examples": 1,
+      "with_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      },
+      "without_honorifics": {
+        "scored_examples": 0,
+        "bleu": null,
+        "chrf": null,
+        "honorific_preservation_rate": null
+      }
+    }
+  },
+  "scoring_note": "Corpus BLEU (13a tokenizer), chrF; preservation is occurrence-weighted canonical source-term recall. Unavailable scores are null."
+}

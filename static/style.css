@@ -312,6 +312,219 @@ main {
   color: var(--accent);
 }
 
+/* Human Evaluation Panel */
+.feedback-panel {
+  margin-top: 1.25rem;
+  background: rgba(26, 29, 39, 0.65);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(46, 51, 80, 0.6);
+  border-radius: var(--radius);
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: panelSlideIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.feedback-panel .panel-title {
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--gold);
+  letter-spacing: -0.01em;
+}
+
+.feedback-intro {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-top: -0.5rem;
+}
+
+.feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.feedback-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.feedback-field label {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-dim);
+}
+
+.star-row {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.star-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-dim);
+  font-size: 1.4rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.15s, transform 0.1s;
+}
+
+.star-btn:hover,
+.star-btn.active {
+  color: var(--gold);
+  transform: scale(1.1);
+}
+
+.rating-label {
+  color: var(--text-dim);
+  font-weight: 400;
+  font-size: 0.75rem;
+}
+
+.sync-issue-field {
+  padding-top: 0.5rem;
+}
+
+.sync-options {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.sync-options label {
+  color: var(--text);
+  font-weight: 400;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.feedback-panel textarea {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 8px;
+  padding: 0.6rem 0.8rem;
+  font-family: var(--font-latin);
+  font-size: 0.9rem;
+  resize: vertical;
+  outline: none;
+}
+
+.feedback-panel textarea:focus {
+  border-color: var(--accent);
+}
+
+.segment-issues {
+  border-top: 1px solid var(--border);
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.feedback-subtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.feedback-hint {
+  font-size: 0.75rem;
+  color: var(--text-dim);
+}
+
+.segment-issue-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  background: rgba(15, 17, 23, 0.5);
+  border: 1px solid rgba(46, 51, 80, 0.4);
+  border-radius: 8px;
+  padding: 0.5rem 0.75rem;
+}
+
+.segment-issue-row span {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+}
+
+.segment-issue-row select {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.segment-issue-row input[type="text"] {
+  flex: 1;
+  min-width: 120px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8rem;
+}
+
+.add-issue-btn {
+  align-self: flex-start;
+  background: transparent;
+  border: 1px dashed var(--border);
+  color: var(--text-dim);
+  border-radius: 8px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.add-issue-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.feedback-submit {
+  align-self: flex-start;
+  background: linear-gradient(135deg, var(--accent) 0%, #1e70e6 100%);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 0.65rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.feedback-submit:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.feedback-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.feedback-status {
+  font-size: 0.85rem;
+  min-height: 1.2rem;
+}
+
+.feedback-status.success { color: #10b981; }
+.feedback-status.error { color: var(--error); }
+
 /* Footer */
 footer {
   text-align: center;

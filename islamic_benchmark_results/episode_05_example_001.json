@@ -1,0 +1,20 @@
+{
+  "episode": 5,
+  "example": 1,
+  "source_english": "Episode 5 discusses the genealogy of the Arabs and events around the ‘Year of the Elephant’. Dr Qadhi divides Arabs into extinct tribes and remaining tribes; the remaining groups include the pure Arabs descended from Qaḥṭān and the ‘Arabised’ descendants of Ishmael. He recounts legends such as the story of Yaʿrūb, after whom Arabic is named. The lecture also mentions a narration that traces humanity to the three sons of Noah—Shem, Japheth and Ham—but notes that modern science does not support such divisions.",
+  "reference": "পঞ্চম পর্বে আরবদের বংশতালিকা ও ‘হাতির বছর’ সংক্রান্ত ঘটনা আলোচনা করা হয়েছে । শাইখ ক্বাদি আরবদের দুই ভাগে ভাগ করেন—নির্বংশ আরব ও বংশানুক্রমিক আরব । বংশানুক্রমিকদের মধ্যে রয়েছে কাহতান বংশের বিশুদ্ধ আরব ও ইসমাইল (আ.)‑এর বংশধর ‘আরবীভূত’ আরবরা । তিনি ইয়ারুব নামের কিংবদন্তিতুল্য ব্যক্তির গল্প বলেন, যার নামে ‘আরবি’ শব্দটি এসেছে । তিনি বলেন একটি হাদিসে নুহ (আ.)‑এর তিন পুত্র সাম, ইয়াফেস ও হামকে মানবজাতির বংশ হিসেবে উল্লেখ করা হলেও আধুনিক বিজ্ঞান এটিকে সমর্থন করে না ।",
+  "with_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  },
+  "without_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  }
+}

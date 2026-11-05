@@ -5,11 +5,15 @@ let player = null;
 let segments = [];
 let syncInterval = null;
 let lastSegmentIndex = -1;
+let subtitleHasBeenShown = false;   // true once any segment has been displayed
 let pendingVideoId = null;
 let syncOffsetSeconds = 0;   // positive = show subtitles earlier (ahead of timestamps)
+let currentVideoId = '';
 let currentVideoUrl = '';
 let dubPollInterval = null;
 let isDubActive = false;
+let feedbackRatings = { overall_rating: 0, lip_sync_rating: 0, audio_clarity_rating: 0 };
+let segmentIssues = [];
 
 // --- DOM References ---
 const urlForm        = document.getElementById('urlForm');
@@ -36,6 +40,13 @@ const dubbedAudio      = document.getElementById('dubbedAudio');
 const statTime       = document.getElementById('statTime');
 const statTokens     = document.getElementById('statTokens');
 const statTokensLabel = document.getElementById('statTokensLabel');
+const feedbackPanel  = document.getElementById('feedbackPanel');
+const segmentIssueList = document.getElementById('segmentIssueList');
+const feedbackSubmit = document.getElementById('feedbackSubmit');
+const feedbackStatus = document.getElementById('feedbackStatus');
+const feedbackComment = document.getElementById('feedbackComment');
+const feedbackSuggestion = document.getElementById('feedbackSuggestion');
+const backToPlazaBtn = document.getElementById('backToPlazaBtn');
 
 
 // --- Sync Offset Controls ---
@@ -135,14 +146,110 @@ urlForm.addEventListener('submit', async (e) => {
   }
 });
 
+// --- Plaza watch view support ---
+function loadPlazaWatchView() {
+  const params = new URLSearchParams(window.location.search);
+  const videoId = params.get('video_id');
+  if (!videoId) return false;
+
+  setError('');
+  showLoading('Loading dubbed video from plaza…');
+  resetDubUI();
+
+  fetch(`/api/plaza/${encodeURIComponent(videoId)}`)
+    .then(res => {
+      if (!res.ok) throw new Error(`Plaza video not found (${res.status}).`);
+      return res.json();
+    })
+    .then(async (video) => {
+      const manifest = video.manifest || {};
+      const audioUrl = video.audio_url || `/output/${videoId}/${videoId}_dubbed.mp3`;
+      const videoUrl = video.video_url || `/output/${videoId}/${videoId}_dubbed.mp4`;
+      const title = video.title || videoId;
+      const timeTaken = manifest.elapsed_seconds ?? 0;
+      const tokens = manifest.tokens;
+
+      // Plaza manifests are metadata-only; load segment-level transcript.
+      const transcriptRes = await fetch(`/api/transcript/${encodeURIComponent(videoId)}`);
+      let banglaSegments = [];
+      if (transcriptRes.ok) {
+        const transcript = await transcriptRes.json();
+        banglaSegments = transcript.segments || [];
+      } else {
+        console.warn('Plaza transcript not found:', transcriptRes.status);
+      }
+
+      segments = banglaSegments;
+      segmentCount.textContent = `${segments.length} segments translated`;
+      pendingVideoId = videoId;
+
+      initOrLoadPlayer(videoId);
+
+      dubDownload.href = videoUrl;
+      dubDownload.hidden = false;
+      audioDownload.href = audioUrl;
+      audioDownload.hidden = false;
+
+      dubPlayerPanel.hidden = false;
+      dubbedAudio.src = audioUrl;
+      dubbedAudio.load();
+      setAudioTrack(false);
+
+      statTime.textContent = `${timeTaken.toFixed(1)}s`;
+      if (tokens && tokens.cached) {
+        statTokensLabel.textContent = 'Claude Cache';
+        statTokens.textContent = 'Cached (0 tokens)';
+        statTokens.classList.add('cached');
+      } else if (tokens) {
+        statTokensLabel.textContent = 'Claude Tokens';
+        const total = (tokens.total_tokens || 0).toLocaleString();
+        const inp = (tokens.input_tokens || 0).toLocaleString();
+        const out = (tokens.output_tokens || 0).toLocaleString();
+        statTokens.textContent = `${total} (${inp} in / ${out} out)`;
+        statTokens.classList.remove('cached');
+      } else {
+        statTokensLabel.textContent = 'Claude Tokens';
+        statTokens.textContent = 'N/A';
+        statTokens.classList.remove('cached');
+      }
+
+      currentVideoId = videoId;
+      setupFeedbackUI(videoId, banglaSegments);
+      showPlayerFromPlaza();
+    })
+    .catch(err => {
+      setError(err.message);
+      showInputOnly();
+    });
+  return true;
+}
+
+function showPlayerFromPlaza() {
+  if (backToPlazaBtn) backToPlazaBtn.hidden = false;
+  if (newVideoBtn) newVideoBtn.hidden = true;
+}
+
+function showPlayerFromHomepage() {
+  if (backToPlazaBtn) backToPlazaBtn.hidden = true;
+  if (newVideoBtn) newVideoBtn.hidden = false;
+}
+
+// Run watch view detection on load
+document.addEventListener('DOMContentLoaded', () => {
+  loadPlazaWatchView();
+});
+
 
 // --- New Video Button ---
 newVideoBtn.addEventListener('click', () => {
   stopSync();
   segments = [];
   lastSegmentIndex = -1;
+  subtitleHasBeenShown = false;
   currentVideoUrl = '';
+  currentVideoId = '';
   resetDubUI();
+  resetFeedbackUI();
   setSubtitle('', true);
   showInputOnly();
   urlInput.value = '';
@@ -186,7 +293,13 @@ function onPlayerReady() {
   inputSection.hidden = true;
   loadingSection.hidden = true;
   playerSection.hidden = false;
-  setSubtitle('▶ Play the video to see Bangla subtitles', true);
+  // Only show the placeholder if the video isn't already playing. This avoids
+  // clobbering subtitles that are already rendering after a quick state change.
+  if (player && typeof player.getPlayerState === 'function' && player.getPlayerState() === 1) {
+    syncSubtitle();
+  } else {
+    setSubtitle('▶ Play the video to see Bangla subtitles', true);
+  }
 }
 
 function onPlayerStateChange(event) {
@@ -196,6 +309,8 @@ function onPlayerStateChange(event) {
 
   if (event.data === YT_PLAYING) {
     startSync();
+    // Update subtitles immediately so the placeholder clears the moment playback starts.
+    syncSubtitle();
     if (isDubActive && dubbedAudio) {
       dubbedAudio.currentTime = player.getCurrentTime();
       dubbedAudio.play().catch(err => console.warn('Audio play failed:', err));
@@ -259,8 +374,13 @@ function syncSubtitle() {
   lastSegmentIndex = idx;
 
   if (idx === -1) {
-    setSubtitle('', true);
+    // Keep the initial placeholder until the first segment's start time is reached.
+    // After a segment has been shown, gaps between segments should be empty.
+    if (subtitleHasBeenShown) {
+      setSubtitle('', true);
+    }
   } else {
+    subtitleHasBeenShown = true;
     setSubtitle(segments[idx].text, false);
   }
 }
@@ -339,6 +459,8 @@ function pollDubStatus(jobId) {
 
         // Load segments & video details
         segments = data.segments;
+        lastSegmentIndex = -1;
+        subtitleHasBeenShown = false;
         segmentCount.textContent = `${segments.length} segments translated`;
         pendingVideoId = data.video_id;
 
@@ -359,7 +481,7 @@ function pollDubStatus(jobId) {
 
         // Format stats
         statTime.textContent = `${data.time_taken.toFixed(1)}s`;
-        
+
         if (data.tokens && data.tokens.cached) {
           statTokensLabel.textContent = 'Claude Cache';
           statTokens.textContent = 'Cached (0 tokens)';
@@ -376,6 +498,11 @@ function pollDubStatus(jobId) {
           statTokens.textContent = 'N/A';
           statTokens.classList.remove('cached');
         }
+
+        // Setup human evaluation panel
+        currentVideoId = data.video_id;
+        setupFeedbackUI(data.video_id, data.segments);
+        showPlayerFromHomepage();
 
         submitBtn.disabled = false;
       } else if (data.status === 'error') {
@@ -398,6 +525,8 @@ function resetDubUI() {
     dubPollInterval = null;
   }
   submitBtn.disabled = false;
+  lastSegmentIndex = -1;
+  subtitleHasBeenShown = false;
   dubDownload.hidden = true;
   dubDownload.href = '';
   audioDownload.hidden = true;
@@ -416,4 +545,192 @@ function resetDubUI() {
     player.unMute();
   }
 }
+
+// --- Human Evaluation UI ---
+
+const RATING_LABELS = ['', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
+
+function createStarRow(containerId, labelId, field) {
+  const container = document.getElementById(containerId);
+  const label = document.getElementById(labelId);
+  container.innerHTML = '';
+  for (let i = 1; i <= 5; i++) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'star-btn';
+    btn.textContent = '★';
+    btn.dataset.value = i;
+    btn.addEventListener('click', () => {
+      feedbackRatings[field] = i;
+      updateStarDisplay(container, i, label);
+    });
+    container.appendChild(btn);
+  }
+}
+
+function updateStarDisplay(container, value, label) {
+  Array.from(container.children).forEach((btn, idx) => {
+    btn.classList.toggle('active', idx < value);
+  });
+  if (label) label.textContent = RATING_LABELS[value] || '';
+}
+
+function setupFeedbackUI(videoId, segs) {
+  currentVideoId = videoId;
+  segmentIssues = [];
+  feedbackRatings = { overall_rating: 0, lip_sync_rating: 0, audio_clarity_rating: 0 };
+  document.querySelector('input[name="syncIssue"][value="none"]').checked = true;
+  feedbackComment.value = '';
+  feedbackSuggestion.value = '';
+  feedbackStatus.textContent = '';
+  feedbackStatus.className = 'feedback-status';
+  feedbackSubmit.disabled = false;
+  feedbackSubmit.textContent = 'Submit feedback';
+  feedbackPanel.hidden = false;
+
+  createStarRow('overallStars', 'overallLabel', 'overall_rating');
+  createStarRow('lipSyncStars', 'lipSyncLabel', 'lip_sync_rating');
+  createStarRow('audioStars', 'audioLabel', 'audio_clarity_rating');
+
+  renderSegmentIssueList(segs);
+}
+
+function resetFeedbackUI() {
+  currentVideoId = '';
+  segmentIssues = [];
+  feedbackRatings = { overall_rating: 0, lip_sync_rating: 0, audio_clarity_rating: 0 };
+  if (feedbackPanel) feedbackPanel.hidden = true;
+}
+
+const ISSUE_CATEGORIES = [
+  'wrong_translation',
+  'bad_lip_sync',
+  'too_fast',
+  'too_slow',
+  'audio_glitch',
+  'caption_issue',
+  'other',
+];
+
+function renderSegmentIssueList(segs) {
+  segmentIssueList.innerHTML = '';
+
+  // Current segment row
+  const currentRow = document.createElement('div');
+  currentRow.className = 'segment-issue-row';
+  currentRow.innerHTML = `
+    <span>Current segment:</span>
+    <select id="currentIssueCategory">
+      <option value="">— category —</option>
+      ${ISSUE_CATEGORIES.map(c => `<option value="${c}">${c.replace(/_/g, ' ')}</option>`).join('')}
+    </select>
+    <input type="text" id="currentIssueComment" placeholder="Optional note">
+    <button type="button" class="add-issue-btn" id="reportCurrentSegmentBtn">Report</button>
+  `;
+  segmentIssueList.appendChild(currentRow);
+
+  document.getElementById('reportCurrentSegmentBtn').addEventListener('click', () => {
+    const category = document.getElementById('currentIssueCategory').value;
+    if (!category) {
+      setFeedbackStatus('Pick a category for the current segment issue.', 'error');
+      return;
+    }
+    const idx = lastSegmentIndex >= 0 ? lastSegmentIndex : 0;
+    const seg = segments[idx] || { start: 0, duration: 0, text: '' };
+    segmentIssues.push({
+      segment_index: idx,
+      segment_start: seg.start,
+      category,
+      comment: document.getElementById('currentIssueComment').value.trim(),
+    });
+    document.getElementById('currentIssueCategory').value = '';
+    document.getElementById('currentIssueComment').value = '';
+    setFeedbackStatus('Current-segment issue added. You can add more or submit.', 'success');
+  });
+
+  // Compact list of first several segments
+  const preview = (segs || []).slice(0, 20);
+  preview.forEach((seg, idx) => {
+    const row = document.createElement('div');
+    row.className = 'segment-issue-row';
+    row.innerHTML = `
+      <span>#${idx} ${formatTime(seg.start)}:</span>
+      <select class="issue-category" data-index="${idx}" data-start="${seg.start}">
+        <option value="">— category —</option>
+        ${ISSUE_CATEGORIES.map(c => `<option value="${c}">${c.replace(/_/g, ' ')}</option>`).join('')}
+      </select>
+      <input type="text" class="issue-comment" data-index="${idx}" placeholder="Optional note">
+      <button type="button" class="add-issue-btn report-segment-btn" data-index="${idx}" data-start="${seg.start}">Report</button>
+    `;
+    segmentIssueList.appendChild(row);
+  });
+
+  segmentIssueList.querySelectorAll('.report-segment-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.index, 10);
+      const start = parseFloat(btn.dataset.start);
+      const category = segmentIssueList.querySelector(`.issue-category[data-index="${idx}"]`).value;
+      if (!category) {
+        setFeedbackStatus(`Pick a category for segment #${idx}.`, 'error');
+        return;
+      }
+      const comment = segmentIssueList.querySelector(`.issue-comment[data-index="${idx}"]`).value.trim();
+      segmentIssues.push({ segment_index: idx, segment_start: start, category, comment });
+      setFeedbackStatus(`Issue recorded for segment #${idx}.`, 'success');
+    });
+  });
+}
+
+function formatTime(seconds) {
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
+function setFeedbackStatus(msg, kind) {
+  feedbackStatus.textContent = msg;
+  feedbackStatus.className = 'feedback-status' + (kind ? ` ${kind}` : '');
+}
+
+feedbackSubmit.addEventListener('click', async () => {
+  if (!currentVideoId) {
+    setFeedbackStatus('No video loaded yet.', 'error');
+    return;
+  }
+  if (feedbackRatings.overall_rating < 1 || feedbackRatings.lip_sync_rating < 1 || feedbackRatings.audio_clarity_rating < 1) {
+    setFeedbackStatus('Please rate all three dimensions (1–5 stars).', 'error');
+    return;
+  }
+
+  const syncIssue = document.querySelector('input[name="syncIssue"]:checked')?.value || 'none';
+  const payload = {
+    video_id: currentVideoId,
+    overall_rating: feedbackRatings.overall_rating,
+    lip_sync_rating: feedbackRatings.lip_sync_rating,
+    audio_clarity_rating: feedbackRatings.audio_clarity_rating,
+    sync_issue: syncIssue,
+    segment_issues: segmentIssues,
+    general_comment: feedbackComment.value.trim(),
+    improvement_suggestion: feedbackSuggestion.value.trim(),
+  };
+
+  feedbackSubmit.disabled = true;
+  feedbackSubmit.textContent = 'Saving…';
+  try {
+    const res = await fetch('/api/feedback', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.detail || 'Failed to save feedback.');
+    setFeedbackStatus('Feedback saved. Thank you! ID: ' + data.id, 'success');
+    feedbackSubmit.textContent = 'Feedback submitted';
+  } catch (err) {
+    setFeedbackStatus(err.message, 'error');
+    feedbackSubmit.disabled = false;
+    feedbackSubmit.textContent = 'Submit feedback';
+  }
+});
+
 

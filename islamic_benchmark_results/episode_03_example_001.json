@@ -1,0 +1,20 @@
+{
+  "episode": 3,
+  "example": 1,
+  "source_english": "Episode 3 explains the meaning of *sīrah* and why Muslims should study it. The word *sīrah* means ‘to journey’ and refers to travelling through the Prophet’s life. Dr Qadhi gives several reasons: God commands us to take the Prophet as our example and there are over 50 verses requiring us to follow him. Studying the sīrah increases love for the Prophet and strengthens faith. It contextualises the Qur’an—verses like Sūrah al‑Ḍuḥā are understood only when the circumstances of revelation are known. Furthermore, it raises our spirits by showing the hardships the early Muslims endured and reminds us that the Prophet’s entire life is itself a miracle and proof of his prophethood.",
+  "reference": "তৃতীয় পর্বে ‘সীরাহ’ শব্দের অর্থ ও তা অধ্যয়নের গুরুত্ব আলোচনা করা হয়েছে । ‘সীরাহ’ মানে পথ চলা বা যাত্রা, অর্থাৎ নবীর জীবনকে অনুসরণ করা । শাইখ ইয়াসির ক্বাদি বলেন, আল্লাহ আমাদের নবীকে আদর্শ হিসেবে গ্রহণ করতে বলেছেন এবং কুরআনে ৫০‑এর বেশি আয়াতে তাঁকে অনুসরণ করতে নির্দেশ দেওয়া হয়েছে । সীরাহ পড়লে আমরা নবীকে বেশি ভালোবাসতে শিখি এবং ঈমান বৃদ্ধি পায় । এটি কুরআনের আয়াতের প্রেক্ষাপট উপলব্ধি করতে সাহায্য করে, যেমন সূরা আদ-দুহা তখনই বোঝা যায় যখন জানা যায় নবীর উপর ওহির বিলম্বে তিনি কষ্ট পাচ্ছিলেন । সীরাহ আমাদের মনোবল বাড়ায়, কারণ এতে সাহাবিদের দুর্ভোগ ও নবীর জীবন স্বয়ং তাঁর নবুয়তের মুজিজা হিসেবে তুলে ধরা হয়েছে ।",
+  "with_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  },
+  "without_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  }
+}

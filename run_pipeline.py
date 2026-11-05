@@ -1,6 +1,6 @@
 """Run the LipSync dubbing pipeline for one YouTube video ID.
 
-    python run_pipeline.py <VIDEO_ID> [--fresh]
+    python run_pipeline.py <VIDEO_ID> [--fresh] [--clean-sentences]
 
 Resumable by design (2026-07-13 rewrite). The old version kept all of its work in
 a `tempfile.mkdtemp()` directory, so when the host process manager SIGKILLed a
@@ -14,6 +14,9 @@ segment it was mid-way through; rerunning the exact same command resumes.
 
 Phases (each one is skippable on resume):
   1 transcript  -> .work/transcript.json
+  1.5 clean     -> .work/cleaned_sentences.json (opt-in: --clean-sentences)
+                  Produces cleaned English for Firebase import ONLY.
+                  Does NOT alter the transcript used for dubbing.
   2 translate   -> .work/translated.json      (the expensive LLM step)
   3 download    -> .work/video.mp4
   4 extract     -> .work/original_audio.mp3
@@ -131,6 +134,13 @@ args = [a for a in sys.argv[1:] if not a.startswith("--")]
 flags = {a for a in sys.argv[1:] if a.startswith("--")}
 VIDEO_ID = args[0] if args else "H3hijSGhdlo"
 FRESH = "--fresh" in flags
+# Optional English cleanup pass (phase 1.5).
+# OFF by default: it costs one local-Ollama call per segment.
+# IMPORTANT: this does NOT rewrite the segments used for dubbing/translation.
+# It only produces a side-car file (.work/cleaned_sentences.json) suitable for
+# importing clean, complete English sentences into the crowdsource-translation
+# Firebase collection. Dubbing continues to use the original transcript timing.
+CLEAN_SENTENCES = "--clean-sentences" in flags
 
 VIDEO_OUTPUT_DIR = os.path.join("output", VIDEO_ID)
 WORK_DIR = os.path.join(VIDEO_OUTPUT_DIR, ".work")
@@ -224,6 +234,7 @@ def _watchdog() -> None:
 threading.Thread(target=_watchdog, daemon=True, name="stall-watchdog").start()
 
 TRANSCRIPT_PATH = os.path.join(WORK_DIR, "transcript.json")
+CLEANED_PATH = os.path.join(WORK_DIR, "cleaned_sentences.json")
 TRANSLATED_PATH = os.path.join(WORK_DIR, "translated.json")
 VIDEO_PATH = os.path.join(WORK_DIR, "video.mp4")
 ORIG_AUDIO_PATH = os.path.join(WORK_DIR, "original_audio.mp3")
@@ -345,23 +356,128 @@ print(f"  Clustered into {len(base_segments)} segments")
 
 
 # --------------------------------------------------------------------------
+# [1.5/7] clean English sentences for Firebase import (optional: --clean-sentences)
+# --------------------------------------------------------------------------
+# Auto-captions are fragments: no capitals, no terminal punctuation, fillers and
+# stutter repeats. This phase produces a clean, complete sentence list that can
+# be imported into the crowdsource-translation Firebase collection. It does NOT
+# change the segments used for translation/TTS/mixing -- the dubber still uses the
+# original transcript timing and wording so audio alignment is preserved.
+#
+# Checkpointed like every other phase: a resumed run must never re-pay for it.
+# Keyed on the segment texts it was computed from, so a transcript change (or a
+# --fresh run) correctly invalidates it.
+if CLEAN_SENTENCES:
+    print("\n[1.5/7] Cleaning English sentences for Firebase export (local Ollama)...")
+    progress.update("clean", total=len(base_segments))
+
+    from sentence_cleanup import (
+        CleanupUnavailable,
+        check_available,
+        clean_fragment,
+    )
+
+    source_texts = [s.get("text", "") for s in base_segments]
+    source_key = hashlib.sha1(
+        " ".join(source_texts).encode("utf-8")
+    ).hexdigest()
+
+    cached_clean = read_json(CLEANED_PATH)
+    if cached_clean and cached_clean.get("source_key") == source_key:
+        cleaned_records = cached_clean["records"]
+        print(f"  Resumed {len(cleaned_records)} cleaned records from checkpoint")
+    else:
+        ok, detail = check_available()
+        if not ok:
+            sys.exit(
+                f"FATAL: --clean-sentences was requested but the cleanup model is "
+                f"unavailable.\n  {detail}\n"
+                f"Start Ollama (or pull the model), or rerun without --clean-sentences."
+            )
+        print(f"  {detail}")
+
+        cleaned_records = []
+        changed = 0
+        try:
+            for i, seg in enumerate(base_segments):
+                # Beat every segment: this phase is a long sequence of local model
+                # calls and the watchdog must not mistake it for a stall.
+                beat(f"clean {i + 1}/{len(base_segments)}")
+                text = seg.get("text", "")
+                result = clean_fragment(text) if text.strip() else text
+                if result.strip() != text.strip():
+                    changed += 1
+                cleaned_records.append({
+                    "index": i,
+                    "start": seg.get("start"),
+                    "duration": seg.get("duration"),
+                    "speaker": seg.get("speaker"),
+                    "original": text,
+                    "cleaned": result,
+                })
+                if (i + 1) % 25 == 0 or (i + 1) == len(base_segments):
+                    print(f"  Cleaned {i + 1}/{len(base_segments)} ({changed} changed)")
+                    progress.update("clean", i + 1, len(base_segments), f"changed={changed}")
+        except CleanupUnavailable as e:
+            sys.exit(
+                f"FATAL: the cleanup model went away mid-phase ({e}).\n"
+                f"Rerun to resume, or drop --clean-sentences to skip cleanup."
+            )
+
+        write_json_atomic(CLEANED_PATH, {
+            "video_id": VIDEO_ID,
+            "source_key": source_key,
+            "records": cleaned_records,
+            "changed": changed,
+        })
+        print(f"  Wrote {len(cleaned_records)} cleaned records ({changed} changed) to {CLEANED_PATH}")
+else:
+    print("\n[1.5/7] Sentence cleanup skipped (enable with --clean-sentences)")
+
+
+# --------------------------------------------------------------------------
 # [2/7] translate  (the expensive step -- never redo it)
 # --------------------------------------------------------------------------
 print("\n[2/7] Translating to Bangla...")
 progress.update("translate", total=len(base_segments))
 
+# The English the translator is about to see. A cached translation may only be
+# reused if it was produced from this EXACT text. Matching on segment COUNT alone
+# (the pre-cleanup behaviour) would silently reuse a translation of the raw
+# captions the first time someone adds --clean-sentences to an existing run --
+# the cleanup would appear to do nothing at all.
+#
+# Note: --clean-sentences no longer mutates base_segments, so the translation
+# input is always the original transcript text regardless of the flag.
+translate_input_key = hashlib.sha1(
+    " ".join(s.get("text", "") for s in base_segments).encode("utf-8")
+).hexdigest()
+
 cached = read_json(TRANSLATED_PATH)
-if cached and len(cached.get("segments", [])) == len(base_segments):
+if cached is None or len(cached.get("segments", [])) != len(base_segments):
+    cached_usable = False
+elif "input_key" in cached:
+    cached_usable = cached["input_key"] == translate_input_key
+else:
+    # A checkpoint written before input_key existed. Its English is unknown, so it
+    # can only be trusted for the no-cleanup path -- which is what produced it.
+    cached_usable = True
+if cached_usable:
     segments = cached["segments"]
     in_tokens = cached.get("tokens", {}).get("input", 0)
     out_tokens = cached.get("tokens", {}).get("output", 0)
     print(f"  Resumed {len(segments)} translated segments from checkpoint (0 tokens spent)")
 else:
+    if cached:
+        print("  Cached translation does not match the current English text - retranslating")
     segments, in_tokens, out_tokens = translate_segments(base_segments)
     for seg, orig in zip(segments, base_segments):
         seg["original_text"] = orig.get("text", "")
+        if "raw_text" in orig:
+            seg["raw_text"] = orig["raw_text"]
     write_json_atomic(TRANSLATED_PATH, {
         "video_id": VIDEO_ID,
+        "input_key": translate_input_key,
         "segments": segments,
         "tokens": {"input": in_tokens, "output": out_tokens},
     })
@@ -673,6 +789,7 @@ manifest = {
     "dubbed_audio_seconds": stats["output_seconds"],
     "coverage": round(out_coverage, 3),
     "segment_count": len(segments),
+    "sentence_cleanup": CLEAN_SENTENCES,
     "segments_voiced": voiced,
     "segments_mixed": stats["segments_mixed"],
     "segments_failed": len(failed),

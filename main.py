@@ -1,3 +1,4 @@
+import json
 import os
 import shutil
 import tempfile
@@ -7,12 +8,14 @@ from dotenv import load_dotenv
 load_dotenv()
 
 from fastapi import BackgroundTasks, FastAPI, HTTPException
-from fastapi.responses import FileResponse
+from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
+from typing import List, Optional
 
 from captions import extract_video_id, fetch_transcript, cluster_segments
 from translator import translate_segments, retranslate_shorter, count_bangla_syllables
+from feedback_store import append_feedback, get_feedback_file_path, iter_feedback
 
 app = FastAPI(title="Islamic Lecture Subtitle Translator")
 
@@ -32,6 +35,24 @@ class TranslateRequest(BaseModel):
 
 class DubRequest(BaseModel):
     url: str
+
+
+class SegmentIssue(BaseModel):
+    segment_index: int
+    segment_start: float = 0.0
+    category: str
+    comment: str = ""
+
+
+class EvaluationRequest(BaseModel):
+    video_id: str
+    overall_rating: int = Field(..., ge=1, le=5)
+    lip_sync_rating: int = Field(..., ge=1, le=5)
+    audio_clarity_rating: int = Field(..., ge=1, le=5)
+    sync_issue: Optional[str] = None  # none / minor / major
+    segment_issues: List[SegmentIssue] = []
+    general_comment: str = ""
+    improvement_suggestion: str = ""
 
 
 # --- Subtitle Translation ---
@@ -169,7 +190,7 @@ def run_dub_pipeline(job_id: str, video_id: str):
                         # Target ~3.5 syllables per second of available time
                         max_syllables = int(available_time * 3.5)
                         actual_syllables = count_bangla_syllables(seg["text"])
-                        print(f"  Segment {i}: rate={rate_factor:.2f}x > 1.3 → reprompting for ≤{max_syllables} syllables (current {actual_syllables})...")
+                        print(f"  Segment {i}: rate={rate_factor:.2f}x > 1.3 -> reprompting for <={max_syllables} syllables (current {actual_syllables})...")
                         shorter_text = retranslate_shorter(seg, max_syllables)
                         if shorter_text != seg["text"] and count_bangla_syllables(shorter_text) <= int(max_syllables * 1.2):
                             seg["text"] = shorter_text
@@ -210,6 +231,16 @@ def run_dub_pipeline(job_id: str, video_id: str):
         audio_out_path = os.path.join(OUTPUT_DIR, audio_out_filename)
         shutil.copy(dubbed_audio, audio_out_path)
 
+        # --- Plaza manifest: persist per-video subdir so /api/plaza finds it ---
+        video_dir = os.path.join(OUTPUT_DIR, video_id)
+        os.makedirs(video_dir, exist_ok=True)
+        video_artifact = f"{video_id}_dubbed.mp4"
+        audio_artifact = f"{video_id}_dubbed.mp3"
+        video_dir_video_path = os.path.join(video_dir, video_artifact)
+        video_dir_audio_path = os.path.join(video_dir, audio_artifact)
+        shutil.copy(out_path, video_dir_video_path)
+        shutil.copy(audio_out_path, video_dir_audio_path)
+
         end_time = time.time()
         time_taken = round(end_time - start_time, 2)
         tokens = {
@@ -219,12 +250,57 @@ def run_dub_pipeline(job_id: str, video_id: str):
             "cached": cached
         }
 
+        # Segment-level transcript sidecar: this is what /api/transcript/{video_id}
+        # serves to the plaza watch view for Bangla subtitles.
+        transcript_artifact = f"{video_id}_transcript.json"
+        transcript_path = os.path.join(video_dir, transcript_artifact)
+        with open(transcript_path, "w", encoding="utf-8") as f:
+            json.dump(
+                {
+                    "video_id": video_id,
+                    "segments": segments,
+                    "tokens": {"input": in_tokens, "output": out_tokens},
+                    "time_taken": time_taken,
+                },
+                f,
+                ensure_ascii=False,
+                indent=2,
+            )
+
+        manifest_path = os.path.join(video_dir, "manifest.json")
+        manifest = {
+            "video_id": video_id,
+            "title": video_id,
+            "created_at": time.strftime("%Y-%m-%dT%H:%M:%S", time.localtime()),
+            "elapsed_seconds": time_taken,
+            "source_video_seconds": total_duration,
+            "dubbed_audio_seconds": total_duration,
+            "segment_count": len(segments),
+            "segments": segments,
+            "tokens": {
+                "input": in_tokens,
+                "output": out_tokens,
+            },
+            "artifacts": {
+                "dubbed_video": video_artifact,
+                "dubbed_audio": audio_artifact,
+                "transcript": transcript_artifact,
+            },
+            "files": {
+                "dubbed_video": os.path.getsize(video_dir_video_path),
+                "dubbed_audio": os.path.getsize(video_dir_audio_path),
+                "transcript": os.path.getsize(transcript_path),
+            },
+        }
+        with open(manifest_path, "w", encoding="utf-8") as f:
+            json.dump(manifest, f, ensure_ascii=False, indent=2)
+
         _set_job(
             job_id,
             status="done",
             progress="Complete!",
-            url=f"/output/{out_filename}",
-            audio_url=f"/output/{audio_out_filename}",
+            url=f"/output/{video_id}/{video_artifact}",
+            audio_url=f"/output/{video_id}/{audio_artifact}",
             segments=segments,
             tokens=tokens,
             time_taken=time_taken,
@@ -258,14 +334,161 @@ def dub_status(job_id: str):
     return job
 
 
-@app.get("/output/{filename}")
-def download_output(filename: str):
-    path = os.path.join(OUTPUT_DIR, filename)
+@app.get("/output/{video_id}/{filename}")
+def download_output_nested(video_id: str, filename: str):
+    """Serve dubbed files from per-video output subdirectories."""
+    safe_video_id = os.path.basename(video_id)
+    safe_filename = os.path.basename(filename)
+    path = os.path.join(OUTPUT_DIR, safe_video_id, safe_filename)
     if not os.path.exists(path):
         raise HTTPException(status_code=404, detail="Output file not found.")
     if filename.endswith(".mp3"):
-        return FileResponse(path, media_type="audio/mpeg", filename=filename)
-    return FileResponse(path, media_type="video/mp4", filename=filename)
+        return FileResponse(path, media_type="audio/mpeg", filename=safe_filename)
+    return FileResponse(path, media_type="video/mp4", filename=safe_filename)
+
+
+@app.get("/output/{filename}")
+def download_output_flat(filename: str):
+    """Backward compatibility for older flat output files."""
+    safe_filename = os.path.basename(filename)
+    path = os.path.join(OUTPUT_DIR, safe_filename)
+    if not os.path.exists(path):
+        raise HTTPException(status_code=404, detail="Output file not found.")
+    if filename.endswith(".mp3"):
+        return FileResponse(path, media_type="audio/mpeg", filename=safe_filename)
+    return FileResponse(path, media_type="video/mp4", filename=safe_filename)
+
+
+def _scan_output_for_manifests():
+    results = []
+    if not os.path.isdir(OUTPUT_DIR):
+        return results
+    for entry in os.listdir(OUTPUT_DIR):
+        video_dir = os.path.join(OUTPUT_DIR, entry)
+        if not os.path.isdir(video_dir):
+            continue
+        manifest_path = os.path.join(video_dir, "manifest.json")
+        if not os.path.exists(manifest_path):
+            continue
+        try:
+            with open(manifest_path, "r", encoding="utf-8-sig") as f:
+                manifest = json.load(f)
+        except Exception:
+            continue
+        video_id = manifest.get("video_id") or entry
+        artifacts = manifest.get("artifacts", {})
+        files = manifest.get("files", {})
+        video_file = artifacts.get("dubbed_video")
+        audio_file = artifacts.get("dubbed_audio")
+        title = manifest.get("title")
+        if not title:
+            title = video_id
+        duration = manifest.get("source_video_seconds") or manifest.get("dubbed_audio_seconds")
+        created_at = manifest.get("created_at")
+        item = {
+            "video_id": video_id,
+            "title": title,
+            # Set by watcher.py when it publishes an auto-dubbed upload. Absent
+            # for videos dubbed by hand before the watcher existed.
+            "channel": manifest.get("channel"),
+            "published_at": manifest.get("published_at"),
+            "source_url": manifest.get("source_url"),
+            "thumbnail": manifest.get("thumbnail"),
+            "duration_seconds": duration,
+            "created_at": created_at,
+            "video_url": f"/output/{video_id}/{video_file}" if video_file else None,
+            "audio_url": f"/output/{video_id}/{audio_file}" if audio_file else None,
+            "manifest": manifest,
+            "file_sizes": {
+                "video": files.get("dubbed_video"),
+                "audio": files.get("dubbed_audio"),
+            },
+        }
+        results.append(item)
+    results.sort(key=lambda x: x.get("created_at") or "", reverse=True)
+    return results
+
+
+@app.get("/api/plaza")
+def plaza_metadata():
+    return {"videos": _scan_output_for_manifests()}
+
+
+@app.get("/api/plaza/{video_id}")
+def plaza_video_metadata(video_id: str):
+    for item in _scan_output_for_manifests():
+        if item["video_id"] == video_id:
+            return item
+    raise HTTPException(status_code=404, detail="Video not found in plaza.")
+
+
+@app.get("/api/transcript/{video_id}")
+def transcript_json(video_id: str):
+    """Serve the segment-level transcript for a plaza video."""
+    safe_video_id = os.path.basename(video_id)
+    video_dir = os.path.join(OUTPUT_DIR, safe_video_id)
+    if not os.path.isdir(video_dir):
+        raise HTTPException(status_code=404, detail="Video not found in plaza.")
+
+    # Prefer the transcript filename recorded in the manifest artifacts, if any.
+    manifest_path = os.path.join(video_dir, "manifest.json")
+    transcript_filename = f"{safe_video_id}_transcript.json"
+    if os.path.exists(manifest_path):
+        try:
+            with open(manifest_path, "r", encoding="utf-8-sig") as f:
+                manifest = json.load(f)
+            artifacts = manifest.get("artifacts", {})
+            if artifacts.get("transcript"):
+                transcript_filename = artifacts["transcript"]
+        except Exception:
+            pass
+
+    transcript_path = os.path.join(video_dir, transcript_filename)
+    if not os.path.exists(transcript_path):
+        raise HTTPException(status_code=404, detail="Transcript not found for this video.")
+
+    try:
+        with open(transcript_path, "r", encoding="utf-8-sig") as f:
+            transcript = json.load(f)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to read transcript: {e}")
+
+    return {"video_id": safe_video_id, "segments": transcript.get("segments", [])}
+
+
+@app.get("/plaza", response_class=HTMLResponse)
+def serve_plaza():
+    plaza_path = os.path.join("static", "plaza.html")
+    if not os.path.exists(plaza_path):
+        raise HTTPException(status_code=404, detail="Plaza page not found.")
+    with open(plaza_path, "r", encoding="utf-8") as f:
+        return HTMLResponse(content=f.read())
+
+
+# --- Human Evaluation Feedback ---
+
+@app.post("/api/feedback")
+async def submit_feedback(req: EvaluationRequest):
+    try:
+        record = append_feedback(req.model_dump())
+        return {"status": "ok", "id": record["id"]}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save feedback: {e}")
+
+
+@app.get("/api/feedback")
+def list_feedback():
+    return list(iter_feedback())
+
+
+@app.get("/api/feedback/file")
+def feedback_file_info():
+    path = get_feedback_file_path()
+    return {
+        "path": str(path),
+        "exists": path.exists(),
+        "size_bytes": path.stat().st_size if path.exists() else 0,
+    }
 
 
 # --- Health & Static Files ---

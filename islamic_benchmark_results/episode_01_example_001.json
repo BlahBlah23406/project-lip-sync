@@ -1,0 +1,20 @@
+{
+  "episode": 1,
+  "example": 1,
+  "source_english": "Shaykh Yasir Qadhi introduces the Prophet Muḥammad’s special names and attributes. He explains that the Prophet has many names given by God, such as Muḥammad and Aḥmad, both derived from the Arabic root for praise. Other names include al‑Māḥī (the one by whom God erases disbelief), al‑Ḥāshir (after whom people are resurrected), and al‑ʿĀqib (after whom there is no prophet). The lecture then lists unique *khaṣāʾiṣ* (distinctive characteristics) granted exclusively to the Prophet. He was decreed as a prophet before Adam was created and sent to the entire human race and jinn. His nation will be the largest, and he was given miracles like the Qur’an and the Isra’ and Miʿrāj. On the Day of Judgement, he will hold the banner of praise and intercede for creation.",
+  "reference": "এই বক্তৃতার প্রথম পর্বে শাইখ ইয়াসির ক্বাদি রাসূল (সা.)‑এর বিশেষ নাম ও গুণাবলী তুলে ধরেন । তিনি ব্যাখ্যা করেন যে আল্লাহ তাঁকে বহু নাম দিয়েছেন, যেমন মুহাম্মদ ও আহমদ—দু’টি নামই প্রশংসার অর্থবহ মূল ধাতু থেকে এসেছে । অন্য নামের মধ্যে আছে আল‑মাহী (যার মাধ্যমে আল্লাহ কুফর্ মুছে দেন), আল‑হাশির (যাঁর পরে মানুষ পুনরুত্থিত হবে) ও আল‑আকিব (যাঁর পরে আর কোনো নবী নেই) । এরপর তিনি নবীর অনন্য বৈশিষ্ট্যগুলো বর্ণনা করেন: আদম (আ.) সৃষ্টির আগেই তাঁকে নবি করা হয়েছিল, তিনি মানুষ ও জিন জাতির জন্য প্রেরিত, তাঁর উম্মত হবে সবচেয়ে বড়, কুরআন ও ইসরা‑ও‑মিরাজের মতো মুজিজা তাঁকে দেওয়া হয়েছে এবং কিয়ামতের দিন তিনি শাফাআত ও হামদের পতাকা নিয়ে আসবেন ।",
+  "with_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  },
+  "without_honorifics": {
+    "translation": null,
+    "bleu": null,
+    "chrf": null,
+    "honorific_flags": {},
+    "error": "Fallback endpoint [URL_1] is a literal placeholder, not an HTTP URL; no substitution permitted."
+  }
+}

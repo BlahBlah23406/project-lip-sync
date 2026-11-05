@@ -6,6 +6,8 @@ import time
 import edge_tts
 import yt_dlp
 
+import ytdlp_runtime
+
 
 def download_video(video_id: str, out_dir: str) -> str:
     """Download best quality video (with audio) from YouTube. Returns path to .mp4 file."""
@@ -18,6 +20,9 @@ def download_video(video_id: str, out_dir: str) -> str:
         "merge_output_format": "mp4",
         "socket_timeout": 60,
     }
+    # Without a JS runtime YouTube serves un-deciphered URLs and this call 403s
+    # at the byte transfer, long after extraction looked fine. See ytdlp_runtime.
+    ytdlp_runtime.apply(opts)
     with yt_dlp.YoutubeDL(opts) as ydl:
         ydl.download([url])
     return out_path

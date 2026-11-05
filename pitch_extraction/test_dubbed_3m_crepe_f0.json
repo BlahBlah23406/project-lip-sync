@@ -1,0 +1,6008 @@
+[
+  {
+    "time_ms": 0,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 10,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 20,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 30,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 40,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 50,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 60,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 70,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 80,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 90,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 100,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 110,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 120,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 130,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 150,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 210,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 220,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 240,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 250,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 260,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 270,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 280,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.004
+  },
+  {
+    "time_ms": 320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0034
+  },
+  {
+    "time_ms": 330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0098
+  },
+  {
+    "time_ms": 340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0064
+  },
+  {
+    "time_ms": 350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0046
+  },
+  {
+    "time_ms": 360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0016
+  },
+  {
+    "time_ms": 480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0023
+  },
+  {
+    "time_ms": 490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0025
+  },
+  {
+    "time_ms": 510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0048
+  },
+  {
+    "time_ms": 530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.011
+  },
+  {
+    "time_ms": 540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 550,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 560,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0035
+  },
+  {
+    "time_ms": 570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0037
+  },
+  {
+    "time_ms": 580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0073
+  },
+  {
+    "time_ms": 590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0114
+  },
+  {
+    "time_ms": 600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0022
+  },
+  {
+    "time_ms": 610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 630,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 640,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 650,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 660,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0364
+  },
+  {
+    "time_ms": 670,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0969
+  },
+  {
+    "time_ms": 680,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1973
+  },
+  {
+    "time_ms": 690,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0486
+  },
+  {
+    "time_ms": 700,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1041
+  },
+  {
+    "time_ms": 710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2965
+  },
+  {
+    "time_ms": 720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4599
+  },
+  {
+    "time_ms": 730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3005
+  },
+  {
+    "time_ms": 740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0723
+  },
+  {
+    "time_ms": 750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0153
+  },
+  {
+    "time_ms": 760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0185
+  },
+  {
+    "time_ms": 770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0302
+  },
+  {
+    "time_ms": 780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3038
+  },
+  {
+    "time_ms": 790,
+    "f0_hz": 57.47,
+    "voiced": true,
+    "periodicity": 0.5092
+  },
+  {
+    "time_ms": 800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1156
+  },
+  {
+    "time_ms": 810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0146
+  },
+  {
+    "time_ms": 820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0065
+  },
+  {
+    "time_ms": 830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0679
+  },
+  {
+    "time_ms": 840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0311
+  },
+  {
+    "time_ms": 850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1076
+  },
+  {
+    "time_ms": 860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0072
+  },
+  {
+    "time_ms": 870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 890,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0096
+  },
+  {
+    "time_ms": 900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0161
+  },
+  {
+    "time_ms": 910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0034
+  },
+  {
+    "time_ms": 920,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 930,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.024
+  },
+  {
+    "time_ms": 940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0855
+  },
+  {
+    "time_ms": 950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0256
+  },
+  {
+    "time_ms": 960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0054
+  },
+  {
+    "time_ms": 970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0076
+  },
+  {
+    "time_ms": 980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0046
+  },
+  {
+    "time_ms": 990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.01
+  },
+  {
+    "time_ms": 1000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0078
+  },
+  {
+    "time_ms": 1010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 1020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 1030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0603
+  },
+  {
+    "time_ms": 1040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4913
+  },
+  {
+    "time_ms": 1050,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3877
+  },
+  {
+    "time_ms": 1060,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2209
+  },
+  {
+    "time_ms": 1070,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0906
+  },
+  {
+    "time_ms": 1080,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0277
+  },
+  {
+    "time_ms": 1090,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0422
+  },
+  {
+    "time_ms": 1100,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0166
+  },
+  {
+    "time_ms": 1110,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0226
+  },
+  {
+    "time_ms": 1120,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0027
+  },
+  {
+    "time_ms": 1130,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0049
+  },
+  {
+    "time_ms": 1140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0036
+  },
+  {
+    "time_ms": 1150,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.015
+  },
+  {
+    "time_ms": 1160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0303
+  },
+  {
+    "time_ms": 1170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1454
+  },
+  {
+    "time_ms": 1180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0115
+  },
+  {
+    "time_ms": 1190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 1200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0042
+  },
+  {
+    "time_ms": 1210,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 1220,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 1230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 1240,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0062
+  },
+  {
+    "time_ms": 1250,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0059
+  },
+  {
+    "time_ms": 1260,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 1270,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0023
+  },
+  {
+    "time_ms": 1280,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0353
+  },
+  {
+    "time_ms": 1290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0348
+  },
+  {
+    "time_ms": 1300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0368
+  },
+  {
+    "time_ms": 1310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0066
+  },
+  {
+    "time_ms": 1320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0074
+  },
+  {
+    "time_ms": 1330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0029
+  },
+  {
+    "time_ms": 1340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 1350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0076
+  },
+  {
+    "time_ms": 1360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0046
+  },
+  {
+    "time_ms": 1370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0065
+  },
+  {
+    "time_ms": 1380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0067
+  },
+  {
+    "time_ms": 1390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 1400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 1410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0091
+  },
+  {
+    "time_ms": 1420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0162
+  },
+  {
+    "time_ms": 1430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0026
+  },
+  {
+    "time_ms": 1440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0023
+  },
+  {
+    "time_ms": 1450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 1460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0225
+  },
+  {
+    "time_ms": 1470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0035
+  },
+  {
+    "time_ms": 1480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 1490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0027
+  },
+  {
+    "time_ms": 1500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0037
+  },
+  {
+    "time_ms": 1510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0157
+  },
+  {
+    "time_ms": 1520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1478
+  },
+  {
+    "time_ms": 1530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1678
+  },
+  {
+    "time_ms": 1540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4536
+  },
+  {
+    "time_ms": 1550,
+    "f0_hz": 56.29,
+    "voiced": true,
+    "periodicity": 0.6542
+  },
+  {
+    "time_ms": 1560,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3563
+  },
+  {
+    "time_ms": 1570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1078
+  },
+  {
+    "time_ms": 1580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0112
+  },
+  {
+    "time_ms": 1590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0657
+  },
+  {
+    "time_ms": 1600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0496
+  },
+  {
+    "time_ms": 1610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0159
+  },
+  {
+    "time_ms": 1620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0033
+  },
+  {
+    "time_ms": 1630,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0042
+  },
+  {
+    "time_ms": 1640,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 1650,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.013
+  },
+  {
+    "time_ms": 1660,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0115
+  },
+  {
+    "time_ms": 1670,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0257
+  },
+  {
+    "time_ms": 1680,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0726
+  },
+  {
+    "time_ms": 1690,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0509
+  },
+  {
+    "time_ms": 1700,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0303
+  },
+  {
+    "time_ms": 1710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0132
+  },
+  {
+    "time_ms": 1720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0445
+  },
+  {
+    "time_ms": 1730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0772
+  },
+  {
+    "time_ms": 1740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0145
+  },
+  {
+    "time_ms": 1750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0022
+  },
+  {
+    "time_ms": 1760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0037
+  },
+  {
+    "time_ms": 1770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0118
+  },
+  {
+    "time_ms": 1780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 1790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0037
+  },
+  {
+    "time_ms": 1800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0195
+  },
+  {
+    "time_ms": 1810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3037
+  },
+  {
+    "time_ms": 1820,
+    "f0_hz": 55.55,
+    "voiced": true,
+    "periodicity": 0.5683
+  },
+  {
+    "time_ms": 1830,
+    "f0_hz": 55.18,
+    "voiced": true,
+    "periodicity": 0.5131
+  },
+  {
+    "time_ms": 1840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.096
+  },
+  {
+    "time_ms": 1850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0027
+  },
+  {
+    "time_ms": 1860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0021
+  },
+  {
+    "time_ms": 1870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0044
+  },
+  {
+    "time_ms": 1880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 1890,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0035
+  },
+  {
+    "time_ms": 1900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.019
+  },
+  {
+    "time_ms": 1910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0891
+  },
+  {
+    "time_ms": 1920,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1051
+  },
+  {
+    "time_ms": 1930,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0515
+  },
+  {
+    "time_ms": 1940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0057
+  },
+  {
+    "time_ms": 1950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0136
+  },
+  {
+    "time_ms": 1960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0148
+  },
+  {
+    "time_ms": 1970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0082
+  },
+  {
+    "time_ms": 1980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 1990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 2000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 2010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 2020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 2030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 2040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 2050,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0048
+  },
+  {
+    "time_ms": 2060,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1982
+  },
+  {
+    "time_ms": 2070,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2534
+  },
+  {
+    "time_ms": 2080,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4538
+  },
+  {
+    "time_ms": 2090,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2976
+  },
+  {
+    "time_ms": 2100,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2072
+  },
+  {
+    "time_ms": 2110,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2879
+  },
+  {
+    "time_ms": 2120,
+    "f0_hz": 56.29,
+    "voiced": true,
+    "periodicity": 0.5672
+  },
+  {
+    "time_ms": 2130,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4773
+  },
+  {
+    "time_ms": 2140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1813
+  },
+  {
+    "time_ms": 2150,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.15
+  },
+  {
+    "time_ms": 2160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0044
+  },
+  {
+    "time_ms": 2170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 2180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 2190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 2200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0038
+  },
+  {
+    "time_ms": 2210,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0128
+  },
+  {
+    "time_ms": 2220,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0221
+  },
+  {
+    "time_ms": 2230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 2240,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.01
+  },
+  {
+    "time_ms": 2250,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0574
+  },
+  {
+    "time_ms": 2260,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1414
+  },
+  {
+    "time_ms": 2270,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0445
+  },
+  {
+    "time_ms": 2280,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0059
+  },
+  {
+    "time_ms": 2290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0215
+  },
+  {
+    "time_ms": 2300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.107
+  },
+  {
+    "time_ms": 2310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1735
+  },
+  {
+    "time_ms": 2320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0144
+  },
+  {
+    "time_ms": 2330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 2340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0034
+  },
+  {
+    "time_ms": 2350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0032
+  },
+  {
+    "time_ms": 2360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0061
+  },
+  {
+    "time_ms": 2370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.008
+  },
+  {
+    "time_ms": 2380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0597
+  },
+  {
+    "time_ms": 2390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0292
+  },
+  {
+    "time_ms": 2400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0148
+  },
+  {
+    "time_ms": 2410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 2420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0021
+  },
+  {
+    "time_ms": 2430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0027
+  },
+  {
+    "time_ms": 2440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0158
+  },
+  {
+    "time_ms": 2450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0215
+  },
+  {
+    "time_ms": 2460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0064
+  },
+  {
+    "time_ms": 2470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 2480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0062
+  },
+  {
+    "time_ms": 2490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 2500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 2510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 2520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 2530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0041
+  },
+  {
+    "time_ms": 2540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0033
+  },
+  {
+    "time_ms": 2550,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.006
+  },
+  {
+    "time_ms": 2560,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.009
+  },
+  {
+    "time_ms": 2570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0024
+  },
+  {
+    "time_ms": 2580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 2590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0155
+  },
+  {
+    "time_ms": 2600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2816
+  },
+  {
+    "time_ms": 2610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1878
+  },
+  {
+    "time_ms": 2620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0479
+  },
+  {
+    "time_ms": 2630,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0023
+  },
+  {
+    "time_ms": 2640,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 2650,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0021
+  },
+  {
+    "time_ms": 2660,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0048
+  },
+  {
+    "time_ms": 2670,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0704
+  },
+  {
+    "time_ms": 2680,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1291
+  },
+  {
+    "time_ms": 2690,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0267
+  },
+  {
+    "time_ms": 2700,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0148
+  },
+  {
+    "time_ms": 2710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0211
+  },
+  {
+    "time_ms": 2720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0075
+  },
+  {
+    "time_ms": 2730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0849
+  },
+  {
+    "time_ms": 2740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.252
+  },
+  {
+    "time_ms": 2750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1746
+  },
+  {
+    "time_ms": 2760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3227
+  },
+  {
+    "time_ms": 2770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1406
+  },
+  {
+    "time_ms": 2780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.059
+  },
+  {
+    "time_ms": 2790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1735
+  },
+  {
+    "time_ms": 2800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0263
+  },
+  {
+    "time_ms": 2810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0144
+  },
+  {
+    "time_ms": 2820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.004
+  },
+  {
+    "time_ms": 2830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0044
+  },
+  {
+    "time_ms": 2840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.02
+  },
+  {
+    "time_ms": 2850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1286
+  },
+  {
+    "time_ms": 2860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3199
+  },
+  {
+    "time_ms": 2870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1975
+  },
+  {
+    "time_ms": 2880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0122
+  },
+  {
+    "time_ms": 2890,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0052
+  },
+  {
+    "time_ms": 2900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0304
+  },
+  {
+    "time_ms": 2910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4509
+  },
+  {
+    "time_ms": 2920,
+    "f0_hz": 51.38,
+    "voiced": true,
+    "periodicity": 0.5498
+  },
+  {
+    "time_ms": 2930,
+    "f0_hz": 51.28,
+    "voiced": true,
+    "periodicity": 0.5598
+  },
+  {
+    "time_ms": 2940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1541
+  },
+  {
+    "time_ms": 2950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.004
+  },
+  {
+    "time_ms": 2960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 2970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0335
+  },
+  {
+    "time_ms": 2980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0154
+  },
+  {
+    "time_ms": 2990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0173
+  },
+  {
+    "time_ms": 3000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0642
+  },
+  {
+    "time_ms": 3010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0828
+  },
+  {
+    "time_ms": 3020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0611
+  },
+  {
+    "time_ms": 3030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0205
+  },
+  {
+    "time_ms": 3040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0012
+  },
+  {
+    "time_ms": 3050,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 3060,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 3070,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 3080,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0116
+  },
+  {
+    "time_ms": 3090,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0069
+  },
+  {
+    "time_ms": 3100,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0103
+  },
+  {
+    "time_ms": 3110,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0026
+  },
+  {
+    "time_ms": 3120,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 3130,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 3140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0053
+  },
+  {
+    "time_ms": 3150,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0078
+  },
+  {
+    "time_ms": 3160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0031
+  },
+  {
+    "time_ms": 3170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0024
+  },
+  {
+    "time_ms": 3180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0012
+  },
+  {
+    "time_ms": 3190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 3200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 3210,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0067
+  },
+  {
+    "time_ms": 3220,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0127
+  },
+  {
+    "time_ms": 3230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0139
+  },
+  {
+    "time_ms": 3240,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0156
+  },
+  {
+    "time_ms": 3250,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 3260,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 3270,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 3280,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 3290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0072
+  },
+  {
+    "time_ms": 3300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0045
+  },
+  {
+    "time_ms": 3310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 3320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0192
+  },
+  {
+    "time_ms": 3330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.027
+  },
+  {
+    "time_ms": 3340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0083
+  },
+  {
+    "time_ms": 3350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0029
+  },
+  {
+    "time_ms": 3360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 3370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0031
+  },
+  {
+    "time_ms": 3380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0032
+  },
+  {
+    "time_ms": 3390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0092
+  },
+  {
+    "time_ms": 3400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0069
+  },
+  {
+    "time_ms": 3410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0118
+  },
+  {
+    "time_ms": 3420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.005
+  },
+  {
+    "time_ms": 3430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0076
+  },
+  {
+    "time_ms": 3440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0053
+  },
+  {
+    "time_ms": 3450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0041
+  },
+  {
+    "time_ms": 3460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 3470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 3480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 3490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 3500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0034
+  },
+  {
+    "time_ms": 3510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0099
+  },
+  {
+    "time_ms": 3520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0231
+  },
+  {
+    "time_ms": 3530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0049
+  },
+  {
+    "time_ms": 3540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0012
+  },
+  {
+    "time_ms": 3550,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0037
+  },
+  {
+    "time_ms": 3560,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0988
+  },
+  {
+    "time_ms": 3570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1359
+  },
+  {
+    "time_ms": 3580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0366
+  },
+  {
+    "time_ms": 3590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.012
+  },
+  {
+    "time_ms": 3600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 3610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 3620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 3630,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 3640,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 3650,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 3660,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.007
+  },
+  {
+    "time_ms": 3670,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0698
+  },
+  {
+    "time_ms": 3680,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0224
+  },
+  {
+    "time_ms": 3690,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 3700,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 3710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0049
+  },
+  {
+    "time_ms": 3720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.011
+  },
+  {
+    "time_ms": 3730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0109
+  },
+  {
+    "time_ms": 3740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0215
+  },
+  {
+    "time_ms": 3750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0086
+  },
+  {
+    "time_ms": 3760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 3770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 3780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.005
+  },
+  {
+    "time_ms": 3790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0066
+  },
+  {
+    "time_ms": 3800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0075
+  },
+  {
+    "time_ms": 3810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0026
+  },
+  {
+    "time_ms": 3820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 3830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 3840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 3850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0064
+  },
+  {
+    "time_ms": 3860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0086
+  },
+  {
+    "time_ms": 3870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0073
+  },
+  {
+    "time_ms": 3880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 3890,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 3900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 3910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0079
+  },
+  {
+    "time_ms": 3920,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0087
+  },
+  {
+    "time_ms": 3930,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0045
+  },
+  {
+    "time_ms": 3940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0073
+  },
+  {
+    "time_ms": 3950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0024
+  },
+  {
+    "time_ms": 3960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 3970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0034
+  },
+  {
+    "time_ms": 3980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 3990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 4000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0048
+  },
+  {
+    "time_ms": 4010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0039
+  },
+  {
+    "time_ms": 4020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0041
+  },
+  {
+    "time_ms": 4030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 4040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0017
+  },
+  {
+    "time_ms": 4050,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.005
+  },
+  {
+    "time_ms": 4060,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0111
+  },
+  {
+    "time_ms": 4070,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.018
+  },
+  {
+    "time_ms": 4080,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.008
+  },
+  {
+    "time_ms": 4090,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0053
+  },
+  {
+    "time_ms": 4100,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0016
+  },
+  {
+    "time_ms": 4110,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 4120,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 4130,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0057
+  },
+  {
+    "time_ms": 4140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.007
+  },
+  {
+    "time_ms": 4150,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.006
+  },
+  {
+    "time_ms": 4160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 4170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 4180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.007
+  },
+  {
+    "time_ms": 4190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0041
+  },
+  {
+    "time_ms": 4200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0041
+  },
+  {
+    "time_ms": 4210,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0033
+  },
+  {
+    "time_ms": 4220,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0048
+  },
+  {
+    "time_ms": 4230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 4240,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 4250,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 4260,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0362
+  },
+  {
+    "time_ms": 4270,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0376
+  },
+  {
+    "time_ms": 4280,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0079
+  },
+  {
+    "time_ms": 4290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 4300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0024
+  },
+  {
+    "time_ms": 4310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 4320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 4330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 4340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0059
+  },
+  {
+    "time_ms": 4350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.076
+  },
+  {
+    "time_ms": 4360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0417
+  },
+  {
+    "time_ms": 4370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0072
+  },
+  {
+    "time_ms": 4380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0023
+  },
+  {
+    "time_ms": 4390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 4400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 4410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0107
+  },
+  {
+    "time_ms": 4420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0776
+  },
+  {
+    "time_ms": 4430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0132
+  },
+  {
+    "time_ms": 4440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0021
+  },
+  {
+    "time_ms": 4450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 4460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 4470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 4480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0031
+  },
+  {
+    "time_ms": 4490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0055
+  },
+  {
+    "time_ms": 4500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0214
+  },
+  {
+    "time_ms": 4510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0272
+  },
+  {
+    "time_ms": 4520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0151
+  },
+  {
+    "time_ms": 4530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0101
+  },
+  {
+    "time_ms": 4540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0046
+  },
+  {
+    "time_ms": 4550,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 4560,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 4580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0023
+  },
+  {
+    "time_ms": 4590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 4600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0026
+  },
+  {
+    "time_ms": 4610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0125
+  },
+  {
+    "time_ms": 4620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0187
+  },
+  {
+    "time_ms": 4630,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0176
+  },
+  {
+    "time_ms": 4640,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0091
+  },
+  {
+    "time_ms": 4650,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0033
+  },
+  {
+    "time_ms": 4660,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 4670,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4680,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4690,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 4700,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0352
+  },
+  {
+    "time_ms": 4710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0605
+  },
+  {
+    "time_ms": 4720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0444
+  },
+  {
+    "time_ms": 4730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0269
+  },
+  {
+    "time_ms": 4740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0036
+  },
+  {
+    "time_ms": 4750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 4760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 4780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 4800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 4850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 4870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 4880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 4890,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 4900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 4910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4920,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4930,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 4950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 4970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 4980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 4990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 5000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 5010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 5020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 5030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 5040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 5050,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 5060,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 5070,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 5080,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 5090,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 5100,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 5110,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 5120,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0025
+  },
+  {
+    "time_ms": 5130,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0051
+  },
+  {
+    "time_ms": 5140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0072
+  },
+  {
+    "time_ms": 5150,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0086
+  },
+  {
+    "time_ms": 5160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0065
+  },
+  {
+    "time_ms": 5170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0055
+  },
+  {
+    "time_ms": 5180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0051
+  },
+  {
+    "time_ms": 5190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0052
+  },
+  {
+    "time_ms": 5200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0072
+  },
+  {
+    "time_ms": 5210,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0077
+  },
+  {
+    "time_ms": 5220,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0082
+  },
+  {
+    "time_ms": 5230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 5240,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 5250,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0011
+  },
+  {
+    "time_ms": 5260,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0015
+  },
+  {
+    "time_ms": 5270,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0027
+  },
+  {
+    "time_ms": 5280,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 5290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.003
+  },
+  {
+    "time_ms": 5300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0068
+  },
+  {
+    "time_ms": 5310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0462
+  },
+  {
+    "time_ms": 5320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0365
+  },
+  {
+    "time_ms": 5330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.035
+  },
+  {
+    "time_ms": 5340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0042
+  },
+  {
+    "time_ms": 5350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 5360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 5370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 5380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 5390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 5400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0007
+  },
+  {
+    "time_ms": 5410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 5420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0053
+  },
+  {
+    "time_ms": 5430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 5440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0307
+  },
+  {
+    "time_ms": 5450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2628
+  },
+  {
+    "time_ms": 5460,
+    "f0_hz": 120.59,
+    "voiced": true,
+    "periodicity": 0.6176
+  },
+  {
+    "time_ms": 5470,
+    "f0_hz": 123.82,
+    "voiced": true,
+    "periodicity": 0.735
+  },
+  {
+    "time_ms": 5480,
+    "f0_hz": 125.85,
+    "voiced": true,
+    "periodicity": 0.6638
+  },
+  {
+    "time_ms": 5490,
+    "f0_hz": 129.48,
+    "voiced": true,
+    "periodicity": 0.7555
+  },
+  {
+    "time_ms": 5500,
+    "f0_hz": 132.26,
+    "voiced": true,
+    "periodicity": 0.7641
+  },
+  {
+    "time_ms": 5510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4877
+  },
+  {
+    "time_ms": 5520,
+    "f0_hz": 139.84,
+    "voiced": true,
+    "periodicity": 0.7137
+  },
+  {
+    "time_ms": 5530,
+    "f0_hz": 144.03,
+    "voiced": true,
+    "periodicity": 0.6869
+  },
+  {
+    "time_ms": 5540,
+    "f0_hz": 147.92,
+    "voiced": true,
+    "periodicity": 0.8391
+  },
+  {
+    "time_ms": 5550,
+    "f0_hz": 148.59,
+    "voiced": true,
+    "periodicity": 0.73
+  },
+  {
+    "time_ms": 5560,
+    "f0_hz": 149.93,
+    "voiced": true,
+    "periodicity": 0.6594
+  },
+  {
+    "time_ms": 5570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4294
+  },
+  {
+    "time_ms": 5580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1815
+  },
+  {
+    "time_ms": 5590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0291
+  },
+  {
+    "time_ms": 5600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0179
+  },
+  {
+    "time_ms": 5610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0701
+  },
+  {
+    "time_ms": 5620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2384
+  },
+  {
+    "time_ms": 5630,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4374
+  },
+  {
+    "time_ms": 5640,
+    "f0_hz": 121.42,
+    "voiced": true,
+    "periodicity": 0.7212
+  },
+  {
+    "time_ms": 5650,
+    "f0_hz": 124.84,
+    "voiced": true,
+    "periodicity": 0.6402
+  },
+  {
+    "time_ms": 5660,
+    "f0_hz": 127.48,
+    "voiced": true,
+    "periodicity": 0.7478
+  },
+  {
+    "time_ms": 5670,
+    "f0_hz": 130.02,
+    "voiced": true,
+    "periodicity": 0.7849
+  },
+  {
+    "time_ms": 5680,
+    "f0_hz": 132.38,
+    "voiced": true,
+    "periodicity": 0.7027
+  },
+  {
+    "time_ms": 5690,
+    "f0_hz": 133.86,
+    "voiced": true,
+    "periodicity": 0.7435
+  },
+  {
+    "time_ms": 5700,
+    "f0_hz": 137.65,
+    "voiced": true,
+    "periodicity": 0.6863
+  },
+  {
+    "time_ms": 5710,
+    "f0_hz": 139.45,
+    "voiced": true,
+    "periodicity": 0.5062
+  },
+  {
+    "time_ms": 5720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3604
+  },
+  {
+    "time_ms": 5730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1567
+  },
+  {
+    "time_ms": 5740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0136
+  },
+  {
+    "time_ms": 5750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 5760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 5770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 5780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 5790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 5800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 5810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0016
+  },
+  {
+    "time_ms": 5820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0484
+  },
+  {
+    "time_ms": 5830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.223
+  },
+  {
+    "time_ms": 5840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4377
+  },
+  {
+    "time_ms": 5850,
+    "f0_hz": 212.59,
+    "voiced": true,
+    "periodicity": 0.6535
+  },
+  {
+    "time_ms": 5860,
+    "f0_hz": 215.56,
+    "voiced": true,
+    "periodicity": 0.818
+  },
+  {
+    "time_ms": 5870,
+    "f0_hz": 217.65,
+    "voiced": true,
+    "periodicity": 0.8231
+  },
+  {
+    "time_ms": 5880,
+    "f0_hz": 219.83,
+    "voiced": true,
+    "periodicity": 0.8712
+  },
+  {
+    "time_ms": 5890,
+    "f0_hz": 222.26,
+    "voiced": true,
+    "periodicity": 0.8612
+  },
+  {
+    "time_ms": 5900,
+    "f0_hz": 220.53,
+    "voiced": true,
+    "periodicity": 0.7664
+  },
+  {
+    "time_ms": 5910,
+    "f0_hz": 216.62,
+    "voiced": true,
+    "periodicity": 0.6899
+  },
+  {
+    "time_ms": 5920,
+    "f0_hz": 210.5,
+    "voiced": true,
+    "periodicity": 0.5993
+  },
+  {
+    "time_ms": 5930,
+    "f0_hz": 206.26,
+    "voiced": true,
+    "periodicity": 0.7382
+  },
+  {
+    "time_ms": 5940,
+    "f0_hz": 207.18,
+    "voiced": true,
+    "periodicity": 0.7507
+  },
+  {
+    "time_ms": 5950,
+    "f0_hz": 207.45,
+    "voiced": true,
+    "periodicity": 0.671
+  },
+  {
+    "time_ms": 5960,
+    "f0_hz": 202.59,
+    "voiced": true,
+    "periodicity": 0.5117
+  },
+  {
+    "time_ms": 5970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.095
+  },
+  {
+    "time_ms": 5980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0032
+  },
+  {
+    "time_ms": 5990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 6000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 6010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 6020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0075
+  },
+  {
+    "time_ms": 6030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2332
+  },
+  {
+    "time_ms": 6040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4664
+  },
+  {
+    "time_ms": 6050,
+    "f0_hz": 185.94,
+    "voiced": true,
+    "periodicity": 0.6693
+  },
+  {
+    "time_ms": 6060,
+    "f0_hz": 184.5,
+    "voiced": true,
+    "periodicity": 0.8194
+  },
+  {
+    "time_ms": 6070,
+    "f0_hz": 179.55,
+    "voiced": true,
+    "periodicity": 0.8798
+  },
+  {
+    "time_ms": 6080,
+    "f0_hz": 179.15,
+    "voiced": true,
+    "periodicity": 0.8585
+  },
+  {
+    "time_ms": 6090,
+    "f0_hz": 173.73,
+    "voiced": true,
+    "periodicity": 0.8036
+  },
+  {
+    "time_ms": 6100,
+    "f0_hz": 172.87,
+    "voiced": true,
+    "periodicity": 0.8385
+  },
+  {
+    "time_ms": 6110,
+    "f0_hz": 168.88,
+    "voiced": true,
+    "periodicity": 0.8714
+  },
+  {
+    "time_ms": 6120,
+    "f0_hz": 167.31,
+    "voiced": true,
+    "periodicity": 0.8543
+  },
+  {
+    "time_ms": 6130,
+    "f0_hz": 165.55,
+    "voiced": true,
+    "periodicity": 0.804
+  },
+  {
+    "time_ms": 6140,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4889
+  },
+  {
+    "time_ms": 6150,
+    "f0_hz": 152.84,
+    "voiced": true,
+    "periodicity": 0.7105
+  },
+  {
+    "time_ms": 6160,
+    "f0_hz": 150.49,
+    "voiced": true,
+    "periodicity": 0.8435
+  },
+  {
+    "time_ms": 6170,
+    "f0_hz": 149.81,
+    "voiced": true,
+    "periodicity": 0.8965
+  },
+  {
+    "time_ms": 6180,
+    "f0_hz": 148.06,
+    "voiced": true,
+    "periodicity": 0.8788
+  },
+  {
+    "time_ms": 6190,
+    "f0_hz": 147.92,
+    "voiced": true,
+    "periodicity": 0.8795
+  },
+  {
+    "time_ms": 6200,
+    "f0_hz": 144.6,
+    "voiced": true,
+    "periodicity": 0.8275
+  },
+  {
+    "time_ms": 6210,
+    "f0_hz": 140.36,
+    "voiced": true,
+    "periodicity": 0.7686
+  },
+  {
+    "time_ms": 6220,
+    "f0_hz": 138.64,
+    "voiced": true,
+    "periodicity": 0.8167
+  },
+  {
+    "time_ms": 6230,
+    "f0_hz": 136.95,
+    "voiced": true,
+    "periodicity": 0.8345
+  },
+  {
+    "time_ms": 6240,
+    "f0_hz": 136.55,
+    "voiced": true,
+    "periodicity": 0.8372
+  },
+  {
+    "time_ms": 6250,
+    "f0_hz": 134.13,
+    "voiced": true,
+    "periodicity": 0.7985
+  },
+  {
+    "time_ms": 6260,
+    "f0_hz": 132.97,
+    "voiced": true,
+    "periodicity": 0.8069
+  },
+  {
+    "time_ms": 6270,
+    "f0_hz": 131.1,
+    "voiced": true,
+    "periodicity": 0.8125
+  },
+  {
+    "time_ms": 6280,
+    "f0_hz": 129.68,
+    "voiced": true,
+    "periodicity": 0.587
+  },
+  {
+    "time_ms": 6290,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1628
+  },
+  {
+    "time_ms": 6300,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0598
+  },
+  {
+    "time_ms": 6310,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0221
+  },
+  {
+    "time_ms": 6320,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.006
+  },
+  {
+    "time_ms": 6330,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0126
+  },
+  {
+    "time_ms": 6340,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0455
+  },
+  {
+    "time_ms": 6350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0159
+  },
+  {
+    "time_ms": 6360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0307
+  },
+  {
+    "time_ms": 6370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0076
+  },
+  {
+    "time_ms": 6380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0581
+  },
+  {
+    "time_ms": 6390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1428
+  },
+  {
+    "time_ms": 6400,
+    "f0_hz": 153.76,
+    "voiced": true,
+    "periodicity": 0.5453
+  },
+  {
+    "time_ms": 6410,
+    "f0_hz": 152.19,
+    "voiced": true,
+    "periodicity": 0.7318
+  },
+  {
+    "time_ms": 6420,
+    "f0_hz": 150.2,
+    "voiced": true,
+    "periodicity": 0.7629
+  },
+  {
+    "time_ms": 6430,
+    "f0_hz": 146.78,
+    "voiced": true,
+    "periodicity": 0.7676
+  },
+  {
+    "time_ms": 6440,
+    "f0_hz": 144.1,
+    "voiced": true,
+    "periodicity": 0.7205
+  },
+  {
+    "time_ms": 6450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4764
+  },
+  {
+    "time_ms": 6460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2286
+  },
+  {
+    "time_ms": 6470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1153
+  },
+  {
+    "time_ms": 6480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0357
+  },
+  {
+    "time_ms": 6490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0194
+  },
+  {
+    "time_ms": 6500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0124
+  },
+  {
+    "time_ms": 6510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0752
+  },
+  {
+    "time_ms": 6520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.203
+  },
+  {
+    "time_ms": 6530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2828
+  },
+  {
+    "time_ms": 6540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.457
+  },
+  {
+    "time_ms": 6550,
+    "f0_hz": 186.68,
+    "voiced": true,
+    "periodicity": 0.6326
+  },
+  {
+    "time_ms": 6560,
+    "f0_hz": 186.68,
+    "voiced": true,
+    "periodicity": 0.7794
+  },
+  {
+    "time_ms": 6570,
+    "f0_hz": 190.34,
+    "voiced": true,
+    "periodicity": 0.797
+  },
+  {
+    "time_ms": 6580,
+    "f0_hz": 190.09,
+    "voiced": true,
+    "periodicity": 0.8039
+  },
+  {
+    "time_ms": 6590,
+    "f0_hz": 188.37,
+    "voiced": true,
+    "periodicity": 0.8042
+  },
+  {
+    "time_ms": 6600,
+    "f0_hz": 187.4,
+    "voiced": true,
+    "periodicity": 0.5512
+  },
+  {
+    "time_ms": 6610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2846
+  },
+  {
+    "time_ms": 6620,
+    "f0_hz": 167.06,
+    "voiced": true,
+    "periodicity": 0.5158
+  },
+  {
+    "time_ms": 6630,
+    "f0_hz": 163.05,
+    "voiced": true,
+    "periodicity": 0.7769
+  },
+  {
+    "time_ms": 6640,
+    "f0_hz": 158.38,
+    "voiced": true,
+    "periodicity": 0.8136
+  },
+  {
+    "time_ms": 6650,
+    "f0_hz": 159.67,
+    "voiced": true,
+    "periodicity": 0.7385
+  },
+  {
+    "time_ms": 6660,
+    "f0_hz": 160.52,
+    "voiced": true,
+    "periodicity": 0.7575
+  },
+  {
+    "time_ms": 6670,
+    "f0_hz": 159.34,
+    "voiced": true,
+    "periodicity": 0.7662
+  },
+  {
+    "time_ms": 6680,
+    "f0_hz": 154.6,
+    "voiced": true,
+    "periodicity": 0.5528
+  },
+  {
+    "time_ms": 6690,
+    "f0_hz": 148.33,
+    "voiced": true,
+    "periodicity": 0.6369
+  },
+  {
+    "time_ms": 6700,
+    "f0_hz": 146.3,
+    "voiced": true,
+    "periodicity": 0.6261
+  },
+  {
+    "time_ms": 6710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1615
+  },
+  {
+    "time_ms": 6720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0219
+  },
+  {
+    "time_ms": 6730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0022
+  },
+  {
+    "time_ms": 6740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 6750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 6760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 6770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 6780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 6790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.001
+  },
+  {
+    "time_ms": 6800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0066
+  },
+  {
+    "time_ms": 6810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0352
+  },
+  {
+    "time_ms": 6820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0542
+  },
+  {
+    "time_ms": 6830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3335
+  },
+  {
+    "time_ms": 6840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2755
+  },
+  {
+    "time_ms": 6850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0263
+  },
+  {
+    "time_ms": 6860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 6870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0041
+  },
+  {
+    "time_ms": 6880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0067
+  },
+  {
+    "time_ms": 6890,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0446
+  },
+  {
+    "time_ms": 6900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3071
+  },
+  {
+    "time_ms": 6910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4166
+  },
+  {
+    "time_ms": 6920,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0876
+  },
+  {
+    "time_ms": 6930,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2502
+  },
+  {
+    "time_ms": 6940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1532
+  },
+  {
+    "time_ms": 6950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0693
+  },
+  {
+    "time_ms": 6960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0224
+  },
+  {
+    "time_ms": 6970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0672
+  },
+  {
+    "time_ms": 6980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0877
+  },
+  {
+    "time_ms": 6990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2171
+  },
+  {
+    "time_ms": 7000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1494
+  },
+  {
+    "time_ms": 7010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4885
+  },
+  {
+    "time_ms": 7020,
+    "f0_hz": 157.73,
+    "voiced": true,
+    "periodicity": 0.6409
+  },
+  {
+    "time_ms": 7030,
+    "f0_hz": 162.98,
+    "voiced": true,
+    "periodicity": 0.738
+  },
+  {
+    "time_ms": 7040,
+    "f0_hz": 166.07,
+    "voiced": true,
+    "periodicity": 0.7733
+  },
+  {
+    "time_ms": 7050,
+    "f0_hz": 172.71,
+    "voiced": true,
+    "periodicity": 0.7794
+  },
+  {
+    "time_ms": 7060,
+    "f0_hz": 171.64,
+    "voiced": true,
+    "periodicity": 0.8068
+  },
+  {
+    "time_ms": 7070,
+    "f0_hz": 173.65,
+    "voiced": true,
+    "periodicity": 0.749
+  },
+  {
+    "time_ms": 7080,
+    "f0_hz": 173.21,
+    "voiced": true,
+    "periodicity": 0.7628
+  },
+  {
+    "time_ms": 7090,
+    "f0_hz": 173.92,
+    "voiced": true,
+    "periodicity": 0.811
+  },
+  {
+    "time_ms": 7100,
+    "f0_hz": 171.05,
+    "voiced": true,
+    "periodicity": 0.7781
+  },
+  {
+    "time_ms": 7110,
+    "f0_hz": 167.83,
+    "voiced": true,
+    "periodicity": 0.7545
+  },
+  {
+    "time_ms": 7120,
+    "f0_hz": 164.33,
+    "voiced": true,
+    "periodicity": 0.7513
+  },
+  {
+    "time_ms": 7130,
+    "f0_hz": 155.98,
+    "voiced": true,
+    "periodicity": 0.5274
+  },
+  {
+    "time_ms": 7140,
+    "f0_hz": 148.21,
+    "voiced": true,
+    "periodicity": 0.6505
+  },
+  {
+    "time_ms": 7150,
+    "f0_hz": 142.15,
+    "voiced": true,
+    "periodicity": 0.505
+  },
+  {
+    "time_ms": 7160,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3509
+  },
+  {
+    "time_ms": 7170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4079
+  },
+  {
+    "time_ms": 7180,
+    "f0_hz": 121.11,
+    "voiced": true,
+    "periodicity": 0.5347
+  },
+  {
+    "time_ms": 7190,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.183
+  },
+  {
+    "time_ms": 7200,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4872
+  },
+  {
+    "time_ms": 7210,
+    "f0_hz": 103.63,
+    "voiced": true,
+    "periodicity": 0.6477
+  },
+  {
+    "time_ms": 7220,
+    "f0_hz": 98.25,
+    "voiced": true,
+    "periodicity": 0.712
+  },
+  {
+    "time_ms": 7230,
+    "f0_hz": 96.87,
+    "voiced": true,
+    "periodicity": 0.8523
+  },
+  {
+    "time_ms": 7240,
+    "f0_hz": 95.65,
+    "voiced": true,
+    "periodicity": 0.8741
+  },
+  {
+    "time_ms": 7250,
+    "f0_hz": 96.12,
+    "voiced": true,
+    "periodicity": 0.821
+  },
+  {
+    "time_ms": 7260,
+    "f0_hz": 95.72,
+    "voiced": true,
+    "periodicity": 0.8285
+  },
+  {
+    "time_ms": 7270,
+    "f0_hz": 96.4,
+    "voiced": true,
+    "periodicity": 0.8667
+  },
+  {
+    "time_ms": 7280,
+    "f0_hz": 96.48,
+    "voiced": true,
+    "periodicity": 0.8546
+  },
+  {
+    "time_ms": 7290,
+    "f0_hz": 96.51,
+    "voiced": true,
+    "periodicity": 0.8413
+  },
+  {
+    "time_ms": 7300,
+    "f0_hz": 96.48,
+    "voiced": true,
+    "periodicity": 0.873
+  },
+  {
+    "time_ms": 7310,
+    "f0_hz": 95.98,
+    "voiced": true,
+    "periodicity": 0.873
+  },
+  {
+    "time_ms": 7320,
+    "f0_hz": 95.15,
+    "voiced": true,
+    "periodicity": 0.8671
+  },
+  {
+    "time_ms": 7330,
+    "f0_hz": 94.68,
+    "voiced": true,
+    "periodicity": 0.8741
+  },
+  {
+    "time_ms": 7340,
+    "f0_hz": 94.07,
+    "voiced": true,
+    "periodicity": 0.8773
+  },
+  {
+    "time_ms": 7350,
+    "f0_hz": 94.67,
+    "voiced": true,
+    "periodicity": 0.8834
+  },
+  {
+    "time_ms": 7360,
+    "f0_hz": 94.36,
+    "voiced": true,
+    "periodicity": 0.8786
+  },
+  {
+    "time_ms": 7370,
+    "f0_hz": 93.52,
+    "voiced": true,
+    "periodicity": 0.8679
+  },
+  {
+    "time_ms": 7380,
+    "f0_hz": 93.41,
+    "voiced": true,
+    "periodicity": 0.8602
+  },
+  {
+    "time_ms": 7390,
+    "f0_hz": 93.34,
+    "voiced": true,
+    "periodicity": 0.854
+  },
+  {
+    "time_ms": 7400,
+    "f0_hz": 92.85,
+    "voiced": true,
+    "periodicity": 0.8478
+  },
+  {
+    "time_ms": 7410,
+    "f0_hz": 90.95,
+    "voiced": true,
+    "periodicity": 0.8055
+  },
+  {
+    "time_ms": 7420,
+    "f0_hz": 89.2,
+    "voiced": true,
+    "periodicity": 0.8411
+  },
+  {
+    "time_ms": 7430,
+    "f0_hz": 88.8,
+    "voiced": true,
+    "periodicity": 0.8028
+  },
+  {
+    "time_ms": 7440,
+    "f0_hz": 88.86,
+    "voiced": true,
+    "periodicity": 0.5053
+  },
+  {
+    "time_ms": 7450,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.002
+  },
+  {
+    "time_ms": 7460,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0012
+  },
+  {
+    "time_ms": 7470,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0005
+  },
+  {
+    "time_ms": 7480,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0093
+  },
+  {
+    "time_ms": 7490,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 7500,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0006
+  },
+  {
+    "time_ms": 7510,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0013
+  },
+  {
+    "time_ms": 7520,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0019
+  },
+  {
+    "time_ms": 7530,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0028
+  },
+  {
+    "time_ms": 7540,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 7550,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0102
+  },
+  {
+    "time_ms": 7560,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 7570,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 7580,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0009
+  },
+  {
+    "time_ms": 7590,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0077
+  },
+  {
+    "time_ms": 7600,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0138
+  },
+  {
+    "time_ms": 7610,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2913
+  },
+  {
+    "time_ms": 7620,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4737
+  },
+  {
+    "time_ms": 7630,
+    "f0_hz": 277.92,
+    "voiced": true,
+    "periodicity": 0.6646
+  },
+  {
+    "time_ms": 7640,
+    "f0_hz": 277.29,
+    "voiced": true,
+    "periodicity": 0.7749
+  },
+  {
+    "time_ms": 7650,
+    "f0_hz": 278.51,
+    "voiced": true,
+    "periodicity": 0.7431
+  },
+  {
+    "time_ms": 7660,
+    "f0_hz": 277.79,
+    "voiced": true,
+    "periodicity": 0.743
+  },
+  {
+    "time_ms": 7670,
+    "f0_hz": 277.14,
+    "voiced": true,
+    "periodicity": 0.77
+  },
+  {
+    "time_ms": 7680,
+    "f0_hz": 275.85,
+    "voiced": true,
+    "periodicity": 0.6187
+  },
+  {
+    "time_ms": 7690,
+    "f0_hz": 267.52,
+    "voiced": true,
+    "periodicity": 0.6828
+  },
+  {
+    "time_ms": 7700,
+    "f0_hz": 262.73,
+    "voiced": true,
+    "periodicity": 0.7058
+  },
+  {
+    "time_ms": 7710,
+    "f0_hz": 258.77,
+    "voiced": true,
+    "periodicity": 0.6385
+  },
+  {
+    "time_ms": 7720,
+    "f0_hz": 255.99,
+    "voiced": true,
+    "periodicity": 0.5177
+  },
+  {
+    "time_ms": 7730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4611
+  },
+  {
+    "time_ms": 7740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4785
+  },
+  {
+    "time_ms": 7750,
+    "f0_hz": 246.05,
+    "voiced": true,
+    "periodicity": 0.5083
+  },
+  {
+    "time_ms": 7760,
+    "f0_hz": 242.82,
+    "voiced": true,
+    "periodicity": 0.7709
+  },
+  {
+    "time_ms": 7770,
+    "f0_hz": 240.93,
+    "voiced": true,
+    "periodicity": 0.8213
+  },
+  {
+    "time_ms": 7780,
+    "f0_hz": 241.35,
+    "voiced": true,
+    "periodicity": 0.8162
+  },
+  {
+    "time_ms": 7790,
+    "f0_hz": 242.27,
+    "voiced": true,
+    "periodicity": 0.8162
+  },
+  {
+    "time_ms": 7800,
+    "f0_hz": 241.73,
+    "voiced": true,
+    "periodicity": 0.7968
+  },
+  {
+    "time_ms": 7810,
+    "f0_hz": 240.79,
+    "voiced": true,
+    "periodicity": 0.7513
+  },
+  {
+    "time_ms": 7820,
+    "f0_hz": 243.75,
+    "voiced": true,
+    "periodicity": 0.7396
+  },
+  {
+    "time_ms": 7830,
+    "f0_hz": 245.12,
+    "voiced": true,
+    "periodicity": 0.7116
+  },
+  {
+    "time_ms": 7840,
+    "f0_hz": 244.28,
+    "voiced": true,
+    "periodicity": 0.7731
+  },
+  {
+    "time_ms": 7850,
+    "f0_hz": 244.89,
+    "voiced": true,
+    "periodicity": 0.7527
+  },
+  {
+    "time_ms": 7860,
+    "f0_hz": 247.12,
+    "voiced": true,
+    "periodicity": 0.7807
+  },
+  {
+    "time_ms": 7870,
+    "f0_hz": 245.53,
+    "voiced": true,
+    "periodicity": 0.8074
+  },
+  {
+    "time_ms": 7880,
+    "f0_hz": 245.92,
+    "voiced": true,
+    "periodicity": 0.8448
+  },
+  {
+    "time_ms": 7890,
+    "f0_hz": 244.78,
+    "voiced": true,
+    "periodicity": 0.8151
+  },
+  {
+    "time_ms": 7900,
+    "f0_hz": 248.62,
+    "voiced": true,
+    "periodicity": 0.8106
+  },
+  {
+    "time_ms": 7910,
+    "f0_hz": 246.75,
+    "voiced": true,
+    "periodicity": 0.7755
+  },
+  {
+    "time_ms": 7920,
+    "f0_hz": 246.0,
+    "voiced": true,
+    "periodicity": 0.7519
+  },
+  {
+    "time_ms": 7930,
+    "f0_hz": 246.32,
+    "voiced": true,
+    "periodicity": 0.7434
+  },
+  {
+    "time_ms": 7940,
+    "f0_hz": 246.63,
+    "voiced": true,
+    "periodicity": 0.7829
+  },
+  {
+    "time_ms": 7950,
+    "f0_hz": 244.41,
+    "voiced": true,
+    "periodicity": 0.7788
+  },
+  {
+    "time_ms": 7960,
+    "f0_hz": 246.66,
+    "voiced": true,
+    "periodicity": 0.7653
+  },
+  {
+    "time_ms": 7970,
+    "f0_hz": 247.29,
+    "voiced": true,
+    "periodicity": 0.7278
+  },
+  {
+    "time_ms": 7980,
+    "f0_hz": 246.62,
+    "voiced": true,
+    "periodicity": 0.5949
+  },
+  {
+    "time_ms": 7990,
+    "f0_hz": 249.07,
+    "voiced": true,
+    "periodicity": 0.712
+  },
+  {
+    "time_ms": 8000,
+    "f0_hz": 249.26,
+    "voiced": true,
+    "periodicity": 0.6319
+  },
+  {
+    "time_ms": 8010,
+    "f0_hz": 248.27,
+    "voiced": true,
+    "periodicity": 0.7299
+  },
+  {
+    "time_ms": 8020,
+    "f0_hz": 247.07,
+    "voiced": true,
+    "periodicity": 0.7566
+  },
+  {
+    "time_ms": 8030,
+    "f0_hz": 245.12,
+    "voiced": true,
+    "periodicity": 0.778
+  },
+  {
+    "time_ms": 8040,
+    "f0_hz": 247.43,
+    "voiced": true,
+    "periodicity": 0.7785
+  },
+  {
+    "time_ms": 8050,
+    "f0_hz": 248.62,
+    "voiced": true,
+    "periodicity": 0.6932
+  },
+  {
+    "time_ms": 8060,
+    "f0_hz": 246.45,
+    "voiced": true,
+    "periodicity": 0.7111
+  },
+  {
+    "time_ms": 8070,
+    "f0_hz": 250.15,
+    "voiced": true,
+    "periodicity": 0.7135
+  },
+  {
+    "time_ms": 8080,
+    "f0_hz": 245.37,
+    "voiced": true,
+    "periodicity": 0.7563
+  },
+  {
+    "time_ms": 8090,
+    "f0_hz": 244.38,
+    "voiced": true,
+    "periodicity": 0.7548
+  },
+  {
+    "time_ms": 8100,
+    "f0_hz": 246.31,
+    "voiced": true,
+    "periodicity": 0.7925
+  },
+  {
+    "time_ms": 8110,
+    "f0_hz": 244.85,
+    "voiced": true,
+    "periodicity": 0.7785
+  },
+  {
+    "time_ms": 8120,
+    "f0_hz": 248.96,
+    "voiced": true,
+    "periodicity": 0.7034
+  },
+  {
+    "time_ms": 8130,
+    "f0_hz": 248.29,
+    "voiced": true,
+    "periodicity": 0.6096
+  },
+  {
+    "time_ms": 8140,
+    "f0_hz": 248.11,
+    "voiced": true,
+    "periodicity": 0.6472
+  },
+  {
+    "time_ms": 8150,
+    "f0_hz": 249.88,
+    "voiced": true,
+    "periodicity": 0.7516
+  },
+  {
+    "time_ms": 8160,
+    "f0_hz": 244.52,
+    "voiced": true,
+    "periodicity": 0.7605
+  },
+  {
+    "time_ms": 8170,
+    "f0_hz": 245.71,
+    "voiced": true,
+    "periodicity": 0.7749
+  },
+  {
+    "time_ms": 8180,
+    "f0_hz": 244.21,
+    "voiced": true,
+    "periodicity": 0.7694
+  },
+  {
+    "time_ms": 8190,
+    "f0_hz": 245.38,
+    "voiced": true,
+    "periodicity": 0.7862
+  },
+  {
+    "time_ms": 8200,
+    "f0_hz": 248.21,
+    "voiced": true,
+    "periodicity": 0.7709
+  },
+  {
+    "time_ms": 8210,
+    "f0_hz": 247.83,
+    "voiced": true,
+    "periodicity": 0.6558
+  },
+  {
+    "time_ms": 8220,
+    "f0_hz": 247.81,
+    "voiced": true,
+    "periodicity": 0.5129
+  },
+  {
+    "time_ms": 8230,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3923
+  },
+  {
+    "time_ms": 8240,
+    "f0_hz": 244.91,
+    "voiced": true,
+    "periodicity": 0.5392
+  },
+  {
+    "time_ms": 8250,
+    "f0_hz": 246.8,
+    "voiced": true,
+    "periodicity": 0.6619
+  },
+  {
+    "time_ms": 8260,
+    "f0_hz": 245.74,
+    "voiced": true,
+    "periodicity": 0.6272
+  },
+  {
+    "time_ms": 8270,
+    "f0_hz": 246.18,
+    "voiced": true,
+    "periodicity": 0.5865
+  },
+  {
+    "time_ms": 8280,
+    "f0_hz": 243.15,
+    "voiced": true,
+    "periodicity": 0.6253
+  },
+  {
+    "time_ms": 8290,
+    "f0_hz": 246.69,
+    "voiced": true,
+    "periodicity": 0.5935
+  },
+  {
+    "time_ms": 8300,
+    "f0_hz": 245.67,
+    "voiced": true,
+    "periodicity": 0.6921
+  },
+  {
+    "time_ms": 8310,
+    "f0_hz": 244.56,
+    "voiced": true,
+    "periodicity": 0.6368
+  },
+  {
+    "time_ms": 8320,
+    "f0_hz": 247.04,
+    "voiced": true,
+    "periodicity": 0.7441
+  },
+  {
+    "time_ms": 8330,
+    "f0_hz": 243.57,
+    "voiced": true,
+    "periodicity": 0.7711
+  },
+  {
+    "time_ms": 8340,
+    "f0_hz": 244.62,
+    "voiced": true,
+    "periodicity": 0.7868
+  },
+  {
+    "time_ms": 8350,
+    "f0_hz": 245.53,
+    "voiced": true,
+    "periodicity": 0.7556
+  },
+  {
+    "time_ms": 8360,
+    "f0_hz": 244.95,
+    "voiced": true,
+    "periodicity": 0.7676
+  },
+  {
+    "time_ms": 8370,
+    "f0_hz": 247.58,
+    "voiced": true,
+    "periodicity": 0.7612
+  },
+  {
+    "time_ms": 8380,
+    "f0_hz": 248.33,
+    "voiced": true,
+    "periodicity": 0.7463
+  },
+  {
+    "time_ms": 8390,
+    "f0_hz": 248.1,
+    "voiced": true,
+    "periodicity": 0.7648
+  },
+  {
+    "time_ms": 8400,
+    "f0_hz": 247.54,
+    "voiced": true,
+    "periodicity": 0.6395
+  },
+  {
+    "time_ms": 8410,
+    "f0_hz": 248.32,
+    "voiced": true,
+    "periodicity": 0.5715
+  },
+  {
+    "time_ms": 8420,
+    "f0_hz": 247.29,
+    "voiced": true,
+    "periodicity": 0.633
+  },
+  {
+    "time_ms": 8430,
+    "f0_hz": 249.39,
+    "voiced": true,
+    "periodicity": 0.67
+  },
+  {
+    "time_ms": 8440,
+    "f0_hz": 247.32,
+    "voiced": true,
+    "periodicity": 0.7141
+  },
+  {
+    "time_ms": 8450,
+    "f0_hz": 245.17,
+    "voiced": true,
+    "periodicity": 0.6662
+  },
+  {
+    "time_ms": 8460,
+    "f0_hz": 242.43,
+    "voiced": true,
+    "periodicity": 0.6404
+  },
+  {
+    "time_ms": 8470,
+    "f0_hz": 245.47,
+    "voiced": true,
+    "periodicity": 0.6846
+  },
+  {
+    "time_ms": 8480,
+    "f0_hz": 245.43,
+    "voiced": true,
+    "periodicity": 0.7525
+  },
+  {
+    "time_ms": 8490,
+    "f0_hz": 243.47,
+    "voiced": true,
+    "periodicity": 0.7916
+  },
+  {
+    "time_ms": 8500,
+    "f0_hz": 247.2,
+    "voiced": true,
+    "periodicity": 0.7732
+  },
+  {
+    "time_ms": 8510,
+    "f0_hz": 245.61,
+    "voiced": true,
+    "periodicity": 0.7665
+  },
+  {
+    "time_ms": 8520,
+    "f0_hz": 249.5,
+    "voiced": true,
+    "periodicity": 0.8049
+  },
+  {
+    "time_ms": 8530,
+    "f0_hz": 249.0,
+    "voiced": true,
+    "periodicity": 0.7567
+  },
+  {
+    "time_ms": 8540,
+    "f0_hz": 247.29,
+    "voiced": true,
+    "periodicity": 0.7733
+  },
+  {
+    "time_ms": 8550,
+    "f0_hz": 247.36,
+    "voiced": true,
+    "periodicity": 0.6996
+  },
+  {
+    "time_ms": 8560,
+    "f0_hz": 247.45,
+    "voiced": true,
+    "periodicity": 0.7316
+  },
+  {
+    "time_ms": 8570,
+    "f0_hz": 248.81,
+    "voiced": true,
+    "periodicity": 0.7202
+  },
+  {
+    "time_ms": 8580,
+    "f0_hz": 249.75,
+    "voiced": true,
+    "periodicity": 0.7014
+  },
+  {
+    "time_ms": 8590,
+    "f0_hz": 248.69,
+    "voiced": true,
+    "periodicity": 0.6804
+  },
+  {
+    "time_ms": 8600,
+    "f0_hz": 247.44,
+    "voiced": true,
+    "periodicity": 0.7532
+  },
+  {
+    "time_ms": 8610,
+    "f0_hz": 249.5,
+    "voiced": true,
+    "periodicity": 0.7333
+  },
+  {
+    "time_ms": 8620,
+    "f0_hz": 248.84,
+    "voiced": true,
+    "periodicity": 0.8129
+  },
+  {
+    "time_ms": 8630,
+    "f0_hz": 245.81,
+    "voiced": true,
+    "periodicity": 0.7835
+  },
+  {
+    "time_ms": 8640,
+    "f0_hz": 246.33,
+    "voiced": true,
+    "periodicity": 0.7644
+  },
+  {
+    "time_ms": 8650,
+    "f0_hz": 245.92,
+    "voiced": true,
+    "periodicity": 0.7356
+  },
+  {
+    "time_ms": 8660,
+    "f0_hz": 248.96,
+    "voiced": true,
+    "periodicity": 0.7718
+  },
+  {
+    "time_ms": 8670,
+    "f0_hz": 247.51,
+    "voiced": true,
+    "periodicity": 0.7342
+  },
+  {
+    "time_ms": 8680,
+    "f0_hz": 249.67,
+    "voiced": true,
+    "periodicity": 0.7027
+  },
+  {
+    "time_ms": 8690,
+    "f0_hz": 248.3,
+    "voiced": true,
+    "periodicity": 0.7252
+  },
+  {
+    "time_ms": 8700,
+    "f0_hz": 248.18,
+    "voiced": true,
+    "periodicity": 0.6985
+  },
+  {
+    "time_ms": 8710,
+    "f0_hz": 248.79,
+    "voiced": true,
+    "periodicity": 0.7395
+  },
+  {
+    "time_ms": 8720,
+    "f0_hz": 247.8,
+    "voiced": true,
+    "periodicity": 0.6842
+  },
+  {
+    "time_ms": 8730,
+    "f0_hz": 246.89,
+    "voiced": true,
+    "periodicity": 0.6607
+  },
+  {
+    "time_ms": 8740,
+    "f0_hz": 245.57,
+    "voiced": true,
+    "periodicity": 0.6617
+  },
+  {
+    "time_ms": 8750,
+    "f0_hz": 247.6,
+    "voiced": true,
+    "periodicity": 0.67
+  },
+  {
+    "time_ms": 8760,
+    "f0_hz": 248.66,
+    "voiced": true,
+    "periodicity": 0.6805
+  },
+  {
+    "time_ms": 8770,
+    "f0_hz": 247.7,
+    "voiced": true,
+    "periodicity": 0.7253
+  },
+  {
+    "time_ms": 8780,
+    "f0_hz": 246.79,
+    "voiced": true,
+    "periodicity": 0.8063
+  },
+  {
+    "time_ms": 8790,
+    "f0_hz": 248.29,
+    "voiced": true,
+    "periodicity": 0.8509
+  },
+  {
+    "time_ms": 8800,
+    "f0_hz": 249.12,
+    "voiced": true,
+    "periodicity": 0.8609
+  },
+  {
+    "time_ms": 8810,
+    "f0_hz": 247.37,
+    "voiced": true,
+    "periodicity": 0.8437
+  },
+  {
+    "time_ms": 8820,
+    "f0_hz": 247.14,
+    "voiced": true,
+    "periodicity": 0.8165
+  },
+  {
+    "time_ms": 8830,
+    "f0_hz": 250.13,
+    "voiced": true,
+    "periodicity": 0.7958
+  },
+  {
+    "time_ms": 8840,
+    "f0_hz": 248.99,
+    "voiced": true,
+    "periodicity": 0.7798
+  },
+  {
+    "time_ms": 8850,
+    "f0_hz": 250.03,
+    "voiced": true,
+    "periodicity": 0.7729
+  },
+  {
+    "time_ms": 8860,
+    "f0_hz": 247.17,
+    "voiced": true,
+    "periodicity": 0.8126
+  },
+  {
+    "time_ms": 8870,
+    "f0_hz": 248.85,
+    "voiced": true,
+    "periodicity": 0.8103
+  },
+  {
+    "time_ms": 8880,
+    "f0_hz": 249.04,
+    "voiced": true,
+    "periodicity": 0.7983
+  },
+  {
+    "time_ms": 8890,
+    "f0_hz": 248.81,
+    "voiced": true,
+    "periodicity": 0.7735
+  },
+  {
+    "time_ms": 8900,
+    "f0_hz": 248.18,
+    "voiced": true,
+    "periodicity": 0.7315
+  },
+  {
+    "time_ms": 8910,
+    "f0_hz": 249.95,
+    "voiced": true,
+    "periodicity": 0.6922
+  },
+  {
+    "time_ms": 8920,
+    "f0_hz": 249.14,
+    "voiced": true,
+    "periodicity": 0.6443
+  },
+  {
+    "time_ms": 8930,
+    "f0_hz": 246.53,
+    "voiced": true,
+    "periodicity": 0.6365
+  },
+  {
+    "time_ms": 8940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1382
+  },
+  {
+    "time_ms": 8950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0014
+  },
+  {
+    "time_ms": 8960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0003
+  },
+  {
+    "time_ms": 8970,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 8980,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0008
+  },
+  {
+    "time_ms": 8990,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0054
+  },
+  {
+    "time_ms": 9000,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0048
+  },
+  {
+    "time_ms": 9010,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0184
+  },
+  {
+    "time_ms": 9020,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0071
+  },
+  {
+    "time_ms": 9030,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0016
+  },
+  {
+    "time_ms": 9040,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0066
+  },
+  {
+    "time_ms": 9050,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0179
+  },
+  {
+    "time_ms": 9060,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4336
+  },
+  {
+    "time_ms": 9070,
+    "f0_hz": 141.76,
+    "voiced": true,
+    "periodicity": 0.7691
+  },
+  {
+    "time_ms": 9080,
+    "f0_hz": 145.6,
+    "voiced": true,
+    "periodicity": 0.8532
+  },
+  {
+    "time_ms": 9090,
+    "f0_hz": 146.95,
+    "voiced": true,
+    "periodicity": 0.8624
+  },
+  {
+    "time_ms": 9100,
+    "f0_hz": 148.77,
+    "voiced": true,
+    "periodicity": 0.8242
+  },
+  {
+    "time_ms": 9110,
+    "f0_hz": 150.43,
+    "voiced": true,
+    "periodicity": 0.8131
+  },
+  {
+    "time_ms": 9120,
+    "f0_hz": 151.24,
+    "voiced": true,
+    "periodicity": 0.7949
+  },
+  {
+    "time_ms": 9130,
+    "f0_hz": 153.3,
+    "voiced": true,
+    "periodicity": 0.7213
+  },
+  {
+    "time_ms": 9140,
+    "f0_hz": 152.71,
+    "voiced": true,
+    "periodicity": 0.739
+  },
+  {
+    "time_ms": 9150,
+    "f0_hz": 155.87,
+    "voiced": true,
+    "periodicity": 0.7696
+  },
+  {
+    "time_ms": 9160,
+    "f0_hz": 157.42,
+    "voiced": true,
+    "periodicity": 0.5639
+  },
+  {
+    "time_ms": 9170,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1086
+  },
+  {
+    "time_ms": 9180,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3027
+  },
+  {
+    "time_ms": 9190,
+    "f0_hz": 194.98,
+    "voiced": true,
+    "periodicity": 0.5515
+  },
+  {
+    "time_ms": 9200,
+    "f0_hz": 202.44,
+    "voiced": true,
+    "periodicity": 0.7147
+  },
+  {
+    "time_ms": 9210,
+    "f0_hz": 205.11,
+    "voiced": true,
+    "periodicity": 0.7787
+  },
+  {
+    "time_ms": 9220,
+    "f0_hz": 207.74,
+    "voiced": true,
+    "periodicity": 0.8263
+  },
+  {
+    "time_ms": 9230,
+    "f0_hz": 211.7,
+    "voiced": true,
+    "periodicity": 0.8281
+  },
+  {
+    "time_ms": 9240,
+    "f0_hz": 211.15,
+    "voiced": true,
+    "periodicity": 0.8103
+  },
+  {
+    "time_ms": 9250,
+    "f0_hz": 212.23,
+    "voiced": true,
+    "periodicity": 0.8021
+  },
+  {
+    "time_ms": 9260,
+    "f0_hz": 208.99,
+    "voiced": true,
+    "periodicity": 0.7833
+  },
+  {
+    "time_ms": 9270,
+    "f0_hz": 203.2,
+    "voiced": true,
+    "periodicity": 0.6584
+  },
+  {
+    "time_ms": 9280,
+    "f0_hz": 198.34,
+    "voiced": true,
+    "periodicity": 0.6782
+  },
+  {
+    "time_ms": 9290,
+    "f0_hz": 191.5,
+    "voiced": true,
+    "periodicity": 0.6167
+  },
+  {
+    "time_ms": 9300,
+    "f0_hz": 185.24,
+    "voiced": true,
+    "periodicity": 0.7441
+  },
+  {
+    "time_ms": 9310,
+    "f0_hz": 179.9,
+    "voiced": true,
+    "periodicity": 0.722
+  },
+  {
+    "time_ms": 9320,
+    "f0_hz": 173.82,
+    "voiced": true,
+    "periodicity": 0.7768
+  },
+  {
+    "time_ms": 9330,
+    "f0_hz": 171.82,
+    "voiced": true,
+    "periodicity": 0.7904
+  },
+  {
+    "time_ms": 9340,
+    "f0_hz": 169.01,
+    "voiced": true,
+    "periodicity": 0.7083
+  },
+  {
+    "time_ms": 9350,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4255
+  },
+  {
+    "time_ms": 9360,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1495
+  },
+  {
+    "time_ms": 9370,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0043
+  },
+  {
+    "time_ms": 9380,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0016
+  },
+  {
+    "time_ms": 9390,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 9400,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0
+  },
+  {
+    "time_ms": 9410,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0002
+  },
+  {
+    "time_ms": 9420,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0187
+  },
+  {
+    "time_ms": 9430,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2505
+  },
+  {
+    "time_ms": 9440,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4347
+  },
+  {
+    "time_ms": 9450,
+    "f0_hz": 164.01,
+    "voiced": true,
+    "periodicity": 0.5582
+  },
+  {
+    "time_ms": 9460,
+    "f0_hz": 165.33,
+    "voiced": true,
+    "periodicity": 0.727
+  },
+  {
+    "time_ms": 9470,
+    "f0_hz": 162.08,
+    "voiced": true,
+    "periodicity": 0.8163
+  },
+  {
+    "time_ms": 9480,
+    "f0_hz": 161.71,
+    "voiced": true,
+    "periodicity": 0.8448
+  },
+  {
+    "time_ms": 9490,
+    "f0_hz": 160.48,
+    "voiced": true,
+    "periodicity": 0.8517
+  },
+  {
+    "time_ms": 9500,
+    "f0_hz": 157.44,
+    "voiced": true,
+    "periodicity": 0.8786
+  },
+  {
+    "time_ms": 9510,
+    "f0_hz": 156.56,
+    "voiced": true,
+    "periodicity": 0.8761
+  },
+  {
+    "time_ms": 9520,
+    "f0_hz": 155.31,
+    "voiced": true,
+    "periodicity": 0.8617
+  },
+  {
+    "time_ms": 9530,
+    "f0_hz": 150.52,
+    "voiced": true,
+    "periodicity": 0.8084
+  },
+  {
+    "time_ms": 9540,
+    "f0_hz": 148.07,
+    "voiced": true,
+    "periodicity": 0.8256
+  },
+  {
+    "time_ms": 9550,
+    "f0_hz": 145.05,
+    "voiced": true,
+    "periodicity": 0.8701
+  },
+  {
+    "time_ms": 9560,
+    "f0_hz": 142.81,
+    "voiced": true,
+    "periodicity": 0.8779
+  },
+  {
+    "time_ms": 9570,
+    "f0_hz": 141.31,
+    "voiced": true,
+    "periodicity": 0.8367
+  },
+  {
+    "time_ms": 9580,
+    "f0_hz": 140.16,
+    "voiced": true,
+    "periodicity": 0.889
+  },
+  {
+    "time_ms": 9590,
+    "f0_hz": 137.59,
+    "voiced": true,
+    "periodicity": 0.8454
+  },
+  {
+    "time_ms": 9600,
+    "f0_hz": 135.38,
+    "voiced": true,
+    "periodicity": 0.8241
+  },
+  {
+    "time_ms": 9610,
+    "f0_hz": 132.03,
+    "voiced": true,
+    "periodicity": 0.8478
+  },
+  {
+    "time_ms": 9620,
+    "f0_hz": 130.78,
+    "voiced": true,
+    "periodicity": 0.8687
+  },
+  {
+    "time_ms": 9630,
+    "f0_hz": 128.8,
+    "voiced": true,
+    "periodicity": 0.8403
+  },
+  {
+    "time_ms": 9640,
+    "f0_hz": 129.01,
+    "voiced": true,
+    "periodicity": 0.8396
+  },
+  {
+    "time_ms": 9650,
+    "f0_hz": 127.95,
+    "voiced": true,
+    "periodicity": 0.8109
+  },
+  {
+    "time_ms": 9660,
+    "f0_hz": 125.05,
+    "voiced": true,
+    "periodicity": 0.8286
+  },
+  {
+    "time_ms": 9670,
+    "f0_hz": 125.16,
+    "voiced": true,
+    "periodicity": 0.8172
+  },
+  {
+    "time_ms": 9680,
+    "f0_hz": 126.56,
+    "voiced": true,
+    "periodicity": 0.8068
+  },
+  {
+    "time_ms": 9690,
+    "f0_hz": 125.18,
+    "voiced": true,
+    "periodicity": 0.7746
+  },
+  {
+    "time_ms": 9700,
+    "f0_hz": 124.63,
+    "voiced": true,
+    "periodicity": 0.7755
+  },
+  {
+    "time_ms": 9710,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4413
+  },
+  {
+    "time_ms": 9720,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2373
+  },
+  {
+    "time_ms": 9730,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0263
+  },
+  {
+    "time_ms": 9740,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0144
+  },
+  {
+    "time_ms": 9750,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0675
+  },
+  {
+    "time_ms": 9760,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0674
+  },
+  {
+    "time_ms": 9770,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2417
+  },
+  {
+    "time_ms": 9780,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4873
+  },
+  {
+    "time_ms": 9790,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.1294
+  },
+  {
+    "time_ms": 9800,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0286
+  },
+  {
+    "time_ms": 9810,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0319
+  },
+  {
+    "time_ms": 9820,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0052
+  },
+  {
+    "time_ms": 9830,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0018
+  },
+  {
+    "time_ms": 9840,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0004
+  },
+  {
+    "time_ms": 9850,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 9860,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0001
+  },
+  {
+    "time_ms": 9870,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0057
+  },
+  {
+    "time_ms": 9880,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2027
+  },
+  {
+    "time_ms": 9890,
+    "f0_hz": 147.98,
+    "voiced": true,
+    "periodicity": 0.5409
+  },
+  {
+    "time_ms": 9900,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.4398
+  },
+  {
+    "time_ms": 9910,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.2339
+  },
+  {
+    "time_ms": 9920,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0519
+  },
+  {
+    "time_ms": 9930,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0321
+  },
+  {
+    "time_ms": 9940,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0144
+  },
+  {
+    "time_ms": 9950,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.0802
+  },
+  {
+    "time_ms": 9960,
+    "f0_hz": 0.0,
+    "voiced": false,
+    "periodicity": 0.3058
+  },
+  {
+    "time_ms": 9970,
+    "f0_hz": 153.99,
+    "voiced": true,
+    "periodicity": 0.5793
+  },
+  {
+    "time_ms": 9980,
+    "f0_hz": 154.39,
+    "voiced": true,
+    "periodicity": 0.6481
+  },
+  {
+    "time_ms": 9990,
+    "f0_hz": 152.11,
+    "voiced": true,
+    "periodicity": 0.635
+  },
+  {
+    "time_ms": 10000,
+    "f0_hz": 149.42,
+    "voiced": true,
+    "periodicity": 0.583
+  }
+]
