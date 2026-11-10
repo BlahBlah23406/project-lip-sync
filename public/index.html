@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Islamic Lecture — Bangla Subtitles</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo-arabic">بِسْمِ اللّٰهِ</span>
+      <h1>Islamic Lecture Translator</h1>
+      <p class="tagline">Watch English lectures with live Bangla subtitles</p>
+    </div>
+  </header>
+
+  <main>
+    <!-- URL Input -->
+    <section class="input-section" id="inputSection">
+      <form id="urlForm" autocomplete="off">
+        <div class="input-row">
+          <input
+            type="text"
+            id="urlInput"
+            placeholder="Paste a YouTube lecture URL…"
+            aria-label="YouTube URL"
+            required
+          />
+          <button type="submit" id="submitBtn">🎙 Dub Video (Bangla)</button>
+        </div>
+      </form>
+      <div id="errorMsg" class="error-msg" hidden></div>
+    </section>
+
+    <!-- Loading State -->
+    <section id="loadingSection" class="loading-section" hidden>
+      <div class="spinner"></div>
+      <p id="loadingText">Fetching captions…</p>
+      <p class="loading-sub">Downloading, translating, and generating Bangla voice. This may take 30–90 seconds.</p>
+    </section>
+
+    <!-- Player + Subtitles -->
+    <section id="playerSection" class="player-section" hidden>
+      <div class="player-wrapper">
+        <div id="ytPlayer"></div>
+      </div>
+
+      <div class="subtitle-box" id="subtitleBox">
+        <p id="subtitleText" class="subtitle-text"></p>
+      </div>
+
+      <div class="sync-row">
+        <span class="sync-label">Sync</span>
+        <button class="sync-btn" id="syncMinus" title="Subtitles too early">−1s</button>
+        <span class="sync-offset" id="syncOffset">0.0s</span>
+        <button class="sync-btn" id="syncPlus" title="Subtitles too late">+1s</button>
+        <button class="sync-reset" id="syncReset">reset</button>
+      </div>
+
+      <div class="segment-count" id="segmentCount"></div>
+
+      <!-- Dubbing Section (Simplified Playback & Downloads) -->
+      <div class="dub-section" id="dubSection">
+        <!-- Live Playback and Download Panel -->
+        <div id="dubPlayerPanel" class="dub-player-panel" hidden>
+          <p class="panel-title">🎉 Dubbing Complete!</p>
+          
+          <div class="playback-controls">
+            <span class="control-label">Audio Track</span>
+            <div class="toggle-group">
+              <button class="toggle-btn active" id="originalAudioBtn">🔈 Original English</button>
+              <button class="toggle-btn" id="banglaDubBtn">🔊 Bangla Dub</button>
+            </div>
+          </div>
+
+          <div class="download-row">
+            <a id="dubDownload" class="download-btn video-dl">⬇ Download Dubbed Video</a>
+            <a id="audioDownload" class="download-btn audio-dl">🎵 Download Dubbed Audio</a>
+          </div>
+
+          <div class="stats-container" id="statsContainer">
+            <div class="stats-title">⚡ Generation & Cost Metrics</div>
+            <div class="stats-grid">
+              <div class="stat-box">
+                <div class="stat-num" id="statTime">0.0s</div>
+                <div class="stat-name">Total Execution Time</div>
+              </div>
+              <div class="stat-box">
+                <div class="stat-num" id="statTokens">0</div>
+                <div class="stat-name" id="statTokensLabel">Claude Tokens Used</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hidden Audio Element for Web Playback -->
+        <audio id="dubbedAudio" preload="auto"></audio>
+      </div>
+
+      <!-- Human Evaluation Panel -->
+      <div id="feedbackPanel" class="feedback-panel" hidden>
+        <p class="panel-title">📝 Human Evaluation</p>
+        <p class="feedback-intro">Rate this dubbed video. Your feedback improves this video and future dubs.</p>
+
+        <div class="feedback-grid">
+          <div class="feedback-field">
+            <label>Overall quality <span class="rating-label" id="overallLabel"></span></label>
+            <div class="star-row" id="overallStars" data-field="overall_rating"></div>
+          </div>
+          <div class="feedback-field">
+            <label>Lip-sync accuracy <span class="rating-label" id="lipSyncLabel"></span></label>
+            <div class="star-row" id="lipSyncStars" data-field="lip_sync_rating"></div>
+          </div>
+          <div class="feedback-field">
+            <label>Audio clarity / speed <span class="rating-label" id="audioLabel"></span></label>
+            <div class="star-row" id="audioStars" data-field="audio_clarity_rating"></div>
+          </div>
+        </div>
+
+        <div class="feedback-field sync-issue-field">
+          <label>Audio-video sync issue</label>
+          <div class="sync-options">
+            <label><input type="radio" name="syncIssue" value="none" checked> None</label>
+            <label><input type="radio" name="syncIssue" value="minor"> Minor</label>
+            <label><input type="radio" name="syncIssue" value="major"> Major</label>
+          </div>
+        </div>
+
+        <div class="feedback-field">
+          <label>General comment (optional)</label>
+          <textarea id="feedbackComment" rows="2" placeholder="What stood out?"></textarea>
+        </div>
+
+        <div class="feedback-field">
+          <label>One suggestion for improvement (optional)</label>
+          <textarea id="feedbackSuggestion" rows="2" placeholder="One change that would help most…"></textarea>
+        </div>
+
+        <div class="segment-issues">
+          <p class="feedback-subtitle">Per-segment problems</p>
+          <p class="feedback-hint">Report issues for the currently spoken segment or any segment below.</p>
+          <div id="segmentIssueList"></div>
+        </div>
+
+        <button class="feedback-submit" id="feedbackSubmit">Submit feedback</button>
+        <div id="feedbackStatus" class="feedback-status"></div>
+      </div>
+
+      <button class="new-video-btn" id="newVideoBtn">← Dub another video</button>
+      <a class="new-video-btn" id="backToPlazaBtn" href="/plaza" hidden>← Back to Plaza</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Translations by Claude · Subtitles may not be perfect — verify against the lecture</p>
+  </footer>
+
+  <script src="/static/app.js"></script>
+  <script src="https://www.youtube.com/iframe_api"></script>
+</body>
+</html>
+

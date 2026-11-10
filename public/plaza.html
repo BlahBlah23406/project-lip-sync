@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LipSync Plaza — Dubbed Library</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3350;
+      --accent: #4a9eff;
+      --accent-dim: #2d5f99;
+      --gold: #c8a84b;
+      --text: #e8eaf0;
+      --text-dim: #7a8099;
+      --error: #e05c5c;
+      --radius: 12px;
+      --font-latin: 'Inter', system-ui, sans-serif;
+      --font-bangla: 'Noto Sans Bengali', 'Vrinda', 'SolaimanLipi', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { font-size: 16px; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--font-latin);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #0d1520 0%, #121928 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 1.75rem 1rem;
+      text-align: center;
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .logo-arabic {
+      font-size: 1.4rem;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+    }
+
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--text);
+      letter-spacing: -0.02em;
+    }
+
+    .tagline {
+      color: var(--text-dim);
+      font-size: 0.9rem;
+    }
+
+    main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2rem 1rem;
+    }
+
+    .plaza-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .plaza-header h2 {
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .plaza-header p {
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+
+    .back-link {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .back-link:hover { text-decoration: underline; }
+
+    .loading, .error, .empty {
+      text-align: center;
+      padding: 3rem 1rem;
+      color: var(--text-dim);
+    }
+
+    .error { color: var(--error); }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      margin: 0 auto 1rem;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .video-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .video-card:hover {
+      border-color: var(--accent-dim);
+      transform: translateY(-2px);
+    }
+
+    .player-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #000;
+    }
+
+    .player-wrapper video, .player-wrapper audio {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .card-body {
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      flex: 1;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .card-meta {
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .card-meta a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .card-meta a:hover { text-decoration: underline; }
+
+    /* Channel badge on cards the watcher published automatically. */
+    .card-channel {
+      display: inline-flex;
+      align-items: center;
+      align-self: flex-start;
+      gap: 0.35rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 999px;
+      padding: 0.15rem 0.6rem;
+    }
+
+    .card-actions {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--text);
+      border-radius: 8px;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.85rem;
+      font-family: var(--font-latin);
+      cursor: pointer;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s, background 0.2s;
+    }
+
+    .btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .btn.primary:hover {
+      background: #3a8eef;
+      border-color: #3a8eef;
+      color: #fff;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.25rem;
+      font-size: 0.8rem;
+      color: var(--text-dim);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 500px) {
+      .video-grid { grid-template-columns: 1fr; }
+      .plaza-header { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <span class="logo-arabic">بِسْمِ اللّٰهِ</span>
+      <h1>LipSync Plaza</h1>
+      <p class="tagline">Browse and play every dubbed lecture on this server</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="plaza-header">
+      <div>
+        <h2>Available Dubs</h2>
+        <p id="countLine">Loading…</p>
+      </div>
+      <a class="back-link" href="/">← Translate / Dub a new video</a>
+    </div>
+
+    <div id="plazaContainer">
+      <div class="loading">
+        <div class="spinner"></div>
+        <p>Scanning the library…</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>Dubbed with LipSync · Translations by Claude</p>
+  </footer>
+
+  <script>
+    function formatDuration(seconds) {
+      if (!seconds || isNaN(seconds)) return "—";
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${s.toString().padStart(2, "0")}`;
+    }
+
+    function formatBytes(bytes) {
+      if (!bytes || isNaN(bytes)) return "—";
+      if (bytes < 1024) return `${bytes} B`;
+      if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+      if (bytes < 1024 * 1024 * 1024) return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+      return `${(bytes / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+    }
+
+    function sourceLink(videoId) {
+      return `https://www.youtube.com/watch?v=${encodeURIComponent(videoId)}`;
+    }
+
+    function renderVideos(videos) {
+      const container = document.getElementById("plazaContainer");
+      const countLine = document.getElementById("countLine");
+
+      if (!videos || videos.length === 0) {
+        countLine.textContent = "No dubbed videos found yet.";
+        container.innerHTML = `<div class="empty"><p>No dubbed content in the <code>output/</code> folder.</p><p>Dub a video from the <a href="/" class="back-link">main page</a> and it will appear here.</p></div>`;
+        return;
+      }
+
+      countLine.textContent = `${videos.length} video${videos.length === 1 ? "" : "s"} available`;
+
+      container.innerHTML = `<div class="video-grid"></div>`;
+      const grid = container.querySelector(".video-grid");
+
+      videos.forEach(video => {
+        const card = document.createElement("article");
+        card.className = "video-card";
+
+        const hasVideo = !!video.video_url;
+        const hasAudio = !!video.audio_url;
+
+        let mediaHtml = "";
+        if (hasVideo) {
+          mediaHtml = `
+            <div class="player-wrapper">
+              <video controls preload="metadata" playsinline>
+                <source src="${video.video_url}" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            </div>`;
+        } else if (hasAudio) {
+          mediaHtml = `
+            <div class="player-wrapper">
+              <audio controls preload="metadata" style="height: 100%;">
+                <source src="${video.audio_url}" type="audio/mpeg" />
+                Your browser does not support the audio tag.
+              </audio>
+            </div>`;
+        } else {
+          mediaHtml = `
+            <div class="player-wrapper" style="display:flex;align-items:center;justify-content:center;color:var(--text-dim);">
+              No playable file
+            </div>`;
+        }
+
+        const actions = [];
+        actions.push(`<a class="btn primary" href="/watch?video_id=${encodeURIComponent(video.video_id)}">▶ Play Video</a>`);
+        if (hasVideo) {
+          actions.push(`<a class="btn" href="${video.video_url}" download>⬇ Video</a>`);
+        }
+        if (hasAudio) {
+          actions.push(`<a class="btn" href="${video.audio_url}" download>⬇ Audio</a>`);
+        }
+
+        const channelBadge = video.channel
+          ? `<span class="card-channel">📺 ${escapeHtml(video.channel)}</span>`
+          : "";
+        const publishedMeta = video.published_at
+          ? `<span>Published: ${escapeHtml(String(video.published_at).slice(0, 10))}</span>`
+          : "";
+
+        card.innerHTML = `
+          ${mediaHtml}
+          <div class="card-body">
+            ${channelBadge}
+            <h3 class="card-title">${escapeHtml(video.title || video.video_id)}</h3>
+            <div class="card-meta">
+              <span>Duration: ${formatDuration(video.duration_seconds)}</span>
+              ${publishedMeta}
+              <span>Video: ${formatBytes(video.file_sizes?.video)}</span>
+              <span>Audio: ${formatBytes(video.file_sizes?.audio)}</span>
+            </div>
+            <div class="card-meta">
+              <span>ID: <code>${escapeHtml(video.video_id)}</code></span>
+              <a href="${sourceLink(video.video_id)}" target="_blank" rel="noopener">Source ↗</a>
+            </div>
+            <div class="card-actions">
+              ${actions.join("")}
+            </div>
+          </div>
+        `;
+        grid.appendChild(card);
+      });
+    }
+
+    function escapeHtml(text) {
+      if (!text) return "";
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    async function loadPlaza() {
+      const container = document.getElementById("plazaContainer");
+      try {
+        const res = await fetch("/api/plaza");
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const data = await res.json();
+        renderVideos(data.videos || []);
+      } catch (err) {
+        container.innerHTML = `<div class="error"><p>Failed to load the plaza library.</p><p>${escapeHtml(err.message)}</p></div>`;
+      }
+    }
+
+    loadPlaza();
+  </script>
+</body>
+</html>

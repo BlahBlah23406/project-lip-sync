@@ -456,9 +456,15 @@ def transcript_json(video_id: str):
     return {"video_id": safe_video_id, "segments": transcript.get("segments", [])}
 
 
+# Base static directory resolution
+STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+if not os.path.isdir(STATIC_DIR):
+    STATIC_DIR = "static"
+
+
 @app.get("/plaza", response_class=HTMLResponse)
 def serve_plaza():
-    plaza_path = os.path.join("static", "plaza.html")
+    plaza_path = os.path.join(STATIC_DIR, "plaza.html")
     if not os.path.exists(plaza_path):
         raise HTTPException(status_code=404, detail="Plaza page not found.")
     with open(plaza_path, "r", encoding="utf-8") as f:
@@ -498,9 +504,13 @@ def health():
     return {"status": "ok"}
 
 
-app.mount("/static", StaticFiles(directory="static"), name="static")
+if os.path.isdir(STATIC_DIR):
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 
 @app.get("/{full_path:path}")
 def serve_frontend(full_path: str):  # noqa: ARG001
-    return FileResponse("static/index.html")
+    index_path = os.path.join(STATIC_DIR, "index.html")
+    if os.path.isfile(index_path):
+        return FileResponse(index_path)
+    return HTMLResponse("<h1>Islamic Lecture Translator</h1>")

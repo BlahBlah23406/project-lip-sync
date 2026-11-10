@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/plaza", "destination": "/plaza.html" },
+    { "source": "/api/(.*)", "destination": "/api/index.py" }
+  ]
+}

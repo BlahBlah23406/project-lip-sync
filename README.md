@@ -1,10 +1,11 @@
-# End-to-End Bangla Lecture Dubbing & Crowdsourced Translation Platform
+# End-to-End Bangla Lecture Dubbing Platform & Pipeline
 
-An integrated system for translating, dubbing, and quality-checking English Islamic educational lectures into natural, synchronized Bangla (বাংলা).
+An automated system for translating, dubbing, and quality-checking English Islamic educational lectures into natural, synchronized Bangla (বাংলা), paired with a human-in-the-loop review workflow.
 
-The platform combines two complementary subsystems:
-1. **Automated Dubbing Pipeline (`pipeline/`)**: A robust, unattended Python pipeline that handles video downloading, transcription, LLM translation with strict syllable-timing constraints, speech synthesis, formant-preserved audio mixing, and automated deterministic quality verification.
-2. **Crowdsource Translation Platform (`crowdsource-translation/`)**: A multi-platform Flutter application (Android, iOS, Web) allowing native speakers and domain reviewers to transcribe, translate, record reference audio, and review translations sentence-by-sentence.
+The architecture comprises:
+1. **Automated Dubbing Pipeline (`pipeline/`)**: A Python pipeline that handles video downloading, transcription, LLM translation with strict syllable-timing constraints, speech synthesis, formant-preserved audio mixing, and automated deterministic quality verification (`quality_tester.py`).
+2. **Web Interface & Plaza (`public/`, `api/`)**: A fast web app and lecture showcase deployed via Vercel, allowing users to submit lectures for translation, inspect live playback, adjust subtitle sync offsets, and review audio.
+3. **Crowdsource Translation Layer**: A companion multi-platform Flutter application (maintained in its dedicated private repository [`BlahBlah23406/crowdsource-translation`](https://github.com/BlahBlah23406/crowdsource-translation)) allowing native speakers and domain reviewers to transcribe, translate, record reference audio, and review translations sentence-by-sentence to build verified ground-truth training datasets.
 
 ---
 
@@ -128,9 +129,9 @@ pytest tests/ -v
 
 ---
 
-## Subsystem 2: Crowdsource Translation Platform (`crowdsource-translation/`)
+## Upstream Dataset Layer: Crowdsource Translation Platform
 
-The crowdsourcing application is built using Flutter (Dart) and Firebase, targeting Android, iOS, and Web.
+The companion crowdsourcing application is built using Flutter (Dart) and Firebase, maintained in its own dedicated private repository ([`BlahBlah23406/crowdsource-translation`](https://github.com/BlahBlah23406/crowdsource-translation)), targeting Android, iOS, and Web.
 
 ### Key Capabilities
 
@@ -144,9 +145,15 @@ The crowdsourcing application is built using Flutter (Dart) and Firebase, target
 - **Admin Management & Export**: Web console (`/admin`) for tracking contributor quotas, importing new lecture corpora, and exporting reviewed datasets.
 - **Security & Concurrency**: Firestore security rules enforcing user-bound audio uploads, quota limits, and atomic submission batching.
 
-### Quick Start: Crowdsource App
+### Repository Reference
 
+For development on the crowdsourcing application:
 ```bash
+git clone https://github.com/BlahBlah23406/crowdsource-translation.git
+cd crowdsource-translation/crowdsource_translation
+flutter pub get
+flutter run
+```
 cd crowdsource-translation
 
 # Install Flutter dependencies
@@ -204,25 +211,16 @@ flutter test
 │   ├── .env.example                      # Sample configuration for API keys
 │   └── README.md                         # Pipeline technical documentation
 │
-├── crowdsource-translation/              # Flutter crowdsourcing mobile & web app
-│   ├── android/                          # Android project configuration & Gradle scripts
-│   ├── assets/                           # App assets (branding, model definitions)
-│   ├── ios/                              # iOS project configuration & CocoaPods
-│   ├── lib/                              # Application source code
-│   │   ├── main.dart                     # App entry point & routing
-│   │   ├── firebase_options.dart         # Generated Firebase client options
-│   │   ├── models/                       # Domain models (Sentence, Translation, Quota)
-│   │   ├── screens/                      # Screens (Home, Translation, Review, Admin)
-│   │   ├── services/                     # Firestore, Auth, Storage, ML Kit services
-│   │   ├── utils/                        # Audio helpers, speech recognition bridge
-│   │   └── widgets/                      # Custom widgets (HandwritingPad, etc.)
-│   ├── linux/, macos/, windows/, web/    # Desktop and web platform shells
-│   ├── test/                             # Flutter test suite (widget, unit, rules)
-│   ├── firestore.rules                   # Cloud Firestore security rules
-│   ├── storage.rules                     # Firebase Storage security rules
-│   ├── pubspec.yaml                      # Flutter package definition
-│   └── README.md                         # Crowdsource platform documentation
+├── public/                               # Vercel static web assets served at edge
+│   ├── index.html                        # Lecture translation web interface
+│   ├── plaza.html                        # Video showcase plaza
+│   └── static/                           # Styles, scripts, and media
 │
+├── api/                                  # Vercel serverless entrypoint
+│   └── index.py                          # FastAPI ASGI router
+│
+├── vercel.json                           # Vercel deployment routes and rewrites
+├── requirements.txt                      # Root Python dependencies for Vercel
 ├── .gitignore                            # Root gitignore (credentials, models, builds)
 ├── LICENSE                               # MIT License
 └── README.md                             # Top-level project architecture & overview

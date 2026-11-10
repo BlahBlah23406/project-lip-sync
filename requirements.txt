@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+youtube-transcript-api
+anthropic
+python-dotenv
+yt-dlp
+edge-tts
+ffmpeg-python
+httpx
+numpy
