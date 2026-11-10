@@ -1,175 +1,235 @@
-<p align="center">
-  <img src="static/logo.png" alt="Project Lip Sync Logo" width="200" />
-</p>
+# End-to-End Bangla Lecture Dubbing & Crowdsourced Translation Platform
 
-# Project Lip Sync
+An integrated system for translating, dubbing, and quality-checking English Islamic educational lectures into natural, synchronized Bangla (বাংলা).
 
-Project Lip Sync is a web tool designed to translate and dub English lectures into Bangla. 
+The platform combines two complementary subsystems:
+1. **Automated Dubbing Pipeline (`pipeline/`)**: A robust, unattended Python pipeline that handles video downloading, transcription, LLM translation with strict syllable-timing constraints, speech synthesis, formant-preserved audio mixing, and automated deterministic quality verification.
+2. **Crowdsource Translation Platform (`crowdsource-translation/`)**: A multi-platform Flutter application (Android, iOS, Web) allowing native speakers and domain reviewers to transcribe, translate, record reference audio, and review translations sentence-by-sentence.
 
-It fetches the transcript of a YouTube video, translates the captions using the Claude API, generates spoken audio in Bangla, and merges the new audio back into the original video with correct timing.
+---
 
-## What it does
+## How the Two Halves Form a Complete System
 
-- **Caption Translation:** Retrieves English subtitles from a YouTube URL and translates them into Bangla using Anthropic's Claude models.
-- **Bangla Dubbing:** Converts the translated text into spoken Bangla audio using Microsoft Edge TTS.
-- **Audio Mixing & Video Muxing:** Stretches and aligns the generated audio segments to match the original video timing, downloading the video using `yt-dlp` and mixing it with the new audio track using `ffmpeg`.
-- **Dual Playback Web Player:** Provides a web interface to play the YouTube video with real-time Bangla subtitles, toggle between original English audio and the Bangla dub, and download the finished dubbed video.
-- **Human Evaluation & Feedback:** After a video is dubbed, the player exposes a feedback panel so human reviewers can rate overall quality, lip-sync accuracy, and audio clarity/speed; report audio-video sync issues; flag per-segment problems (wrong translation, bad lip sync, too fast/slow, audio glitch, caption issue); and leave free-text comments and improvement suggestions. Feedback is persisted to `feedback/evaluations.jsonl`.
+Translating and dubbing long-form educational lectures (20–60 minutes) into Bangla presents unique challenges:
+- **Timing synchronization**: Spoken Bangla typically requires more syllables than English to express equivalent concepts. Over-compressing leads to unnatural speedups, while under-compressing breaks video-speech alignment.
+- **Sacred vocabulary & honorifics**: Islamic lectures frequently use Arabic phrases, Quranic citations, and religious honorifics (e.g., ﷺ, SWT, RA) that automated translators often omit, secularize, or mispronounce.
+- **Audio naturalness**: Synthetic speech must blend seamlessly with background room tone and maintain vocal formants without high-pitch distortion.
 
-## Prerequisites
+The architecture solves this through a closed-loop human-in-the-loop workflow:
 
-To run this project, you need:
-- **Python 3.10+**
-- **FFmpeg** installed on your system and available in your command line path.
-- **Anthropic API Key** (for translation).
+```
+                  ┌──────────────────────────────────────────────┐
+                  │           Source English Video (YouTube)     │
+                  └──────────────────────┬───────────────────────┘
+                                         │
+                                         ▼
+                  ┌──────────────────────────────────────────────┐
+                  │          Automated Dubbing Pipeline          │
+                  │   1. Transcript Extraction & Clustering      │
+                  │   2. Honorific Protection (__SACRED_N__)     │
+                  │   3. Syllable-budgeted LLM Translation       │
+                  │   4. Edge-TTS Speech Synthesis               │
+                  │   5. Formant-Preserving Audio Mixing         │
+                  └──────────────┬───────────────────────────────┘
+                                 │
+                   Evaluated by Automatic QA Checker
+                   (`quality_tester.py`: Grade A-F)
+                                 │
+                 ┌───────────────┴───────────────┐
+                 │                               │
+       High Score (>=75%)              Low Score or Flagged
+                 │                               │
+                 ▼                               ▼
+      ┌──────────────────────┐        ┌──────────────────────────────────────┐
+      │ Published Dubbed VOD │        │  Export Difficult/Failed Sentences   │
+      └──────────────────────┘        └──────────────────┬───────────────────┘
+                                                         │
+                                                         ▼
+                                      ┌──────────────────────────────────────┐
+                                      │  Crowdsource Translation App (Flutter│
+                                      │   - Sentence-by-sentence context     │
+                                      │   - Voice recording & Vosk ASR       │
+                                      │   - ML Kit handwriting input         │
+                                      │   - Peer review & approval queue     │
+                                      └──────────────────┬───────────────────┘
+                                                         │
+                                    Human-Verified Gold Standard
+                                    (Exported via Admin Portal)
+                                                         │
+                                                         ▼
+                                      ┌──────────────────────────────────────┐
+                                      │ Model Ground-Truth & Exemplar Update │
+                                      │ (Refines translator prompts & terms) │
+                                      └──────────────────────────────────────┘
+```
 
-## Setup & Installation
+### Integration Workflow & Data Transfer
 
-1. Clone the repository:
-   ```bash
-   git clone <your-repo-url>
-   cd project-lip-sync
-   ```
+1. **Extraction & Seeding**: The pipeline extracts lecture transcripts into discrete time-coded sentences (`captions.py`). These segments can be imported into Cloud Firestore to seed the crowdsource translation queue with context (surrounding sentences and model suggestions).
+2. **Crowdsourced Refinement & Review**: Contributors translate assigned sentences using the mobile or web app. Reviewers inspect submissions in the review screen, either approving them or requesting specific corrections.
+3. **Feedback into Pipeline**: Verified translations and audio recordings are exported through the web admin portal as structured JSON. These human-verified pairs serve as domain exemplars for the pipeline's LLM translation prompts and pronunciation guides for TTS.
+4. **Current Integration Status**: 
+   - *Automated in repository*: Automated end-to-end dubbing, honorific pre/post-processing, audio mixing with dynamic ducking, and deterministic QA scoring.
+   - *Manual transfer points*: Exporting reviewed datasets from the Firestore Admin UI (`/admin`) and importing lecture batches into Firestore are performed via administrative scripts and JSON datasets, maintaining decoupled operational safety between server jobs and the live mobile backend.
 
-2. Create a virtual environment and activate it:
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
+---
 
-3. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+## Subsystem 1: Automated Dubbing Pipeline (`pipeline/`)
 
-4. Create a `.env` file in the root directory (you can copy `.env.example` as a starting point) and add your keys:
-   ```env
-   ANTHROPIC_API_KEY=your_anthropic_api_key
-   ANTHROPIC_MODEL=claude-haiku-4-5
-   ```
+The pipeline runs on Python 3.10+ and FFmpeg, designed for unattended execution on server instances (e.g., Code-47).
 
-## Running the App
+### Key Architectural Features
 
-1. Start the FastAPI server:
-   ```bash
-   uvicorn main:app --reload            # development, defaults to :8000
-   ```
+- **Resumable Checkpointing**: Every stage checkpoints intermediate files under `output/<video_id>/.work/`. If interrupted or restarted, the pipeline resumes from the last completed segment without repeating expensive operations.
+- **Syllable-Budgeted Translation (`translator.py`)**:
+  - Calculates speech duration budgets per segment (target: ~3.5 spoken syllables per second).
+  - Pre-processes religious honorifics and sacred terms into `__SACRED_N__` tokens before LLM translation, restoring them accurately in Bengali script afterwards.
+  - Automatically reprompts for concise phrasing if a translation exceeds the allotted time slot.
+- **Edge-TTS with Bounded Network Retries (`dubber.py`)**: Synthesizes natural speech using regional Bangla voices (`bn-BD-PradeepNeural`, `bn-BD-NabanitaNeural`) with exponential backoff to handle upstream throttling.
+- **Formant-Preserved Audio Mixing (`mixer.py`)**:
+  - Employs Rubberband with `formant=preserved:transients=smooth` to prevent chipmunk distortion when tempo adjustments are required.
+  - Generates deterministic gain envelopes for background audio ducking (preserving natural room tone during speech pauses).
+- **Automatic Deterministic QA Checker (`quality_tester.py`)**:
+  - **Content Quality**: Evaluates Bengali script purity, unhandled Latin characters, formatting cleanliness, duration markers, and repetition artifacts.
+  - **Audio & Timing Quality**: Checks caption synchronization, on-time segment ratios, speed ceiling compliance, clipping, and RMS volume.
+  - Computes a composite 0–100 quality score, assigns a letter grade (A–F), and gates output publication.
 
-   For the long-running instance the watcher and the plaza expect, use **:8050**
-   and no `--reload` (the reloader restarts mid-dub and drops in-flight jobs):
-   ```bash
-   python -m uvicorn main:app --host 0.0.0.0 --port 8050
-   ```
-   or the startup wrapper, which pins the interpreter and tees to `logs/server.*`:
-   ```bash
-   run_server.cmd
-   ```
-   8050 is not cosmetic: `resume_30.py`, `batch_runner.py` and `monitor_resume30.py`
-   all hard-code `http://127.0.0.1:8050`, so a server on 8000 leaves them talking
-   to a closed port. Register `run_server.cmd` **at startup only** — it is resident,
-   and a repeating trigger would stack a second uvicorn on a taken port.
-
-2. Open your browser and navigate to:
-   ```
-   http://127.0.0.1:8050
-   ```
-
-3. Paste a YouTube URL with English subtitles and click **Translate** to start.
-
-## Channel Watcher (automatic dubbing)
-
-`watcher.py` polls the YouTube RSS feeds of **Yaqeen Institute** and **Yasir Qadhi**
-and dubs qualifying new uploads on its own, publishing them straight to the plaza.
+### Quick Start: Pipeline
 
 ```bash
-python watcher.py bootstrap        # run ONCE: marks the current feed as seen
-python watcher.py check            # one poll + reconcile + launch cycle
-python watcher.py check --dry-run  # decide, but launch nothing
-python watcher.py status           # what is queued / running / done / skipped
-python watcher.py enqueue <ID|URL> # hand-add a video, bypassing the feed filters
+cd pipeline
+
+# Create and activate virtual environment
+python3 -m venv .venv
+source .venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Configure environment variables
+cp .env.example .env
+# Edit .env with your LLM API keys (Anthropic or Ollama endpoint)
+
+# Run dubbing pipeline on a video ID
+python run_pipeline.py <VIDEO_ID>
+
+# Run automated QA evaluation on output
+python quality_tester.py <VIDEO_ID>
+
+# Run web review interface
+uvicorn main:app --reload --port 8000
 ```
 
-The Windows scheduled task **LipSync Channel Watcher** runs `run_watcher.cmd`
-(i.e. `watcher.py check`) every 30 minutes and at startup, so nothing needs to
-stay resident. Each tick is a short reconcile pass over `watcher_state.json`;
-the dub itself is detached through `launch_pipeline.py` and outlives it.
-
-Bootstrap is not optional. Without it the first tick finds ~30 videos sitting in
-the two feeds and tries to dub every one of them. `bootstrap` marks the existing
-backlog as seen (`--backfill N` deliberately keeps the N newest as work), so from
-then on only genuinely new uploads are picked up.
-
-### What gets skipped
-
-Filters live in `watcher_config.json`, calibrated against the last 15 uploads of
-both channels:
-
-| Setting | Default | Why |
-| --- | --- | --- |
-| `min_duration_seconds` | 180 | Drops Shorts — 8 of Yaqeen's last 15 uploads were under 3 minutes |
-| `max_duration_seconds` | 5400 | Keeps Yasir Qadhi's longest lectures (77 min observed) but caps runaway podcasts |
-| `require_english_captions` | true | No English captions means the Whisper fallback, which is far slower and rougher |
-| `skip_live` | true | Live and upcoming streams have no stable transcript |
-| `max_concurrent` | 1 | Parallel dubs deepen the Edge-TTS throttling that kills runs |
-| `max_launches_per_day` | 4 | Spend ceiling: each dub is a real Claude translation bill |
-| `auto_process` | true | Set false to keep watching and queueing but stop launching |
-
-Skipped videos are recorded with a reason, so `watcher.py status` shows what was
-passed over and `watcher.py enqueue` can override any of it.
-
-### Reaching the plaza
-
-`/api/plaza` scans `output/*/manifest.json`, so a finished run is listed the
-moment it completes — there is no separate publish step. What the watcher adds is
-the metadata the pipeline never sees: it patches the real `title`, `channel`,
-`published_at` and `source_url` into the manifest, which is what turns a plaza
-card from a bare 11-character video ID into a named lecture.
-
-A run only counts as done when `phase == "done"` **and** the manifest reports
-`coverage >= 0.5`. A run that dies silently is retried once (`max_attempts`),
-detected by `.work/progress.json` going quiet for `stall_minutes`.
-
-## Human Evaluation
-
-Once dubbing finishes, the player page shows a **Human Evaluation** panel below the video.
-
-### Giving feedback
-
-1. Rate the three dimensions using the star rows:
-   - Overall quality (1–5)
-   - Lip-sync accuracy (1–5)
-   - Audio clarity / speed (1–5)
-2. Select whether the video has **None**, **Minor**, or **Major** audio-video sync issues.
-3. (Optional) Add a general comment and one free-text improvement suggestion.
-4. Use the **Per-segment problems** list to report specific issues:
-   - **Current segment** — report a problem for the segment being spoken right now.
-   - **Individual segments** — each segment has its own category dropdown and note field.
-   - Categories: `wrong_translation`, `bad_lip_sync`, `too_fast`, `too_slow`, `audio_glitch`, `caption_issue`, `other`.
-5. Click **Submit feedback**. The UI will confirm once the record is saved.
-
-### Storage
-
-Feedback is saved to:
-
-```
-feedback/evaluations.jsonl
-```
-
-Each line is a JSON object keyed by `video_id`, with `segment_index` and `segment_start` for any per-segment issues, plus `submitted_at`.
-
-### Viewing the report
-
-Run the summary script from the project root:
+### Running Pipeline Unit Tests
 
 ```bash
-python feedback_report.py
+pytest tests/ -v
 ```
 
-For JSON output or a single video:
+---
+
+## Subsystem 2: Crowdsource Translation Platform (`crowdsource-translation/`)
+
+The crowdsourcing application is built using Flutter (Dart) and Firebase, targeting Android, iOS, and Web.
+
+### Key Capabilities
+
+- **Context-Aware Translation**: Displays 2 preceding and 2 succeeding sentences alongside model-suggested Bangla text to provide linguistic context.
+- **Multimodal Inputs**:
+  - **Voice Recording**: Captures 16 kHz mono WAV audio, validated and uploaded directly to Firebase Storage.
+  - **On-Device Speech Recognition**: Offline Bangla ASR via Vosk / Sherpa-ONNX streaming Zipformer neural network.
+  - **Handwriting Recognition**: On-device digital ink recognition powered by Google ML Kit.
+  - **Direct Text Input**: Keyboard input with native script support.
+- **Review & Verification Screen**: Dedicated queue for verified reviewers to approve, reject, or comment on submitted translations.
+- **Admin Management & Export**: Web console (`/admin`) for tracking contributor quotas, importing new lecture corpora, and exporting reviewed datasets.
+- **Security & Concurrency**: Firestore security rules enforcing user-bound audio uploads, quota limits, and atomic submission batching.
+
+### Quick Start: Crowdsource App
 
 ```bash
-python feedback_report.py --format json
-python feedback_report.py --video VIDEO_ID
+cd crowdsource-translation
+
+# Install Flutter dependencies
+flutter pub get
+
+# Download required on-device ASR model files into assets/models/bn-zipformer/
+# (See assets/models/README.md for download instructions)
+
+# Configure Firebase
+flutterfire configure
+
+# Run on Web
+flutter run -d chrome
+
+# Run on connected mobile device
+flutter run
 ```
 
-The report prints per-video and overall rating averages, sync-issue counts, segment-issue categories, the most-reported segments, comments/suggestions, and a prioritized revisit list.
+### Running Crowdsource App Tests
+
+```bash
+cd crowdsource-translation
+flutter test
+```
+
+---
+
+## Repository Structure
+
+```
+.
+├── pipeline/                             # Automated dubbing pipeline
+│   ├── captions.py                       # Caption fetching and gap-based clustering
+│   ├── check_progress.py                 # Pipeline progress reporting
+│   ├── dubber.py                         # Edge-TTS voice generation with retries
+│   ├── feedback_store.py                 # User review and rating persistence
+│   ├── ffmpeg_paths.py                   # Cross-platform FFmpeg path resolution
+│   ├── launch_pipeline.py                # Detached background process launcher
+│   ├── main.py                           # FastAPI web service & Plaza UI endpoints
+│   ├── mixer.py                          # Time-stretching, formant preservation & ducking
+│   ├── quality_tester.py                 # Deterministic QA scorer & letter grading
+│   ├── requirements.txt                  # Python dependencies
+│   ├── run_pipeline.py                   # Master pipeline orchestrator
+│   ├── run_until_done.py                 # Watchdog loop for complete runs
+│   ├── sentence_cleanup.py               # Text normalization and token filters
+│   ├── test_runner.py                    # Pipeline integration test runner
+│   ├── translator.py                     # Syllable-budgeted LLM translation & sacred terms
+│   ├── verify_output.py                  # Final media output verification
+│   ├── verify_timing.py                  # Independent Whisper timing drift audit
+│   ├── watcher.py                        # Automated YouTube channel polling state machine
+│   ├── watcher_config.json               # Channel watch list and limits
+│   ├── ytdlp_runtime.py                  # yt-dlp JS runtime environment setup
+│   ├── static/                           # Web UI assets (HTML/JS/CSS)
+│   ├── tests/                            # Pytest suite (audio quality, timing, captions)
+│   ├── .env.example                      # Sample configuration for API keys
+│   └── README.md                         # Pipeline technical documentation
+│
+├── crowdsource-translation/              # Flutter crowdsourcing mobile & web app
+│   ├── android/                          # Android project configuration & Gradle scripts
+│   ├── assets/                           # App assets (branding, model definitions)
+│   ├── ios/                              # iOS project configuration & CocoaPods
+│   ├── lib/                              # Application source code
+│   │   ├── main.dart                     # App entry point & routing
+│   │   ├── firebase_options.dart         # Generated Firebase client options
+│   │   ├── models/                       # Domain models (Sentence, Translation, Quota)
+│   │   ├── screens/                      # Screens (Home, Translation, Review, Admin)
+│   │   ├── services/                     # Firestore, Auth, Storage, ML Kit services
+│   │   ├── utils/                        # Audio helpers, speech recognition bridge
+│   │   └── widgets/                      # Custom widgets (HandwritingPad, etc.)
+│   ├── linux/, macos/, windows/, web/    # Desktop and web platform shells
+│   ├── test/                             # Flutter test suite (widget, unit, rules)
+│   ├── firestore.rules                   # Cloud Firestore security rules
+│   ├── storage.rules                     # Firebase Storage security rules
+│   ├── pubspec.yaml                      # Flutter package definition
+│   └── README.md                         # Crowdsource platform documentation
+│
+├── .gitignore                            # Root gitignore (credentials, models, builds)
+├── LICENSE                               # MIT License
+└── README.md                             # Top-level project architecture & overview
+```
+
+---
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

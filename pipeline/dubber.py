@@ -1,0 +1,100 @@
+import asyncio
+import os
+import random
+import time
+
+import edge_tts
+import yt_dlp
+
+import ytdlp_runtime
+
+
+def download_video(video_id: str, out_dir: str) -> str:
+    """Download best quality video (with audio) from YouTube. Returns path to .mp4 file."""
+    url = f"https://www.youtube.com/watch?v={video_id}"
+    out_path = os.path.join(out_dir, f"{video_id}_video.mp4")
+    opts = {
+        "format": "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best",
+        "outtmpl": out_path,
+        "quiet": True,
+        "merge_output_format": "mp4",
+        "socket_timeout": 60,
+    }
+    # Without a JS runtime YouTube serves un-deciphered URLs and this call 403s
+    # at the byte transfer, long after extraction looked fine. See ytdlp_runtime.
+    ytdlp_runtime.apply(opts)
+    with yt_dlp.YoutubeDL(opts) as ydl:
+        ydl.download([url])
+    return out_path
+
+
+VOICES = {
+    "SPEAKER_A": "bn-BD-PradeepNeural",   # Bangladeshi Male (default)
+    "SPEAKER_B": "bn-BD-NabanitaNeural",  # Bangladeshi Female
+    "SPEAKER_C": "bn-IN-BashkarNeural",   # Indian Male (Bangla)
+    "SPEAKER_D": "bn-IN-TanishaaNeural",  # Indian Female (Bangla)
+}
+
+# Network timeouts and retry limits for Edge TTS synthesis.
+# Long batch runs can trigger upstream throttling, so requests are bounded
+# and use exponential backoff to avoid hanging the pipeline.
+TTS_TIMEOUT = float(os.getenv("TTS_TIMEOUT", "45"))    # seconds per attempt
+TTS_MAX_RETRIES = int(os.getenv("TTS_MAX_RETRIES", "6"))
+TTS_PACING = float(os.getenv("TTS_PACING", "0"))       # optional delay between calls
+
+
+async def _save_with_timeout(text: str, voice: str, rate: str, out_path: str) -> None:
+    kwargs = {"rate": rate} if rate else {}
+    communicate = edge_tts.Communicate(text, voice, **kwargs)
+    await asyncio.wait_for(communicate.save(out_path), timeout=TTS_TIMEOUT)
+
+
+def generate_segment_tts(text: str, out_path: str, rate: str = None, speaker: str = "SPEAKER_A"):
+    """Render Bangla text to speech using Microsoft Edge TTS with bounded retries."""
+    voice = VOICES.get(speaker.upper(), "bn-BD-PradeepNeural")
+    tmp_path = f"{out_path}.part"
+
+    last_error = None
+    for attempt in range(TTS_MAX_RETRIES):
+        try:
+            if os.path.exists(tmp_path):
+                os.remove(tmp_path)
+
+            asyncio.run(_save_with_timeout(text, voice, rate, tmp_path))
+
+            if not os.path.exists(tmp_path) or os.path.getsize(tmp_path) == 0:
+                raise ValueError("Edge TTS produced an empty audio file")
+
+            os.replace(tmp_path, out_path)  # atomic: the clip appears complete or not at all
+
+            if TTS_PACING:
+                time.sleep(TTS_PACING)
+            return
+
+        except (asyncio.TimeoutError, TimeoutError) as e:
+            # Almost always throttling. Back off hard before trying again.
+            last_error = e
+            wait = min(60.0, 5.0 * (2 ** attempt)) + random.uniform(0, 3)
+            print(f"  TTS attempt {attempt + 1}/{TTS_MAX_RETRIES} timed out after "
+                  f"{TTS_TIMEOUT:.0f}s (endpoint likely throttling); "
+                  f"backing off {wait:.0f}s", flush=True)
+        except Exception as e:
+            last_error = e
+            wait = min(30.0, 2.0 ** attempt) + random.uniform(0, 2)
+            preview = text[:60].replace("\n", " ")
+            print(f"  TTS attempt {attempt + 1}/{TTS_MAX_RETRIES} failed for "
+                  f"'{preview}...': {e!r}; retrying in {wait:.0f}s", flush=True)
+        finally:
+            if os.path.exists(tmp_path):
+                try:
+                    os.remove(tmp_path)
+                except OSError:
+                    pass
+
+        if attempt < TTS_MAX_RETRIES - 1:
+            time.sleep(wait)
+
+    raise RuntimeError(
+        f"Edge TTS failed after {TTS_MAX_RETRIES} attempts (last error: {last_error!r}). "
+        f"Text: {text[:80]!r}"
+    ) from last_error

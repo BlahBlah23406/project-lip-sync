@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Crowdsource Translation</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>Crowdsource Translation</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(FLUTTER_BUILD_NAME)</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
+	<true/>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>We need access to your microphone to record translations.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>We need access to speech recognition to transcribe your translations.</string>
+	<!-- The file picker used by the admin console can browse photos and take a
+	     photo when attaching a sentence file. Apple requires these strings
+	     whenever a linked SDK references the APIs, even on builds that never
+	     reach that screen, so they are worded for what would actually happen. -->
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Crowdsource Translation only asks for your photo library if you choose to attach a file from it. It never reads your photos on its own.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Crowdsource Translation only uses the camera if you choose to attach a photo from it. It never records on its own.</string>
+	<!-- No feature asks for location. Apple's static analysis flags the symbol
+	     because a linked Google SDK references CoreLocation, and it requires a
+	     string regardless, so this one states plainly that it is never used. -->
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Crowdsource Translation does not use your location. This appears only because a bundled library references the location API; the app never requests or collects your location.</string>
+	<!-- Export compliance: the app uses only standard HTTPS, which is exempt.
+	     Declaring it here stops App Store Connect asking on every upload. -->
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+</dict>
+</plist>

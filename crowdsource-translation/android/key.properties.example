@@ -1,0 +1,6 @@
+# Example release keystore configuration for Android builds.
+# Copy to android/key.properties and configure with your keystore path and passwords.
+storePassword=YOUR_STORE_PASSWORD
+keyPassword=YOUR_KEY_PASSWORD
+keyAlias=upload
+storeFile=/path/to/your/upload-keystore.jks

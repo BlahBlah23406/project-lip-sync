@@ -1,59 +1,76 @@
-# Secrets — holds a live LLM_API_KEY, must never be committed
+# Environment & Secrets
 .env
-
-# Debug / temp scripts (underscore-prefixed)
-_*.py
-_*.txt
-
-# Backup files
-*.bak-*
-*_bak*
-*.bak
-backups/
-
-# Watcher runtime state — machine-local and rewritten on every tick
-watcher_state.json
-watcher_events.jsonl
-watcher.lock
-
-# Test audio extracts
-test_*.wav
-
-# Whisper / analysis artifacts
-whisper_*.json
-*_report*.txt
-*.log
-
-# TTS meta / segment status dumps
-tts_meta_*.txt
-seg_*.txt
-seg_status.txt
-missing*.txt
-unicode_lines.txt
-rpl_*.txt
-fix_tts*.txt
-
-# Runtime logs
-logs/
-
-# Whisper transcript cache
-transcript_cache/
-
-# Output (large media files — not in git)
-output/
+*.env
+*.key
+*.jks
+*.keystore
 
 # Python
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+*.so
+.Python
 .venv/
 venv/
-
-# Work directories
-*.work/
-# Pipeline scratch + fixtures produced by test runs
-test_run_temp/
-test_outputs/
-test_transcript.json
-
-# pytest
+ENV/
+env/
 .pytest_cache/
+.ruff_cache/
+
+# Pipeline temporary and runtime data
+pipeline/output/
+pipeline/.work/
+pipeline/logs/
+pipeline/transcript_cache/
+pipeline/watcher_state.json
+pipeline/watcher_events.jsonl
+pipeline/watcher.lock
+pipeline/test_run_temp/
+pipeline/test_outputs/
+pipeline/test_transcript.json
+*.work/
+
+# Flutter & Dart
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+build/
+**/build/
+crowdsource-translation/build/
+crowdsource-translation/android/.gradle/
+crowdsource-translation/android/local.properties
+crowdsource-translation/android/key.properties
+crowdsource-translation/android/app/google-services.json
+crowdsource-translation/ios/Pods/
+crowdsource-translation/ios/.symlinks/
+crowdsource-translation/ios/Flutter/ephemeral/
+crowdsource-translation/ios/Runner/GoogleService-Info.plist
+crowdsource-translation/macos/Pods/
+crowdsource-translation/macos/Flutter/ephemeral/
+crowdsource-translation/macos/Runner/GoogleService-Info.plist
+crowdsource-translation/windows/flutter/ephemeral/
+crowdsource-translation/linux/flutter/ephemeral/
+crowdsource-translation/.firebase/
+
+# Large ML model binaries
+*.bin
+*.onnx
+assets/models/*.bin
+assets/models/**/*.onnx
+
+# Node modules
+node_modules/
+
+# OS artifacts
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
